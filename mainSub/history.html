@@ -1,0 +1,1121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bangladesh History - Animated Interface</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    :root {
+      --primary-color: #8b4513;
+      --secondary-color: #d4af37;
+      --accent-color: #b22222;
+      --light-color: #f5f5dc;
+      --dark-color: #1a120b;
+      --card-bg: rgba(255, 253, 249, 0.85);
+      --timeline-color: #8b4513;
+      --transition: all 0.4s ease;
+    }
+
+    [data-theme="dark"] {
+      --primary-color: #d4af37;
+      --secondary-color: #8b4513;
+      --accent-color: #ff6b6b;
+      --light-color: #1a120b;
+      --dark-color: #f5f5dc;
+      --card-bg: rgba(26, 18, 11, 0.85);
+      --timeline-color: #d4af37;
+    }
+
+    body {
+      background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('image/itihash.jpg') no-repeat center center fixed;
+      background-size: cover;
+      color: var(--dark-color);
+      line-height: 1.6;
+      transition: var(--transition);
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    [data-theme="dark"] body {
+      background: linear-gradient(rgba(0, 0, 0, 0.85), rgba(0, 0, 0, 0.85)), url('image/itihash.jpg') no-repeat center center fixed;
+      background-size: cover;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    /* Header */
+    header {
+      background: var(--card-bg);
+      backdrop-filter: blur(10px);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+      border-bottom: 1px solid var(--primary-color);
+    }
+
+    .header-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px 0;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .logo-icon {
+      width: 40px;
+      height: 40px;
+      background: var(--primary-color);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--light-color);
+      font-size: 1.5rem;
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0% { box-shadow: 0 0 0 0 rgba(139, 69, 19, 0.7); }
+      70% { box-shadow: 0 0 0 15px rgba(139, 69, 19, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(139, 69, 19, 0); }
+    }
+
+    .logo-text {
+      font-size: 1.8rem;
+      font-weight: bold;
+      background: linear-gradient(to right, var(--primary-color), var(--accent-color));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      text-shadow: 0 0 10px rgba(210, 105, 30, 0.5);
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 25px;
+    }
+
+    .nav-links a {
+      color: var(--dark-color);
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 1.1rem;
+      position: relative;
+      transition: var(--transition);
+    }
+
+    .nav-links a:hover {
+      color: var(--accent-color);
+      text-shadow: 0 0 10px rgba(178, 34, 34, 0.7);
+    }
+
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: -5px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: var(--accent-color);
+      transition: var(--transition);
+    }
+
+    .nav-links a:hover::after {
+      width: 100%;
+    }
+
+    .theme-toggle {
+      background: var(--primary-color);
+      color: var(--light-color);
+      border: none;
+      border-radius: 30px;
+      padding: 10px 20px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: var(--transition);
+      box-shadow: 0 0 15px rgba(139, 69, 19, 0.5);
+    }
+
+    .theme-toggle:hover {
+      background: var(--accent-color);
+      transform: translateY(-3px);
+      box-shadow: 0 0 20px rgba(178, 34, 34, 0.7);
+    }
+
+    /* Hero Section */
+    .hero {
+      padding: 100px 0 60px;
+      text-align: center;
+      position: relative;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 100%;
+      background: url('https://images.unsplash.com/photo-1604018612943-1c0e0d055256?q=80&w=1974&auto=format&fit=crop') center/cover no-repeat;
+      opacity: 0.15;
+      z-index: -1;
+    }
+
+    .hero-title {
+      font-size: 3.5rem;
+      margin-bottom: 20px;
+      background: linear-gradient(to right, var(--primary-color), var(--accent-color));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+      animation: glowTitle 3s infinite alternate;
+    }
+
+    @keyframes glowTitle {
+      0% { text-shadow: 0 0 5px rgba(210, 105, 30, 0.5); }
+      100% { text-shadow: 0 0 20px rgba(178, 34, 34, 0.8), 0 0 30px rgba(139, 69, 19, 0.6); }
+    }
+
+    .hero-subtitle {
+      font-size: 1.5rem;
+      max-width: 800px;
+      margin: 0 auto 40px;
+      color: var(--dark-color);
+      line-height: 1.8;
+      animation: fadeIn 2s ease-out;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Timeline Section */
+    .timeline-section {
+      padding: 80px 0;
+    }
+
+    .section-title {
+      text-align: center;
+      margin-bottom: 50px;
+    }
+
+    .section-title h2 {
+      font-size: 2.5rem;
+      color: var(--dark-color);
+      margin-bottom: 15px;
+      position: relative;
+      display: inline-block;
+      animation: glowHeading 3s infinite alternate;
+    }
+
+    @keyframes glowHeading {
+      0% { text-shadow: 0 0 5px rgba(210, 105, 30, 0.3); }
+      100% { text-shadow: 0 0 15px rgba(178, 34, 34, 0.7); }
+    }
+
+    .section-title h2::after {
+      content: '';
+      position: absolute;
+      bottom: -10px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 80px;
+      height: 4px;
+      background: var(--accent-color);
+      border-radius: 2px;
+      animation: glowLine 3s infinite alternate;
+    }
+
+    @keyframes glowLine {
+      0% { box-shadow: 0 0 5px rgba(178, 34, 34, 0.3); }
+      100% { box-shadow: 0 0 15px rgba(178, 34, 34, 0.7); }
+    }
+
+    .section-title p {
+      font-size: 1.2rem;
+      color: var(--dark-color);
+      max-width: 700px;
+      margin: 0 auto;
+    }
+
+    .timeline {
+      position: relative;
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+
+    .timeline::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 50%;
+      width: 4px;
+      background: var(--timeline-color);
+      transform: translateX(-50%);
+      animation: glowTimeline 3s infinite alternate;
+    }
+
+    @keyframes glowTimeline {
+      0% { box-shadow: 0 0 5px rgba(139, 69, 19, 0.3); }
+      100% { box-shadow: 0 0 20px rgba(212, 175, 55, 0.7); }
+    }
+
+    .timeline-item {
+      padding: 20px 40px;
+      position: relative;
+      width: 50%;
+      opacity: 0;
+      transform: translateY(50px);
+      transition: opacity 0.8s ease, transform 0.8s ease;
+    }
+
+    .timeline-item.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .timeline-item:nth-child(odd) {
+      left: 0;
+    }
+
+    .timeline-item:nth-child(even) {
+      left: 50%;
+    }
+
+    .timeline-content {
+      background: var(--card-bg);
+      border-radius: 12px;
+      padding: 30px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+      position: relative;
+      border: 2px solid var(--primary-color);
+      transition: var(--transition);
+      animation: glowCard 3s infinite alternate;
+    }
+
+    @keyframes glowCard {
+      0% { box-shadow: 0 0 5px rgba(139, 69, 19, 0.3); }
+      100% { box-shadow: 0 0 20px rgba(212, 175, 55, 0.7); }
+    }
+
+    .timeline-content:hover {
+      transform: scale(1.02);
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+    }
+
+    .timeline-year {
+      position: absolute;
+      top: 20px;
+      font-size: 1.8rem;
+      font-weight: bold;
+      color: var(--accent-color);
+      padding: 5px 15px;
+      background: rgba(0, 0, 0, 0.1);
+      border-radius: 20px;
+      animation: glowYear 3s infinite alternate;
+    }
+
+    @keyframes glowYear {
+      0% { box-shadow: 0 0 5px rgba(178, 34, 34, 0.3); }
+      100% { box-shadow: 0 0 15px rgba(178, 34, 34, 0.7); }
+    }
+
+    .timeline-item:nth-child(odd) .timeline-year {
+      right: -100px;
+    }
+
+    .timeline-item:nth-child(even) .timeline-year {
+      left: -100px;
+    }
+
+    .timeline-title {
+      font-size: 1.8rem;
+      margin-bottom: 15px;
+      color: var(--primary-color);
+      animation: glowText 3s infinite alternate;
+    }
+
+    @keyframes glowText {
+      0% { text-shadow: 0 0 5px rgba(139, 69, 19, 0.3); }
+      100% { text-shadow: 0 0 10px rgba(212, 175, 55, 0.7); }
+    }
+
+    .timeline-description {
+      margin-bottom: 20px;
+      color: var(--dark-color);
+      line-height: 1.7;
+    }
+
+    .timeline-image {
+      width: 100%;
+      border-radius: 8px;
+      margin-bottom: 15px;
+      border: 1px solid var(--primary-color);
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    .learn-more {
+      display: inline-block;
+      padding: 10px 20px;
+      background: var(--primary-color);
+      color: var(--light-color);
+      text-decoration: none;
+      border-radius: 30px;
+      font-weight: 500;
+      transition: var(--transition);
+      animation: pulseButton 2s infinite;
+    }
+
+    @keyframes pulseButton {
+      0% { box-shadow: 0 0 0 0 rgba(139, 69, 19, 0.7); }
+      70% { box-shadow: 0 0 0 10px rgba(139, 69, 19, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(139, 69, 19, 0); }
+    }
+
+    .learn-more:hover {
+      background: var(--accent-color);
+      transform: translateY(-3px);
+      animation: none;
+      box-shadow: 0 0 15px rgba(178, 34, 34, 0.7);
+    }
+
+    .timeline-item:nth-child(odd)::after {
+      content: '';
+      position: absolute;
+      top: 30px;
+      right: -10px;
+      width: 20px;
+      height: 20px;
+      background: var(--accent-color);
+      border: 3px solid var(--light-color);
+      border-radius: 50%;
+      z-index: 1;
+      animation: glowDot 3s infinite alternate;
+    }
+
+    @keyframes glowDot {
+      0% { box-shadow: 0 0 5px rgba(178, 34, 34, 0.3); }
+      100% { box-shadow: 0 0 15px rgba(178, 34, 34, 0.7); }
+    }
+
+    .timeline-item:nth-child(even)::after {
+      content: '';
+      position: absolute;
+      top: 30px;
+      left: -10px;
+      width: 20px;
+      height: 20px;
+      background: var(--accent-color);
+      border: 3px solid var(--light-color);
+      border-radius: 50%;
+      z-index: 1;
+      animation: glowDot 3s infinite alternate;
+    }
+
+    /* Historical Figures */
+    .figures-section {
+      padding: 80px 0;
+      background: rgba(139, 69, 19, 0.05);
+    }
+
+    .figures-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 30px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .figure-card {
+      background: var(--card-bg);
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+      transition: var(--transition);
+      border: 2px solid var(--primary-color);
+      animation: glowCard 3s infinite alternate;
+    }
+
+    .figure-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+    }
+
+    .figure-image {
+      width: 100%;
+      height: 250px;
+      object-fit: cover;
+      border-bottom: 3px solid var(--primary-color);
+    }
+
+    .figure-content {
+      padding: 25px;
+    }
+
+    .figure-name {
+      font-size: 1.6rem;
+      margin-bottom: 10px;
+      color: var(--primary-color);
+      animation: glowText 3s infinite alternate;
+    }
+
+    .figure-title {
+      font-size: 1.1rem;
+      color: var(--accent-color);
+      margin-bottom: 15px;
+      font-style: italic;
+    }
+
+    .figure-description {
+      color: var(--dark-color);
+      margin-bottom: 20px;
+      line-height: 1.6;
+    }
+
+    /* Battle Animation */
+    .battle-animation {
+      height: 400px;
+      background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('https://images.unsplash.com/photo-1547234935-80c7145ec969?q=80&w=2070&auto=format&fit=crop') center/cover;
+      position: relative;
+      overflow: hidden;
+      margin: 80px 0;
+      border: 3px solid var(--primary-color);
+      border-radius: 15px;
+      box-shadow: 0 0 30px rgba(178, 34, 34, 0.5);
+      animation: battleEntrance 1.2s cubic-bezier(.23,1.02,.32,1) both;
+    }
+
+    @keyframes battleEntrance {
+      0% { opacity: 0; transform: scale(0.8) translateY(60px);}
+      100% { opacity: 1; transform: scale(1) translateY(0);}
+    }
+
+    .warrior {
+      position: absolute;
+      width: 100px;
+      height: 150px;
+      background-size: contain;
+      background-repeat: no-repeat;
+      filter: drop-shadow(0 0 5px gold);
+      transition: transform 0.5s;
+    }
+
+    .warrior.left {
+      background-image: url('https://cdn-icons-png.flaticon.com/512/3571/3571521.png');
+      left: 10%;
+      top: 50%;
+      transform: translateY(-50%);
+    }
+
+    .warrior.right {
+      background-image: url('https://cdn-icons-png.flaticon.com/512/3571/3571522.png');
+      right: 10%;
+      top: 50%;
+      transform: translateY(-50%);
+    }
+
+    .warrior.swing {
+      animation: swordSwing 0.4s cubic-bezier(.23,1.02,.32,1);
+    }
+
+    @keyframes swordSwing {
+      0% { filter: brightness(1) drop-shadow(0 0 0 gold); transform: translateY(-50%) rotateZ(0deg);}
+      60% { filter: brightness(1.3) drop-shadow(0 0 15px gold); transform: translateY(-50%) rotateZ(-20deg);}
+      100% { filter: brightness(1) drop-shadow(0 0 0 gold); transform: translateY(-50%) rotateZ(0deg);}
+    }
+
+    .battle-title {
+      position: absolute;
+      top: 20px;
+      left: 0;
+      right: 0;
+      text-align: center;
+      font-size: 2.5rem;
+      color: var(--light-color);
+      text-shadow: 0 0 10px var(--accent-color);
+      animation: glowTitle 3s infinite alternate;
+    }
+
+    /* Clash shake and glow */
+    .clash {
+      animation: clashEffect 2s infinite, clashGlow 2s infinite;
+    }
+
+    @keyframes clashGlow {
+      0% { text-shadow: 0 0 0px gold, 0 0 0px #fff;}
+      50% { text-shadow: 0 0 30px gold, 0 0 10px #fff;}
+      100% { text-shadow: 0 0 0px gold, 0 0 0px #fff;}
+    }
+
+    .clash.shake {
+      animation: clashShake 0.4s;
+    }
+
+    @keyframes clashShake {
+      0% { transform: translate(-50%, -50%) rotate(0deg);}
+      20% { transform: translate(-50%, -50%) rotate(-10deg);}
+      40% { transform: translate(-50%, -50%) rotate(10deg);}
+      60% { transform: translate(-50%, -50%) rotate(-8deg);}
+      80% { transform: translate(-50%, -50%) rotate(8deg);}
+      100% { transform: translate(-50%, -50%) rotate(0deg);}
+    }
+
+    /* Only for timeline cards on the right side (even) */
+    .timeline-item:nth-child(even) .timeline-title {
+      opacity: 0;
+      transform: translateX(-60px);
+    }
+
+    /* Trigger the animation only when the card is visible */
+    .timeline-item.visible:nth-child(even) .timeline-title {
+      animation: slideInRightHeader 1s cubic-bezier(.23,1.02,.32,1) forwards;
+      animation-delay: 0.3s;
+      opacity: 1;
+    }
+
+    /* Footer */
+    footer {
+      background: var(--card-bg);
+      padding: 60px 0 30px;
+      border-top: 3px solid var(--primary-color);
+    }
+
+    .footer-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 40px;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    .footer-logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+
+    .footer-logo-icon {
+      width: 40px;
+      height: 40px;
+      background: var(--primary-color);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--light-color);
+      font-size: 1.2rem;
+      animation: pulse 2s infinite;
+    }
+
+    .footer-logo-text {
+      font-size: 1.8rem;
+      font-weight: bold;
+      color: var(--primary-color);
+    }
+
+    .footer-about {
+      color: var(--dark-color);
+      line-height: 1.7;
+      margin-bottom: 20px;
+    }
+
+    .footer-heading {
+      font-size: 1.5rem;
+      color: var(--primary-color);
+      margin-bottom: 20px;
+      position: relative;
+      padding-bottom: 10px;
+    }
+
+    .footer-heading::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 50px;
+      height: 3px;
+      background: var(--accent-color);
+    }
+
+    .footer-links {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .footer-link {
+      color: var(--dark-color);
+      text-decoration: none;
+      transition: var(--transition);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .footer-link:hover {
+      color: var(--accent-color);
+      transform: translateX(5px);
+      text-shadow: 0 0 5px rgba(178, 34, 34, 0.3);
+    }
+
+    .footer-link i {
+      color: var(--primary-color);
+    }
+
+    .footer-social {
+      display: flex;
+      gap: 15px;
+      margin-top: 20px;
+    }
+
+    .social-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: var(--primary-color);
+      color: var(--light-color);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+      transition: var(--transition);
+      animation: pulse 2s infinite;
+    }
+
+    .social-icon:hover {
+      background: var(--accent-color);
+      transform: translateY(-5px);
+      animation: none;
+    }
+
+    .copyright {
+      text-align: center;
+      padding-top: 30px;
+      margin-top: 40px;
+      border-top: 1px solid rgba(139, 69, 19, 0.2);
+      color: var(--dark-color);
+    }
+
+    /* Responsive */
+    @media (max-width: 992px) {
+      .hero-title {
+        font-size: 2.8rem;
+      }
+      
+      .timeline::before {
+        left: 30px;
+      }
+      
+      .timeline-item {
+        width: 100%;
+        padding-left: 70px;
+        padding-right: 20px;
+        left: 0 !important;
+      }
+      
+      .timeline-item:nth-child(odd)::after,
+      .timeline-item:nth-child(even)::after {
+        left: 20px;
+      }
+      
+      .timeline-item:nth-child(odd) .timeline-year,
+      .timeline-item:nth-child(even) .timeline-year {
+        left: -50px;
+        right: auto;
+      }
+
+      .warrior {
+        width: 80px;
+        height: 120px;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .header-container {
+        flex-direction: column;
+        gap: 20px;
+      }
+      
+      .hero-title {
+        font-size: 2.3rem;
+      }
+      
+      .hero-subtitle {
+        font-size: 1.2rem;
+      }
+      
+      .section-title h2 {
+        font-size: 2rem;
+      }
+
+      .battle-title {
+        font-size: 2rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .nav-links {
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+      
+      .hero-title {
+        font-size: 2rem;
+      }
+      
+      .theme-toggle {
+        padding: 8px 15px;
+        font-size: 0.9rem;
+      }
+
+      .warrior {
+        width: 60px;
+        height: 90px;
+      }
+
+      .warrior.left {
+        left: 5%;
+      }
+
+      .warrior.right {
+        right: 5%;
+      }
+    }
+    .timeline-item:nth-child(2) .timeline-title {
+      text-align: right;
+      margin-left: auto;
+      margin-right: 0;
+      display: block;
+    }
+
+    /* Move only the header of the fourth timeline card to the right */
+    .timeline-item:nth-child(4) .timeline-title {
+      text-align: right;
+      margin-left: auto;
+      margin-right: 0;
+      display: block;
+    }
+    .battle-bg-img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  max-height: none;
+  object-fit: cover;
+  opacity: 0.85;
+  z-index: 1;
+  pointer-events: none;
+  filter: drop-shadow(0 8px 32px rgba(0,0,0,0.25));
+}
+.battle-animation > *:not(.battle-bg-img) {
+  position: relative;
+  z-index: 2;
+}
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header>
+    <div class="container header-container">
+      <div class="logo">
+        <div class="logo-icon">
+          <i class="fas fa-landmark"></i>
+        </div>
+        <div class="logo-text">বাংলাদেশের ইতিহাস</div>
+      </div>
+      
+      <div class="nav-links">
+        <a href="#"><i class="fas fa-home"></i> হোম</a>
+        <a href="#"><i class="fas fa-book"></i> অধ্যায়</a>
+        <a href="#"><i class="fas fa-users"></i> ব্যক্তিত্ব</a>
+        <a href="#"><i class="fas fa-video"></i> ভিডিও</a>
+        <a href="#"><i class="fas fa-question-circle"></i> কুইজ</a>
+      </div>
+      
+      <button class="theme-toggle" id="themeToggle">
+        <i class="fas fa-moon"></i> ডার্ক মোড
+      </button>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="container">
+      <h1 class="hero-title">বাংলাদেশের গৌরবময় ইতিহাস</h1>
+      <p class="hero-subtitle">প্রাচীন সভ্যতা থেকে মুক্তিযুদ্ধ পর্যন্ত বাংলাদেশের সমৃদ্ধ ইতিহাসের এক অনবদ্য যাত্রা। শ্রেণি ৬-১২ এর শিক্ষার্থীদের জন্য প্রণীত একটি পূর্ণাঙ্গ ইতিহাস গাইড।</p>
+    </div>
+  </section>
+
+  <!-- Timeline Section -->
+  <section class="timeline-section">
+    <div class="container">
+      <div class="section-title">
+        <h2>ঐতিহাসিক সময়রেখা</h2>
+        <p>প্রাচীনকাল থেকে আধুনিক বাংলাদেশ পর্যন্ত গুরুত্বপূর্ণ ঘটনাপঞ্জি</p>
+      </div>
+      
+      <div class="timeline">
+        <div class="timeline-item">
+          <div class="timeline-content">
+            <div class="timeline-year">৩০০ খ্রীষ্টপূর্ব</div>
+            <h3 class="timeline-title">প্রাচীন বাংলা</h3>
+            <img src="image/17.jpg" alt="Ancient Bengal" class="timeline-image">
+            <p class="timeline-description">গঙ্গারিডাই ও প্রাচীন পুণ্ড্র সভ্যতার উত্থান। মৌর্য ও গুপ্ত সাম্রাজ্যের অংশ হিসেবে বাংলার বিকাশ। সমতট, বঙ্গ ও হরিকেল রাজ্যের গঠন।</p>
+            <a href="#" class="learn-more">আরও জানুন</a>
+          </div>
+        </div>
+        
+        <div class="timeline-item">
+          <div class="timeline-content">
+            <div class="timeline-year">১২০৪ খ্রীষ্টাব্দ</div>
+            <h3 class="timeline-title">সুলতানি আমল</h3>
+            <img src="image/sultaniamol.jpg" alt="Sultanate Period" class="timeline-image">
+            <p class="timeline-description">ইখতিয়ার উদ্দিন মুহাম্মদ বিন বখতিয়ার খিলজীর বাংলা বিজয়। দিল্লি সালতানাতের অধীনে বাংলা শাসন। স্বাধীন সুলতানি শাসনের সূচনা।</p>
+            <a href="#" class="learn-more">আরও জানুন</a>
+          </div>
+        </div>
+        
+        <div class="timeline-item">
+          <div class="timeline-content">
+            <div class="timeline-year">১৭৫৭ খ্রীষ্টাব্দ</div>
+            <h3 class="timeline-title">পলাশীর যুদ্ধ</h3>
+            <img src="image/polasir.jpg" alt="Battle of Plassey" class="timeline-image">
+            <p class="timeline-description">রবার্ট ক্লাইভের নেতৃত্বে ব্রিটিশ ইস্ট ইন্ডিয়া কোম্পানি বাংলার নবাব সিরাজউদ্দৌলাকে পরাজিত করে। বাংলায় ব্রিটিশ শাসনের সূচনা।</p>
+            <a href="#" class="learn-more">আরও জানুন</a>
+          </div>
+        </div>
+        
+        <div class="timeline-item">
+          <div class="timeline-content">
+            <div class="timeline-year">১৯৭১ খ্রীষ্টাব্দ</div>
+            <h3 class="timeline-title">মুক্তিযুদ্ধ</h3>
+            <img src="image/mukti.jpg" alt="Liberation War" class="timeline-image">
+            <p class="timeline-description">২৫ মার্চ গণহত্যার পর ২৬ মার্চ স্বাধীনতা ঘোষণা। ৯ মাস রক্তক্ষয়ী যুদ্ধের পর ১৬ ডিসেম্বর বাংলাদেশ স্বাধীনতা অর্জন করে।</p>
+            <a href="#" class="learn-more">আরও জানুন</a>
+          </div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-content">
+            <div class="timeline-year">২০২৪ খ্রীষ্টাব্দ</div>
+            <h3 class="timeline-title">বাংলাদেশের </h3>
+            <img src="image/August-Mass-Uprising.avif" alt="Constitution of Bangladesh" class="timeline-image">
+            <p class="timeline-description">মুক্তিযুদ্ধের পর ৪ঠা নভেম্বর বাংলাদেশের প্রথম সংবিধান প্রণীত হয়। গণতন্ত্র, সমাজতন্ত্র, ধর্মনিরপেক্ষতা ও জাতীয়তাবাদ প্রতিষ্ঠার অঙ্গীকার।</p>
+            <a href="#" class="learn-more">আরও জানুন</a>
+          </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Battle Animation Section -->
+  <div class="container">
+    <div class="battle-animation">
+      <img src="image/historical.jpg" alt="Historical Scene" class="battle-bg-img">
+      <h2 class="battle-title">ঐতিহাসিক যুদ্ধের দৃশ্য</h2>
+      <div class="warrior left"></div>
+      <div class="warrior right"></div>
+      <div class="clash">⚔️</div>
+    </div>
+  </div>
+
+  <!-- Historical Figures Section -->
+  <section class="figures-section">
+    <div class="container">
+      <div class="section-title">
+        <h2>গুরুত্বপূর্ণ ব্যক্তিত্ব</h2>
+        <p>বাংলাদেশের ইতিহাস গড়ে তোলা মহান নেতা ও ব্যক্তিত্ব</p>
+      </div>
+      
+      <div class="figures-grid">
+        <div class="figure-card">
+          <img src="image/vasani-67396d34b6f0b.jpg" alt="Maulana vasani" class="figure-image">
+          <div class="figure-content">
+            <h3 class="figure-name">মাওলানা ভাসানী</h3>
+            <div class="figure-title">নারীর মুক্তির পথিকৃৎ</div>
+            <p class="figure-description">বাংলার নারী জাগরণের অগ্রদূত, লেখিকা ও সমাজ সংস্কারক। তার লেখনী ও কাজ নারী শিক্ষা ও অধিকারের জন্য গুরুত্বপূর্ণ ভূমিকা রেখেছে।</p>
+            <a href="#" class="learn-more">জীবনী দেখুন</a>
+          </div>
+        </div>
+        
+        <div class="figure-card">
+          <img src="image/SS-National-Poet-Kazi-Nazrul-Islam-020125-1-qzf54yweow9sy9dhlqu5sxhrodey0p3l7lobp6xrtk.jpg" alt="Kazi Nazrul Islam" class="figure-image">
+          <div class="figure-content">
+            <h3 class="figure-name">কাজী নজরুল ইসলাম</h3>
+            <div class="figure-title">বিদ্রোহী কবি</div>
+            <p class="figure-description">বাংলা সাহিত্য ও সংস্কৃতির অন্যতম প্রধান ব্যক্তিত্ব। তার কবিতা ও গানে বিদ্রোহ, মানবতা ও সাম্যের বাণী উচ্চারিত হয়েছে। বাংলাদেশের জাতীয় কবি।</p>
+            <a href="#" class="learn-more">জীবনী দেখুন</a>
+          </div>
+        </div>
+        
+        <div class="figure-card">
+          <img src="https://bn.banglapedia.org/images/0/00/HuqAKFazlul.jpg" alt="Sher-e-Bangla" class="figure-image">
+          <div class="figure-content">
+            <h3 class="figure-name">এ কে ফজলুল হক</h3>
+            <div class="figure-title">শেরে বাংলা</div>
+            <p class="figure-description">বাংলার কৃষক ও শ্রমিকদের জন্য লড়াই করা নেতা। তার নেতৃত্বে কৃষক প্রজা পার্টি গঠিত হয়। ঢাকা বিশ্ববিদ্যালয় ও বাংলা একাডেমি প্রতিষ্ঠায় গুরুত্বপূর্ণ ভূমিকা পালন করেন।</p>
+            <a href="#" class="learn-more">জীবনী দেখুন</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-container">
+      <div>
+        <div class="footer-logo">
+          <div class="footer-logo-icon">
+            <i class="fas fa-landmark"></i>
+          </div>
+          <div class="footer-logo-text">ইতিহাস</div>
+        </div>
+        <p class="footer-about">বাংলাদেশের ইতিহাসকে সহজ ও আকর্ষণীয়ভাবে শিক্ষার্থীদের কাছে পৌঁছে দেওয়ার লক্ষ্যে আমাদের এই উদ্যোগ। শ্রেণি ৬ থেকে ১২ পর্যন্ত শিক্ষার্থীদের জন্য প্রণীত।</p>
+        <div class="footer-social">
+          <a href="#" class="social-icon"><i class="fab fa-facebook-f"></i></a>
+          <a href="#" class="social-icon"><i class="fab fa-youtube"></i></a>
+          <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+          <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
+        </div>
+      </div>
+      
+      <div>
+        <h3 class="footer-heading">অধ্যায়সমূহ</h3>
+        <div class="footer-links">
+          <a href="#" class="footer-link"><i class="fas fa-chevron-right"></i> প্রাচীন বাংলা</a>
+          <a href="#" class="footer-link"><i class="fas fa-chevron-right"></i> মধ্যযুগীয় বাংলা</a>
+          <a href="#" class="footer-link"><i class="fas fa-chevron-right"></i> ব্রিটিশ শাসন</a>
+          <a href="#" class="footer-link"><i class="fas fa-chevron-right"></i> ভাষা আন্দোলন</a>
+          <a href="#" class="footer-link"><i class="fas fa-chevron-right"></i> মুক্তিযুদ্ধ</a>
+        </div>
+      </div>
+      
+      <div>
+        <h3 class="footer-heading">গুরুত্বপূর্ণ লিংক</h3>
+        <div class="footer-links">
+          <a href="#" class="footer-link"><i class="fas fa-chevron-right"></i> কুইজ প্রতিযোগিতা</a>
+          <a href="#" class="footer-link"><i class="fas fa-chevron-right"></i> ভিডিও লেকচার</a>
+          <a href="#" class="footer-link"><i class="fas fa-chevron-right"></i> ইতিহাসের মানচিত্র</a>
+          <a href="#" class="footer-link"><i class="fas fa-chevron-right"></i> ঐতিহাসিক স্থান</a>
+          <a href="#" class="footer-link"><i class="fas fa-chevron-right"></i> ডাউনলোড বই</a>
+        </div>
+      </div>
+    </div>
+    
+    <div class="copyright">
+      &copy; ২০২৫ বাংলাদেশের ইতিহাস - সকল অধিকার সংরক্ষিত
+    </div>
+  </footer>
+
+  <script>
+    // Theme Toggle
+    const themeToggle = document.getElementById('themeToggle');
+    const body = document.body;
+    
+    themeToggle.addEventListener('click', () => {
+      body.setAttribute('data-theme', 
+        body.getAttribute('data-theme') === 'dark' ? 'light' : 'dark'
+      );
+      
+      // Update button text
+      const isDarkMode = body.getAttribute('data-theme') === 'dark';
+      themeToggle.innerHTML = isDarkMode 
+        ? '<i class="fas fa-sun"></i> লাইট মোড' 
+        : '<i class="fas fa-moon"></i> ডার্ক মোড';
+    });
+
+    // Timeline Animation
+    const timelineItems = document.querySelectorAll('.timeline-item');
+    
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, { threshold: 0.1 });
+    
+    timelineItems.forEach(item => {
+      observer.observe(item);
+    });
+
+    // Set initial theme
+    document.addEventListener('DOMContentLoaded', () => {
+      // Set dark mode as default
+      body.setAttribute('data-theme', 'dark');
+      themeToggle.innerHTML = '<i class="fas fa-sun"></i> লাইট মোড';
+      
+      // Battle animation effect
+      const clashElement = document.querySelector('.clash');
+      setInterval(() => {
+        clashElement.style.animation = 'none';
+        setTimeout(() => {
+          clashElement.style.animation = 'clashEffect 2s infinite';
+        }, 10);
+      }, 4000);
+    });
+
+    // Warrior animation
+    const warriors = document.querySelectorAll('.warrior');
+    warriors.forEach(warrior => {
+      setInterval(() => {
+        warrior.style.transform = warrior.classList.contains('left') 
+          ? 'translateY(-50%) translateX(10px)' 
+          : 'translateY(-50%) translateX(-10px)';
+        
+        setTimeout(() => {
+          warrior.style.transform = warrior.classList.contains('left') 
+            ? 'translateY(-50%)' 
+            : 'translateY(-50%)';
+        }, 300);
+      }, 2000);
+    });
+
+    // Enhanced battle animation effect
+    const clashElement = document.querySelector('.clash');
+    const leftWarrior = document.querySelector('.warrior.left');
+    const rightWarrior = document.querySelector('.warrior.right');
+
+    setInterval(() => {
+      // Sword swing
+      leftWarrior.classList.add('swing');
+      rightWarrior.classList.add('swing');
+      // Clash shake
+      clashElement.classList.add('shake');
+      // Remove after animation
+      setTimeout(() => {
+        leftWarrior.classList.remove('swing');
+        rightWarrior.classList.remove('swing');
+        clashElement.classList.remove('shake');
+      }, 400);
+    }, 2000);
+  </script>
+</body>
+</html>

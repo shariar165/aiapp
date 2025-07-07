@@ -1,0 +1,1705 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Student Guidebook AI</title>
+  
+  <!-- Bangla font support -->
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Bengali:wght@400;700&display=swap" rel="stylesheet">
+  
+  <!-- Font Awesome for icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <style>
+    :root {
+      --primary-color: #4a6bff;
+      --secondary-color: #6c757d;
+      --bg-color: #f8f9fa;
+      --card-bg: #ffffff;
+      --text-color: #333333;
+      --border-radius: 12px;
+      --box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      --gradient-blue: linear-gradient(to right, #4a6bff, #3a5bef);
+      --gradient-teal: linear-gradient(to right, #4a6bff, #00b4d8);
+    }
+
+    [data-theme="dark"] {
+      --primary-color: #6a8cff;
+      --secondary-color: #adb5bd;
+      --bg-color: #1a1a1a;
+      --card-bg: #2d2d2d;
+      --text-color: #f0f0f0;
+      --box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    }
+
+    body {
+      font-family: 'Noto Sans Bengali', sans-serif;
+      background-color: var(--bg-color);
+      color: var(--text-color);
+      line-height: 1.6;
+      margin: 0;
+      padding: 0;
+      transition: background-color 0.3s, color 0.3s;
+    }
+
+    /* Navigation */
+    nav {
+      background: var(--card-bg);
+      backdrop-filter: blur(10px);
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      border-bottom: 1px solid rgba(0, 123, 255, 0.1);
+    }
+
+    .nav-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      height: 60px;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 1.2rem;
+      font-weight: bold;
+      background: linear-gradient(to right, #4a6bff, #00b4d8);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .logo-icon {
+      width: 30px;
+      height: 30px;
+      background: linear-gradient(to right, #4a6bff, #00b4d8);
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 20px;
+      align-items: center;
+      background: var(--card-bg);
+    }
+
+    .nav-links a {
+      color: var(--text-color);
+      text-decoration: none;
+      font-weight: 500;
+      transition: color 0.3s;
+    }
+
+    .nav-links a:hover {
+      color: var(--primary-color);
+    }
+
+    .btn {
+      padding: 8px 16px;
+      border-radius: 6px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.3s;
+      border: none;
+    }
+
+    .btn-outline {
+      background: transparent;
+      border: 1px solid rgba(0, 123, 255, 0.2);
+      color: var(--primary-color);
+    }
+
+    .btn-outline:hover {
+      background: rgba(0, 123, 255, 0.05);
+    }
+
+    .btn-primary {
+      background: linear-gradient(to right, #4a6bff, #00b4d8);
+      color: white;
+    }
+
+    .btn-primary:hover {
+      opacity: 0.9;
+    }
+
+    /* Hero Section */
+    .hero {
+      background: var(--bg-color);
+      padding: 80px 20px;
+      text-align: center;
+    }
+
+    .hero h1 {
+      font-size: 2.5rem;
+      font-weight: 800;
+      margin-bottom: 20px;
+      color: var(--text-color);
+      opacity: 0;
+      transform: translateY(40px);
+      animation: heroTitleFadeIn 1s cubic-bezier(.23,1.02,.32,1) 0.2s forwards;
+    }
+
+    @keyframes heroTitleFadeIn {
+      from { opacity: 0; transform: translateY(40px);}
+      to { opacity: 1; transform: translateY(0);}
+    }
+
+    .hero h1 span {
+      background: linear-gradient(to right, #4a6bff, #00b4d8);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .hero p {
+      font-size: 1.2rem;
+      color: var(--secondary-color);
+      max-width: 700px;
+      margin: 0 auto 40px;
+      line-height: 1.6;
+      opacity: 0;
+      transform: translateY(40px);
+      animation: heroTextFadeIn 1s cubic-bezier(.23,1.02,.32,1) 0.7s forwards;
+    }
+
+    @keyframes heroTextFadeIn {
+      from { opacity: 0; transform: translateY(40px);}
+      to { opacity: 1; transform: translateY(0);}
+    }
+
+    /* Search Box */
+    .search-container {
+      max-width: 700px;
+      margin: 0 auto 40px;
+      position: relative;
+    }
+
+    .search-input {
+      width: 100%;
+      padding: 16px 20px;
+      font-size: 1rem;
+      border: 2px solid rgba(0, 123, 255, 0.2);
+      border-radius: 12px;
+      background: var(--card-bg);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      transition: all 0.3s;
+    }
+
+    .search-input:focus {
+      outline: none;
+      border-color: var(--primary-color);
+      box-shadow: 0 4px 16px rgba(0, 123, 255, 0.2);
+    }
+
+    .search-btn {
+      position: absolute;
+      right: 8px;
+      top: 8px;
+      padding: 8px 16px;
+      background: linear-gradient(to right, #4a6bff, #00b4d8);
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .search-btn:hover {
+      opacity: 0.9;
+    }
+
+    /* Card Styles */
+    .answer-card,
+    .stat-card,
+    .subject-card,
+    .question-card {
+      background: var(--card-bg);
+      border-radius: 10px;
+      box-shadow: 0 2px 8px rgba(60, 72, 88, 0.10), 0 1.5px 4px rgba(60, 72, 88, 0.06);
+      border: 1px solid rgba(60, 72, 88, 0.08);
+      transition: box-shadow 0.2s, transform 0.2s;
+    }
+
+    .answer-card {
+      padding: 0;
+      margin-bottom: 40px;
+    }
+
+    .stat-card,
+    .subject-card,
+    .question-card {
+      padding: 24px 20px;
+      margin-bottom: 0;
+    }
+
+    .subject-card:hover,
+    .question-card:hover,
+    .stat-card:hover {
+      box-shadow: 0 6px 24px rgba(60, 72, 88, 0.16), 0 2px 8px rgba(60, 72, 88, 0.10);
+      transform: translateY(-4px) scale(1.02);
+      border-color: var(--primary-color);
+    }
+
+    .answer-header {
+      background: linear-gradient(90deg, #f0f7ff 60%, #e0f2fe 100%);
+      padding: 18px 28px;
+      border-bottom: 1px solid rgba(60, 72, 88, 0.08);
+      border-radius: 10px 10px 0 0;
+    }
+
+    .answer-content {
+      padding: 28px 28px 20px 28px;
+    }
+
+    .question-meta {
+      margin-bottom: 14px;
+    }
+
+    .question-subject {
+      background: linear-gradient(90deg, #e0f2fe 60%, #f0f7ff 100%);
+      color: #0369a1;
+      padding: 5px 14px;
+      border-radius: 16px;
+      font-size: 0.85rem;
+      font-weight: 500;
+    }
+
+    .tag {
+      background: linear-gradient(90deg, #e0f2fe 60%, #f0f7ff 100%);
+      color: #0369a1;
+      padding: 5px 14px;
+      border-radius: 16px;
+      font-size: 0.85rem;
+      font-weight: 500;
+    }
+
+    /* Answer Card */
+    .answer-card {
+      max-width: 800px;
+      margin: 0 auto 60px;
+      background: var(--card-bg);
+      border-radius: 12px;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+      overflow: hidden;
+      border: 1px solid rgba(0, 123, 255, 0.1);
+    }
+
+    .answer-header {
+      background: linear-gradient(90deg, #f0f7ff 60%, #e0f2fe 100%);
+      padding: 18px 28px;
+      border-bottom: 1px solid rgba(60, 72, 88, 0.08);
+      border-radius: 10px 10px 0 0;
+    }
+
+    .answer-header h3 {
+      color: var(--primary-color);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .answer-content {
+      padding: 28px 28px 20px 28px;
+    }
+
+    .answer-section {
+      margin-bottom: 20px;
+    }
+
+    .answer-section h4 {
+      font-weight: 600;
+      margin-bottom: 8px;
+      color: var(--text-color);
+    }
+
+    .question-text {
+      background: #f8f9fa;
+      padding: 12px;
+      border-radius: 8px;
+      color: var(--text-color);
+    }
+
+    .answer-text {
+      line-height: 1.8;
+      color: var(--text-color);
+    }
+
+    .tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 16px;
+    }
+
+    .tag {
+      background: linear-gradient(90deg, #e0f2fe 60%, #f0f7ff 100%);
+      color: #0369a1;
+      padding: 5px 14px;
+      border-radius: 16px;
+      font-size: 0.85rem;
+      font-weight: 500;
+    }
+
+    .source {
+      padding-top: 16px;
+      border-top: 1px solid #eee;
+      color: #666;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.9rem;
+    }
+
+    /* Stats */
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
+      max-width: 1000px;
+      margin: 0 auto 80px;
+    }
+
+    .stat-card {
+      background: var(--card-bg);
+      border-radius: 12px;
+      padding: 24px;
+      text-align: center;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+      transition: transform 0.3s;
+    }
+
+    .stat-card:hover {
+      transform: translateY(-5px);
+    }
+
+    .stat-icon {
+      width: 48px;
+      height: 48px;
+      background: linear-gradient(to right, #4a6bff, #00b4d8);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 16px;
+      color: white;
+    }
+
+    .stat-value {
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin-bottom: 8px;
+      color: var(--text-color);
+    }
+
+    .stat-label {
+      color: var(--secondary-color);
+    }
+
+    /* Subjects */
+    .section {
+      padding: 80px 20px;
+    }
+
+    .section-title {
+      text-align: center;
+      margin-bottom: 40px;
+    }
+
+    .section-title h2 {
+      font-size: 2rem;
+      font-weight: 700;
+      margin-bottom: 16px;
+      color: var(--text-color);
+    }
+
+    .section-title p {
+      color: var(--secondary-color);
+      max-width: 600px;
+      margin: 0 auto;
+      font-size: 1.1rem;
+    }
+
+    .subjects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 20px;
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+
+    .subject-card {
+      background: var(--card-bg);
+      border-radius: 12px;
+      padding: 24px;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.3s;
+      border: 1px solid rgba(0, 123, 255, 0.1);
+    }
+
+    .subject-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+    }
+
+    .subject-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 16px;
+      color: white;
+      transition: transform 0.3s;
+    }
+
+    .subject-card:hover .subject-icon {
+      transform: scale(1.1);
+    }
+
+    .subject-name {
+      font-weight: 600;
+      margin-bottom: 8px;
+      color: var(--text-color);
+    }
+
+    .subject-count {
+      color: var(--secondary-color);
+      font-size: 0.9rem;
+    }
+
+    /* Popular Questions */
+    .questions-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 20px;
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+
+    .question-card {
+      background: var(--card-bg);
+      border-radius: 12px;
+      padding: 20px;
+      cursor: pointer;
+      transition: all 0.3s;
+      border: 1px solid rgba(0, 123, 255, 0.1);
+    }
+
+    .question-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+    }
+
+    .question-meta {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 12px;
+    }
+
+    .question-subject {
+      background: linear-gradient(90deg, #e0f2fe 60%, #f0f7ff 100%);
+      color: #0369a1;
+      padding: 5px 14px;
+      border-radius: 16px;
+      font-size: 0.85rem;
+      font-weight: 500;
+    }
+
+    .question-views {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      color: var(--secondary-color);
+      font-size: 0.9rem;
+    }
+
+    .question-text {
+      font-weight: 500;
+      margin-bottom: 16px;
+      color: var(--text-color);
+    }
+
+    .question-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      color: var(--secondary-color);
+      font-size: 0.9rem;
+    }
+
+    .question-time {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .question-arrow {
+      color: #999;
+      transition: color 0.3s;
+    }
+
+    .question-card:hover .question-arrow {
+      color: var(--primary-color);
+    }
+
+    /* Footer */
+    footer {
+      background: linear-gradient(to right, #1a1a1a, #000033);
+      color: white;
+      padding: 60px 20px;
+    }
+
+    .footer-container {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 40px;
+      margin-bottom: 40px;
+    }
+
+    .footer-logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+
+    .footer-logo-icon {
+      width: 30px;
+      height: 30px;
+      background: linear-gradient(to right, #4a6bff, #00b4d8);
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+    }
+
+    .footer-logo-text {
+      font-weight: bold;
+      font-size: 1.2rem;
+    }
+
+    .footer-about {
+      color: #aaa;
+      margin-bottom: 20px;
+      line-height: 1.6;
+    }
+
+    .footer-social {
+      display: flex;
+      gap: 12px;
+    }
+
+    .footer-social-icon {
+      width: 36px;
+      height: 36px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    .footer-social-icon:hover {
+      background: rgba(255, 255, 255, 0.2);
+    }
+
+    .footer-heading {
+      font-weight: 600;
+      margin-bottom: 20px;
+      font-size: 1.1rem;
+    }
+
+    .footer-links {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .footer-link {
+      color: #aaa;
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+
+    .footer-link:hover {
+      color: white;
+    }
+
+    .footer-bottom {
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      padding-top: 20px;
+      text-align: center;
+      color: #aaa;
+    }
+
+    /* Loading Spinner */
+    .loading-spinner {
+      display: inline-block;
+      width: 20px;
+      height: 20px;
+      border: 3px solid rgba(255, 255, 255, 0.3);
+      border-radius: 50%;
+      border-top-color: white;
+      animation: spin 1s ease-in-out infinite;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    /* Theme Toggle */
+    .theme-toggle {
+      position: fixed;
+      top: 20px;
+      left: 20px;
+      right: auto;
+      background: var(--primary-color);
+      color: #fff;
+      border: none;
+      border-radius: 20px;
+      width: auto;
+      height: 40px;
+      padding: 0 18px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-weight: 600;
+      font-size: 1rem;
+      cursor: pointer;
+      box-shadow: var(--box-shadow);
+      z-index: 9999;
+      transition: background 0.3s, color 0.3s;
+    }
+
+    .theme-toggle:hover {
+      background: #222;
+      color: #fff;
+    }
+
+    @media (max-width: 768px) {
+      .theme-toggle {
+        top: 12px;
+        left: 12px;
+        right: auto;
+        padding: 0 12px;
+        font-size: 0.95rem;
+        height: 36px;
+      }
+    }
+
+    /* Hamburger styles */
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      justify-content: center;
+      width: 36px;
+      height: 36px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      z-index: 200;
+    }
+    .hamburger span {
+      height: 4px;
+      width: 100%;
+      background: var(--primary-color);
+      margin: 4px 0;
+      border-radius: 2px;
+      transition: 0.3s;
+    }
+
+    /* Card entrance animation */
+    @keyframes cardFadeIn {
+      from { opacity: 0; transform: translateY(40px) scale(0.96);}
+      to { opacity: 1; transform: translateY(0) scale(1);}
+    }
+    .answer-card,
+    .stat-card,
+    .subject-card,
+    .question-card {
+      animation: cardFadeIn 0.7s cubic-bezier(.23,1.02,.32,1) both;
+    }
+
+    /* Button hover pop */
+    .btn, .search-btn {
+      transition: transform 0.18s cubic-bezier(.4,2,.6,1), box-shadow 0.18s;
+    }
+    .btn:hover, .search-btn:hover {
+      transform: translateY(-2px) scale(1.06);
+      box-shadow: 0 6px 24px rgba(60, 72, 88, 0.13);
+    }
+
+    /* Floating icon animation for subject and stat icons */
+    @keyframes floatIcon {
+      0%, 100% { transform: translateY(0);}
+      50% { transform: translateY(-8px);}
+    }
+    .subject-icon, .stat-icon {
+      animation: floatIcon 2.5s ease-in-out infinite;
+    }
+
+    /* Fade-in for sections */
+    .section, .hero {
+      opacity: 0;
+      animation: fadeInSection 1s cubic-bezier(.23,1.02,.32,1) 0.2s forwards;
+    }
+    @keyframes fadeInSection {
+      from { opacity: 0; transform: translateY(40px);}
+      to { opacity: 1; transform: translateY(0);}
+    }
+
+    /* Animated underline for nav links */
+    .nav-links a {
+      position: relative;
+      overflow: hidden;
+    }
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      left: 0; bottom: 0;
+      width: 100%;
+      height: 2px;
+      background: var(--primary-color);
+      transform: scaleX(0);
+      transition: transform 0.3s;
+      transform-origin: right;
+    }
+    .nav-links a:hover::after {
+      transform: scaleX(1);
+      transform-origin: left;
+    }
+
+    /* Hamburger icon animation */
+    .hamburger span {
+      transition: all 0.4s cubic-bezier(.4,2,.6,1);
+    }
+    .nav-links.show ~ .hamburger span:nth-child(1) {
+      transform: translateY(8px) rotate(45deg);
+    }
+    .nav-links.show ~ .hamburger span:nth-child(2) {
+      opacity: 0;
+    }
+    .nav-links.show ~ .hamburger span:nth-child(3) {
+      transform: translateY(-8px) rotate(-45deg);
+    }
+
+    /* Tag pop-in animation */
+    .tag {
+      animation: tagPop 0.5s cubic-bezier(.23,1.02,.32,1);
+    }
+    @keyframes tagPop {
+      from { opacity: 0; transform: scale(0.7);}
+      to { opacity: 1; transform: scale(1);}
+    }
+
+    /* Question card hover arrow wiggle */
+    .question-card:hover .question-arrow {
+      animation: wiggleArrow 0.5s;
+    }
+    @keyframes wiggleArrow {
+      0% { transform: translateX(0);}
+      30% { transform: translateX(6px);}
+      60% { transform: translateX(-3px);}
+      100% { transform: translateX(0);}
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .stats {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      
+      .hero h1 {
+        font-size: 2rem;
+      }
+      .hamburger {
+        display: flex;
+      }
+      .nav-links {
+        position: absolute;
+        top: 60px;
+        right: 20px;
+        background: var(--card-bg);
+        flex-direction: column;
+        align-items: stretch; /* Ensures full width */
+        gap: 0;
+        width: 200px;
+        box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+        border-radius: 10px;
+        overflow: hidden;
+        display: none;
+        z-index: 150;
+      }
+      .nav-links.show {
+        display: flex;
+      }
+      .nav-links a,
+      .nav-links button {
+        display: block;
+        padding: 16px 20px;
+        border-radius: 0;
+        text-align: left;
+        width: 100%;
+        border: none;
+        background: none;
+        color: var(--text-color);
+        font-size: 1rem;
+        border-bottom: 1px solid #f0f0f0;
+        margin: 0;
+        box-sizing: border-box;
+      }
+      .nav-links a:last-child,
+      .nav-links button:last-child {
+        border-bottom: none;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .stats {
+        grid-template-columns: 1fr;
+      }
+      .nav-links {
+        top: 56px;
+        right: 10px;
+        width: 90vw;
+        min-width: 0;
+        max-width: 320px;
+      }
+    }
+
+    [data-theme="dark"] .section {
+      background-color: rgba(30, 30, 33, 0.7) !important;
+    }
+
+    .stack {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      align-items: center;
+      justify-content: center;
+      height: 100%;
+    }
+
+    .bar {
+      width: 60px;
+      height: 20px;
+      background-color: rgba(238, 9, 241, 0.595);
+      border-top-left-radius: 20px;
+      border-top-right-radius: 20px;
+    }
+
+    .bar2 {
+      width: 60px;
+      height: 20px;
+      background-color:rgba(238, 9, 241, 0.595);
+      border-bottom-left-radius: 20px;
+      border-bottom-right-radius: 20px;
+    }
+
+    /* Responsive adjustment for mobile hamburger size */
+    @media (max-width: 768px) {
+      .bar, .bar2 {
+        width: 36px;
+        height: 7px;
+      }
+      .stack {
+        gap: 7px;
+      }
+    }
+
+    [data-theme="dark"] .question-card {
+      background: var(--card-bg) !important;
+      border-color: rgba(120, 120, 140, 0.25);
+    }
+
+    [data-theme="dark"] .question-footer,
+    [data-theme="dark"] .question-footer span,
+    [data-theme="dark"] .question-footer i {
+      color: #628ccf !important;
+    }
+    .question-text {
+  color: #111; /* dark text for light mode */
+}
+
+body.dark-mode .question-text {
+  color: #fff; /* light text for dark mode */
+}
+    [data-theme="dark"] .question-text {
+      color: #100f0f !important;
+    }
+
+    [data-theme="dark"] .question-subject {
+      background: rgba(255, 255, 255, 0.1) !important;
+      color: #fff !important;
+    }
+
+    [data-theme="dark"] .tag {
+      background: rgba(255, 255, 255, 0.1) !important;
+      color: #fff !important;
+    }
+
+    /* Center the admission cards */
+.admission-grid {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 32px;
+  margin: 0 auto;
+  max-width: 900px;
+  padding: 30px 0 10px 0;
+}
+
+/* Special glow animation for admission cards */
+@keyframes glow {
+  0% {
+    box-shadow: 0 0 16px 2px var(--subject-color, #43b581), 0 2px 8px rgba(60,72,88,0.10);
+  }
+  50% {
+    box-shadow: 0 0 32px 8px var(--subject-color, #43b581), 0 6px 24px rgba(60,72,88,0.16);
+  }
+  100% {
+    box-shadow: 0 0 16px 2px var(--subject-color, #43b581), 0 2px 8px rgba(60,72,88,0.10);
+  }
+}
+
+/* Entrance animation */
+@keyframes popIn {
+  0% { opacity: 0; transform: scale(0.7) translateY(40px);}
+  80% { opacity: 1; transform: scale(1.05) translateY(-6px);}
+  100% { opacity: 1; transform: scale(1) translateY(0);}
+}
+
+.admission-card {
+  animation: popIn 0.8s cubic-bezier(.23,1.02,.32,1) both, glow 2.5s ease-in-out infinite;
+  border: 2px solid var(--subject-color, #43b581);
+  box-shadow: 0 0 16px 2px var(--subject-color, #43b581), 0 2px 8px rgba(60,72,88,0.10);
+  transition: transform 0.3s, box-shadow 0.3s;
+  z-index: 2;
+  position: relative;
+}
+
+/* Extra hover effect */
+.admission-card:hover {
+  transform: scale(1.07) translateY(-8px) rotateZ(-2deg);
+  box-shadow: 0 0 40px 10px var(--subject-color, #43b581), 0 8px 32px rgba(60,72,88,0.18);
+  border-color: #fff;
+}
+
+/* Responsive for mobile */
+@media (max-width: 900px) {
+  .admission-grid {
+    flex-direction: column;
+    gap: 20px;
+    align-items: stretch;
+  }
+}
+/* Admission Helper Styles */
+.admission-helper {
+  max-width: 900px;
+  margin: 0 auto;
+  background: var(--card-bg);
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  border: 1px solid rgba(0, 123, 255, 0.15);
+  animation: floatHelper 6s ease-in-out infinite;
+}
+
+@keyframes floatHelper {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-12px); }
+}
+
+.helper-header {
+  background: linear-gradient(135deg, #4a6bff, #00b4d8);
+  color: white;
+  padding: 30px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.helper-header::before {
+  content: "";
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0) 70%);
+  animation: rotateGradient 20s linear infinite;
+}
+
+@keyframes rotateGradient {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.helper-icon {
+  width: 80px;
+  height: 80px;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 20px;
+  font-size: 36px;
+  animation: pulseIcon 2s ease-in-out infinite;
+}
+
+@keyframes pulseIcon {
+  0%, 100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(255,255,255,0.4); }
+  50% { transform: scale(1.05); box-shadow: 0 0 0 15px rgba(255,255,255,0); }
+}
+
+.helper-header h3 {
+  font-size: 28px;
+  margin-bottom: 10px;
+  font-weight: 700;
+}
+
+.helper-header p {
+  opacity: 0.9;
+}
+
+.path-selector {
+  display: flex;
+  gap: 25px;
+  padding: 40px 30px;
+}
+
+.path-card {
+  flex: 1;
+  background: var(--card-bg);
+  border-radius: 16px;
+  padding: 25px;
+  text-align: center;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+}
+
+.path-card:hover {
+  transform: translateY(-10px) scale(1.03);
+  box-shadow: 0 12px 25px rgba(0, 0, 0, 0.1);
+  z-index: 2;
+}
+
+.path-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 4px;
+}
+
+.path-card[data-path="science"]::before {
+  background: linear-gradient(to right, #43b581, #2e8b57);
+}
+
+.path-card[data-path="business"]::before {
+  background: linear-gradient(to right, #fbbf24, #f59e0b);
+}
+
+.path-card[data-path="arts"]::before {
+  background: linear-gradient(to right, #e8594a, #dc2626);
+}
+
+.path-card:hover::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, rgba(255,255,255,0.1), rgba(255,255,255,0));
+  z-index: -1;
+  animation: shine 1.5s ease-in-out;
+}
+
+@keyframes shine {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+
+.path-icon {
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 20px;
+  font-size: 30px;
+  color: white;
+  transition: transform 0.3s;
+}
+
+.path-card[data-path="science"] .path-icon {
+  background: linear-gradient(135deg, #43b581, #2e8b57);
+}
+
+.path-card[data-path="business"] .path-icon {
+  background: linear-gradient(135deg, #fbbf24, #f59e0b);
+}
+
+.path-card[data-path="arts"] .path-icon {
+  background: linear-gradient(135deg, #e8594a, #dc2626);
+}
+
+.path-card:hover .path-icon {
+  transform: scale(1.1) rotate(5deg);
+  animation: bounce 0.8s ease;
+}
+
+@keyframes bounce {
+  0%, 20%, 50%, 80%, 100% {transform: translateY(0);}
+  40% {transform: translateY(-20px);}
+  60% {transform: translateY(-10px);}
+}
+
+.path-card h4 {
+  font-size: 20px;
+  margin-bottom: 15px;
+  color: var(--text-color);
+}
+
+.path-progress {
+  height: 12px;
+  background: rgba(0, 0, 0, 0.08);
+  border-radius: 6px;
+  overflow: hidden;
+  margin-bottom: 10px;
+}
+
+.progress-bar {
+  height: 100%;
+  border-radius: 6px;
+  transition: width 1s ease-in-out;
+}
+
+.path-card p {
+  font-size: 14px;
+  color: var(--secondary-color);
+}
+
+.helper-footer {
+  padding: 0 30px 30px;
+  text-align: center;
+}
+
+.helper-footer .btn {
+  padding: 14px 32px;
+  font-size: 18px;
+  border-radius: 50px;
+  box-shadow: 0 6px 20px rgba(74, 107, 255, 0.3);
+  transition: all 0.3s;
+  gap: 15px;
+  margin-top: 20px; /* Add space above the footer */
+  border-top: 1px solid #e5e7eb;
+}
+
+.helper-footer .btn:hover {
+  transform: translateY(-4px) scale(1.05);
+  box-shadow: 0 10px 25px rgba(74, 107, 255, 0.4);
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+  .path-selector {
+    flex-direction: column;
+    gap: 20px;
+  }
+  
+  .path-card {
+    max-width: 400px;
+    margin: 0 auto;
+  }
+}
+
+@media (max-width: 600px) {
+  .helper-header {
+    padding: 20px 15px;
+  }
+  
+  .helper-icon {
+    width: 60px;
+    height: 60px;
+    font-size: 28px;
+  }
+  
+  .helper-header h3 {
+    font-size: 24px;
+  }
+  
+  .path-selector {
+    padding: 25px 15px;
+  }
+}
+  </style>
+</head>
+<body>
+  <!-- Theme Toggle -->
+  <button class="theme-toggle" id="themeToggle">
+    <i class="fas fa-moon"></i>
+  </button>
+
+  <!-- Navigation -->
+  <nav>
+    <div class="nav-container">
+      <div class="logo">
+        <div class="logo-icon">
+          <i class="fas fa-book-open"></i>
+        </div>
+        <span>শিক্ষা গাইড বিডি</span>
+      </div>
+      <!-- Hamburger for mobile -->
+      <button class="hamburger" id="hamburgerBtn" aria-label="Toggle menu">
+        <div class="stack">
+          <div class="bar"></div>
+          <div class="bar2"></div>
+          <div class="bar"></div>
+          <div class="bar2"></div>
+        </div>
+      </button>
+      <div class="nav-links" id="navLinks">
+        <a href="#">হোম</a>
+        <a href="#">বিষয়সমূহ</a>
+        <a href="#">প্রশ্ন করুন</a>
+        <a href="#">সম্পর্কে</a>
+        <!-- <button class="btn btn-outline">Kog In</button> --> <!-- Removed as requested -->
+        <a href="login.html" class="btn btn-outline">লগইন</a>
+        <a href="login.html" class="btn btn-primary">নিবন্ধন</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <h1>আপনার <span>শিক্ষার সহায়ক</span></h1>
+    <p>বাংলাদেশের সব বিষয়ের প্রশ্নের উত্তর পান। আমাদের এআই চালিত প্ল্যাটফর্মে আপনার পড়াশোনার সমস্যার সমাধান খুঁজুন।</p>
+    
+    <!-- Search Section -->
+    <div class="search-container">
+      <input type="text" class="search-input" placeholder="আপনার প্রশ্ন এখানে লিখুন... (উদাহরণ: বাংলাদেশের জাতীয় ফুল কী?)" id="questionInput">
+      <button class="search-btn" id="searchBtn">
+        <i class="fas fa-search"></i>
+        খুঁজুন
+      </button>
+    </div>
+    
+    <!-- Answer Section (Initially hidden) -->
+    <div class="answer-card" id="answerCard" style="display: none;">
+      <div class="answer-header">
+        <h3><i class="fas fa-comment-dots"></i> প্রশ্ন ও উত্তর</h3>
+      </div>
+      <div class="answer-content" id="answerContent">
+        <!-- Content will be inserted here by JavaScript -->
+      </div>
+    </div>
+    
+    <!-- Stats -->
+    <div class="stats">
+      <div class="stat-card">
+        <div class="stat-icon">
+          <i class="fas fa-users"></i>
+        </div>
+        <div class="stat-value">৫০,০০০+</div>
+        <div class="stat-label">শিক্ষার্থী</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon">
+          <i class="fas fa-book-open"></i>
+        </div>
+        <div class="stat-value">১,৫০০+</div>
+        <div class="stat-label">সমাধানকৃত প্রশ্ন</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon">
+          <i class="fas fa-award"></i>
+        </div>
+        <div class="stat-value">৯৮%</div>
+        <div class="stat-label">সফলতার হার</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon">
+          <i class="fas fa-star"></i>
+        </div>
+        <div class="stat-value">৪.৮</div>
+        <div class="stat-label">রেটিং</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Subjects Section -->
+  <section class="section" style="background-color: rgba(255, 255, 255, 0.5);">
+    <div class="section-title">
+      <h2>বিষয়ভিত্তিক সহায়তা</h2>
+      <p>আপনার পছন্দের বিষয় নির্বাচন করুন এবং তাৎক্ষণিক সমাধান পান</p>
+    </div>
+
+    <div class="subjects-grid">
+      <div class="subject-card" style="--subject-color: #4a6bff;" data-link="mainSub/physics.html">
+        <div class="subject-icon" style="background-color: var(--subject-color);">
+          <i class="fas fa-flask"></i>
+        </div>
+        <h3 class="subject-name">পদার্থবিজ্ঞান</h3>
+        <p class="subject-count">২৫০+ প্রশ্ন</p>
+      </div>
+      <div class="subject-card" style="--subject-color: #00b4d8;" data-link="mainSub/math.html">
+        <div class="subject-icon" style="background-color: var(--subject-color);">
+          <i class="fas fa-calculator"></i>
+        </div>
+        <h3 class="subject-name">গণিত</h3>
+        <p class="subject-count">৩০০+ প্রশ্ন</p>
+      </div>
+      <div class="subject-card" style="--subject-color: #9d4edd;" data-link="mainSub/chemistry.html">
+        <div class="subject-icon" style="background-color: var(--subject-color);">
+          <i class="fas fa-atom"></i>
+        </div>
+        <h3 class="subject-name">রসায়ন</h3>
+        <p class="subject-count">২০০+ প্রশ্ন</p>
+      </div>
+      <div class="subject-card" style="--subject-color: #f72585;" data-link="mainSub/bangla.html">
+        <div class="subject-icon" style="background-color: var(--subject-color);">
+          <i class="fas fa-language"></i>
+        </div>
+        <h3 class="subject-name">বাংলা</h3>
+        <p class="subject-count">১৮০+ প্রশ্ন</p>
+      </div>
+      <div class="subject-card" style="--subject-color: #ff9e00;" data-link="mainSub/biology.html">
+        <div class="subject-icon" style="background-color: var(--subject-color);">
+          <i class="fas fa-dna"></i>
+        </div>
+        <h3 class="subject-name">জীববিজ্ঞান</h3>
+        <p class="subject-count">২২০+ প্রশ্ন</p>
+      </div>
+      <div class="subject-card" style="--subject-color: #52a9de;" data-link="mainSub/geography.html">
+        <div class="subject-icon" style="background-color: var(--subject-color);">
+          <i class="fas fa-globe-asia"></i>
+        </div>
+        <h3 class="subject-name">ভূগোল</h3>
+        <p class="subject-count">১৫০+ প্রশ্ন</p>
+      </div>
+      <div class="subject-card" style="--subject-color: #5a189a;" data-link="mainSub/history.html">
+        <div class="subject-icon" style="background-color: var(--subject-color);">
+          <i class="fas fa-landmark"></i>
+        </div>
+        <h3 class="subject-name">ইতিহাস</h3>
+        <p class="subject-count">১৭০+ প্রশ্ন</p>
+      </div>
+      <div class="subject-card" style="--subject-color: #00b4d8;" data-link="mainSub/english.html">
+        <div class="subject-icon" style="background-color: var(--subject-color);">
+          <i class="fas fa-book-open"></i>
+        </div>
+        <h3 class="subject-name">ইংরেজি</h3>
+        <p class="subject-count">১৯০+ প্রশ্ন</p>
+      </div>
+      <div class="subject-card" style="--subject-color: #ff6f61;" data-link="mainSub/economics.html">
+        <div class="subject-icon" style="background-color: var(--subject-color);">
+          <i class="fas fa-chart-bar"></i>
+        </div>
+        <h3 class="subject-name">অর্থনীতি</h3>
+        <p class="subject-count">১৪০+ প্রশ্ন</p>
+      </div>
+      <div class="subject-card" style="--subject-color: #43b581;" data-link="mainSub/ict.html">
+        <div class="subject-icon" style="background-color: var(--subject-color);">
+          <i class="fas fa-laptop-code"></i>
+        </div>
+        <h3 class="subject-name">তথ্য ও যোগাযোগ প্রযুক্তি</h3>
+        <p class="subject-count">১৬০+ প্রশ্ন</p>
+      </div>
+      <div class="subject-card" style="--subject-color: #fbbf24;" data-link="mainSub/business.html">
+        <div class="subject-icon" style="background-color: var(--subject-color);">
+          <i class="fas fa-briefcase"></i>
+        </div>
+        <h3 class="subject-name">ব্যবসায় শিক্ষা</h3>
+        <p class="subject-count">১২৫+ প্রশ্ন</p>
+      </div>
+      <div class="subject-card" style="--subject-color: #e8594a;" data-link="mainSub/political Science.html">
+        <div class="subject-icon" style="background-color: var(--subject-color);">
+          <i class="fas fa-palette"></i>
+        </div>
+        <h3 class="subject-name">রাষ্ট্রবিজ্ঞান</h3>
+        <p class="subject-count">১০০+ প্রশ্ন</p> 
+      </div>
+      <div class="subject-card" style="--subject-color: #6c757d;" data-link="mainSub/psychology.html">
+        <div class="subject-icon" style="background-color: var(--subject-color);">
+          <i class="fas fa-brain"></i>
+        </div>
+        <h3 class="subject-name">মনোবিজ্ঞান</h3>
+        <p class="subject-count">৮০+ প্রশ্ন</p>
+      </div>
+      <!-- Three new cards -->
+      <div class="subject-card" style="--subject-color: #00c49a;" data-link="mainSub/islamic-studies.html">
+        <div class="subject-icon" style="background-color: var(--subject-color);">
+          <i class="fas fa-mosque"></i>
+        </div>
+        <h3 class="subject-name">ইসলাম শিক্ষা</h3>
+        <p class="subject-count">৯০+ প্রশ্ন</p>
+      </div>
+      <div class="subject-card" style="--subject-color: #b5651d;" data-link="mainSub/agriculture.html">
+        <div class="subject-icon" style="background-color: var(--subject-color);">
+          <i class="fas fa-seedling"></i>
+        </div>
+        <h3 class="subject-name">কৃষি শিক্ষা</h3>
+        <p class="subject-count">৭৫+ প্রশ্ন</p>
+      </div>
+      <div class="subject-card" style="--subject-color: #1976d2;" data-link="mainSub/arts.html">
+        <div class="subject-icon" style="background-color: var(--subject-color);">
+          <i class="fas fa-paint-brush"></i>
+        </div>
+        <h3 class="subject-name">চারু ও কারুকলা</h3>
+        <p class="subject-count">৬০+ প্রশ্ন</p>
+      </div>
+    </div>
+  </section>
+
+ <!-- Admission Section -->
+<section class="section" style="background-color: rgba(240, 247, 255, 0.7);">
+  <div class="section-title">
+    <h2>ভর্তি সহায়তা</h2>
+    <p>বিজ্ঞান, বাণিজ্য ও মানবিক শাখার ভর্তি তথ্য ও প্রস্তুতি</p>
+  </div>
+ <!-- Admission Helper Container -->
+<div class="admission-helper">
+  <div class="helper-header">
+    <div class="helper-icon">
+      <i class="fas fa-graduation-cap"></i>
+    </div>
+    <h3>ভর্তি প্রস্তুতি সহায়িকা</h3>
+    <p>আপনার কাঙ্ক্ষিত শাখা নির্বাচন করুন এবং সম্পূর্ণ ভর্তি গাইডলাইন পান</p>
+  </div>
+
+  <!-- No subject or path cards here -->
+
+  <div class="helper-footer">
+    <a href="add.html" class="btn btn-primary">
+      সম্পূর্ণ গাইড ডাউনলোড করুন
+      <i class="fas fa-download"></i>
+    </a>
+  </div>
+</div>
+
+
+
+  <!-- Popular Questions Section -->
+  <section class="section">
+    <div class="section-title">
+      <h2>জনপ্রিয় প্রশ্নসমূহ</h2>
+      <p>অন্যান্য শিক্ষার্থীদের সবচেয়ে জিজ্ঞাসিত প্রশ্নগুলো দেখুন</p>
+    </div>
+    
+    <div class="questions-grid">
+      <div class="question-card">
+        <div class="question-meta">
+          <span class="question-subject">ইতিহাস</span>
+          <span class="question-views"><i class="fas fa-eye"></i> ১২৫০</span>
+        </div>
+        <p class="question-text">বাংলাদেশের মুক্তিযুদ্ধ কত সালে হয়েছিল?</p>
+        <div class="question-footer">
+          <span class="question-time"><i class="far fa-clock"></i> ২ ঘন্টা আগে</span>
+          <i class="fas fa-chevron-right question-arrow"></i>
+        </div>
+      </div>
+      <div class="question-card">
+        <div class="question-meta">
+          <span class="question-subject">রসায়ন</span>
+          <span class="question-views"><i class="fas fa-eye"></i> ৯৮০</span>
+        </div>
+        <p class="question-text">পানির রাসায়নিক সংকেত কী?</p>
+        <div class="question-footer">
+          <span class="question-time"><i class="far fa-clock"></i> ৩ ঘন্টা আগে</span>
+          <i class="fas fa-chevron-right question-arrow"></i>
+        </div>
+      </div>
+      <div class="question-card">
+        <div class="question-meta">
+          <span class="question-subject">গণিত</span>
+          <span class="question-views"><i class="fas fa-eye"></i> ১১০০</span>
+        </div>
+        <p class="question-text">পিথাগোরাসের উপপাদ্য কী?</p>
+        <div class="question-footer">
+          <span class="question-time"><i class="far fa-clock"></i> ৫ ঘন্টা আগে</span>
+          <i class="fas fa-chevron-right question-arrow"></i>
+        </div>
+      </div>
+      <div class="question-card">
+        <div class="question-meta">
+          <span class="question-subject">জীববিজ্ঞান</span>
+          <span class="question-views"><i class="fas fa-eye"></i> ৮৫০</span>
+        </div>
+        <p class="question-text">কোষ বিভাজনের প্রকারভেদ কয়টি?</p>
+        <div class="question-footer">
+          <span class="question-time"><i class="far fa-clock"></i> ৭ ঘন্টা আগে</span>
+          <i class="fas fa-chevron-right question-arrow"></i>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-container">
+      <div class="footer-grid">
+        <div>
+          <div class="footer-logo">
+            <div class="footer-logo-icon">
+              <i class="fas fa-book-open"></i>
+            </div>
+            <span class="footer-logo-text">শিক্ষা গাইড বিডি</span>
+          </div>
+          <p class="footer-about">বাংলাদেশের শিক্ষার্থীদের জন্য একটি আধুনিক শিক্ষা প্ল্যাটফর্ম</p>
+          <div class="footer-social">
+            <div class="footer-social-icon">
+              <i class="fab fa-facebook-f"></i>
+            </div>
+            <div class="footer-social-icon">
+              <i class="fab fa-twitter"></i>
+            </div>
+            <div class="footer-social-icon">
+              <i class="fab fa-instagram"></i>
+            </div>
+            <div class="footer-social-icon">
+              <i class="fab fa-youtube"></i>
+            </div>
+          </div>
+        </div>
+        
+        <div>
+          <h4 class="footer-heading">বিষয়সমূহ</h4>
+          <div class="footer-links">
+            <a href="#" class="footer-link">গণিত</a>
+            <a href="#" class="footer-link">পদার্থবিজ্ঞান</a>
+            <a href="#" class="footer-link">রসায়ন</a>
+            <a href="#" class="footer-link">জীববিজ্ঞান</a>
+          </div>
+        </div>
+        
+        <div>
+          <h4 class="footer-heading">সেবাসমূহ</h4>
+          <div class="footer-links">
+            <a href="#" class="footer-link">প্রশ্ন সমাধান</a>
+            <a href="#" class="footer-link">টিউটোরিয়াল</a>
+            <a href="#" class="footer-link">পরীক্ষার প্রস্তুতি</a>
+            <a href="#" class="footer-link">অনলাইন কোর্স</a>
+          </div>
+        </div>
+        
+        <div>
+          <h4 class="footer-heading">যোগাযোগ</h4>
+          <div class="footer-links">
+            <a href="#" class="footer-link">সহায়তা</a>
+            <a href="#" class="footer-link">নীতিমালা</a>
+            <a href="#" class="footer-link">শর্তাবলী</a>
+            <a href="#" class="footer-link">গোপনীয়তা</a>
+          </div>
+        </div>
+      </div>
+      
+      <div class="footer-bottom">
+        <p>© ২০২৫ শিক্ষা গাইড বিডি। সকল অধিকার সংরক্ষিত।</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- External JavaScript file -->
+  <!-- External JavaScript file -->
+  <script src="script.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const searchBtn = document.getElementById('searchBtn');
+      const questionInput = document.getElementById('questionInput');
+      const answerCard = document.getElementById('answerCard');
+      const answerContent = document.getElementById('answerContent');
+
+      // Handle search button click
+      searchBtn.addEventListener('click', searchQuestion);
+
+      // Handle Enter key in input field
+      questionInput.addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') searchQuestion();
+      });
+
+      async function searchQuestion() {
+        const question = questionInput.value.trim();
+        if (!question) return;
+
+        try {
+          const response = await fetch('http://localhost:8000/generate', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              question: question,
+              subject: "General",      // Default subject
+              guidebook_style: "Standard"  // Default style
+            })
+          });
+
+          if (!response.ok) throw new Error(await response.text());
+          
+          const data = await response.json();
+          displayAnswer(question, data);
+        } catch (error) {
+          console.error('Error:', error);
+          answerContent.innerHTML = `<div class="error">ত্রুটি: ${error.message || 'সার্ভার সমস্যা'}</div>`;
+          answerCard.style.display = 'block';
+        }
+      }
+
+      function displayAnswer(question, data) {
+        answerContent.innerHTML = `
+          <div class="question">
+            <strong>প্রশ্ন:</strong> ${escapeHTML(question)}
+          </div>
+          <div class="answer">
+            <strong>উত্তর:</strong> ${escapeHTML(data.answer)}
+          </div>
+          <div class="english-answer">
+            <strong>English:</strong> ${escapeHTML(data.english_answer)}
+          </div>
+          <div class="meta">
+            <span class="tags"><strong>ট্যাগ:</strong> ${data.tags.join(', ')}</span>
+            <span class="source"><strong>সূত্র:</strong> ${escapeHTML(data.source)}</span>
+          </div>
+        `;
+        answerCard.style.display = 'block';
+      }
+
+      // Basic HTML sanitization
+      function escapeHTML(str) {
+        return str.replace(/[&<>]/g, 
+          tag => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;' }[tag]));
+      }
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,1612 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>কৃষি শিক্ষা | ৬ষ্ঠ-১০ম শ্রেণী</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Bengali:wght@400;700&display=swap" rel="stylesheet">
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: '#4caf50',
+            secondary: '#8bc34a',
+            accent: '#ffc107',
+            crop: '#81c784',
+            soil: '#a1887f',
+            water: '#4fc3f7',
+            animal: '#ffb74d',
+          },
+          fontFamily: {
+            'bengali': ['Noto Sans Bengali', 'sans-serif'],
+          },
+          boxShadow: {
+            'custom': '0 4px 12px rgba(0, 0, 0, 0.1)',
+            'dark': '0 4px 12px rgba(0, 0, 0, 0.3)',
+          }
+        }
+      }
+    }
+  </script>
+  <!-- Three.js for 3D models -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.min.js"></script>
+  <style>
+    :root {
+      --primary-color: #4caf50;
+      --secondary-color: #8bc34a;
+      --accent-color: #ffc107;
+      --text-color: #2e3d33;
+      --bg-color: #f8f9fa;
+      --card-bg: #ffffff;
+      --border-radius: 12px;
+      --box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      --transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      --crop-color: #81c784;
+      --soil-color: #a1887f;
+      --water-color: #4fc3f7;
+      --animal-color: #ffb74d;
+    }
+
+    [data-theme="dark"] {
+      --primary-color: #66bb6a;
+      --secondary-color: #9ccc65;
+      --accent-color: #ffca28;
+      --text-color: #e8f5e9;
+      --bg-color: #121212;
+      --card-bg: #1e1e1e;
+      --box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+      --crop-color: #66bb6a;
+      --soil-color: #8d6e63;
+      --water-color: #29b6f6;
+      --animal-color: #ffa726;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Noto Sans Bengali', sans-serif;
+      background-color: var(--bg-color);
+      color: var(--text-color);
+      line-height: 1.6;
+      position: relative;
+      min-height: 100vh;
+      overflow-x: hidden;
+      background-image: url('https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1920&q=80');
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
+      transition: var(--transition);
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.4);
+      z-index: -1;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    /* Navigation */
+    nav {
+      background: rgba(76, 175, 80, 0.95);
+      backdrop-filter: blur(10px);
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .nav-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      height: 70px;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 1.4rem;
+      font-weight: bold;
+      color: white;
+    }
+
+    .logo-icon {
+      width: 40px;
+      height: 40px;
+      background: white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--primary-color);
+      animation: grow 3s ease-in-out infinite;
+    }
+
+    @keyframes grow {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.1); }
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 25px;
+      align-items: center;
+    }
+
+    .nav-links a {
+      color: white;
+      text-decoration: none;
+      font-weight: 500;
+      transition: var(--transition);
+      position: relative;
+      padding: 5px 0;
+    }
+
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0;
+      height: 3px;
+      background: var(--accent-color);
+      transition: var(--transition);
+    }
+
+    .nav-links a:hover::after {
+      width: 100%;
+    }
+
+    .theme-toggle {
+      background: rgba(255, 255, 255, 0.2);
+      color: white;
+      border: none;
+      border-radius: 30px;
+      width: 50px;
+      height: 50px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+
+    .theme-toggle:hover {
+      background: rgba(255, 255, 255, 0.3);
+      transform: rotate(15deg);
+    }
+
+    /* Hero Section */
+    .hero {
+      padding: 100px 0 60px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(135deg, rgba(76, 175, 80, 0.8) 0%, rgba(139, 195, 74, 0.9) 100%);
+      z-index: -1;
+      clip-path: polygon(0 0, 100% 0, 100% 85%, 0 100%);
+    }
+
+    .hero-content {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 40px 20px;
+    }
+
+    .hero h1 {
+      font-size: 2.8rem;
+      font-weight: 800;
+      margin-bottom: 20px;
+      color: white;
+      text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+      opacity: 0;
+      transform: translateY(40px);
+      animation: heroTitleFadeIn 1s cubic-bezier(.23,1.02,.32,1) 0.2s forwards;
+    }
+
+    @keyframes heroTitleFadeIn {
+      from { opacity: 0; transform: translateY(40px);}
+      to { opacity: 1; transform: translateY(0);}
+    }
+
+    .hero p {
+      font-size: 1.3rem;
+      color: rgba(255, 255, 255, 0.95);
+      margin: 0 auto 40px;
+      line-height: 1.8;
+      opacity: 0;
+      transform: translateY(40px);
+      animation: heroTextFadeIn 1s cubic-bezier(.23,1.02,.32,1) 0.7s forwards;
+    }
+
+    @keyframes heroTextFadeIn {
+      from { opacity: 0; transform: translateY(40px);}
+      to { opacity: 1; transform: translateY(0);}
+    }
+
+    .grade-buttons {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 15px;
+      margin-top: 30px;
+    }
+
+    .grade-btn {
+      padding: 12px 25px;
+      border-radius: 30px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: var(--transition);
+      border: 2px solid white;
+      background: rgba(255, 255, 255, 0.2);
+      color: white;
+      font-size: 1.1rem;
+    }
+
+    .grade-btn:hover, .grade-btn.active {
+      background: var(--accent-color);
+      color: #333;
+      transform: translateY(-5px);
+    }
+
+    /* Curriculum Section */
+    .curriculum {
+      padding: 80px 0;
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(10px);
+    }
+
+    .section-title {
+      text-align: center;
+      margin-bottom: 50px;
+    }
+
+    .section-title h2 {
+      font-size: 2.5rem;
+      font-weight: 700;
+      margin-bottom: 15px;
+      color: var(--text-color);
+      position: relative;
+      display: inline-block;
+    }
+
+    .section-title h2::after {
+      content: '';
+      position: absolute;
+      bottom: -10px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 80px;
+      height: 4px;
+      background: var(--primary-color);
+      border-radius: 2px;
+    }
+
+    .section-title p {
+      color: var(--text-color);
+      max-width: 700px;
+      margin: 0 auto;
+      font-size: 1.2rem;
+      opacity: 0.9;
+    }
+
+    .topics-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 25px;
+    }
+
+    .topic-card {
+      background: var(--card-bg);
+      border-radius: var(--border-radius);
+      padding: 30px;
+      text-align: center;
+      box-shadow: var(--box-shadow);
+      transition: var(--transition);
+      position: relative;
+      overflow: hidden;
+      cursor: pointer;
+      border: 1px solid rgba(0, 0, 0, 0.05);
+      transform: translateY(30px);
+      opacity: 0;
+    }
+
+    .topic-card.appear {
+      transform: translateY(0);
+      opacity: 1;
+    }
+
+    .topic-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+    }
+
+    .topic-icon {
+      width: 70px;
+      height: 70px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 20px;
+      color: white;
+      font-size: 1.8rem;
+      transition: var(--transition);
+    }
+
+    .crop-icon {
+      background: var(--crop-color);
+    }
+
+    .soil-icon {
+      background: var(--soil-color);
+    }
+
+    .water-icon {
+      background: var(--water-color);
+    }
+
+    .animal-icon {
+      background: var(--animal-color);
+    }
+
+    .topic-card:hover .topic-icon {
+      transform: scale(1.2) rotate(10deg);
+    }
+
+    .topic-title {
+      font-size: 1.4rem;
+      font-weight: 700;
+      margin-bottom: 15px;
+      color: var(--text-color);
+    }
+
+    .topic-desc {
+      color: var(--text-color);
+      opacity: 0.9;
+      font-size: 1rem;
+      line-height: 1.7;
+    }
+
+    /* Textbook Section */
+    .textbooks {
+      padding: 80px 0;
+    }
+
+    .books-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 30px;
+    }
+
+    .book-card {
+      background: var(--card-bg);
+      border-radius: var(--border-radius);
+      overflow: hidden;
+      box-shadow: var(--box-shadow);
+      transition: var(--transition);
+      transform: scale(0.95);
+      opacity: 0;
+    }
+
+    .book-card.appear {
+      transform: scale(1);
+      opacity: 1;
+    }
+
+    .book-card:hover {
+      transform: translateY(-10px) scale(1.03);
+      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+    }
+
+    .book-img {
+      height: 200px;
+      background: #e0f2f1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    .book-img i {
+      font-size: 6rem;
+      color: var(--primary-color);
+      opacity: 0.7;
+    }
+
+    .book-content {
+      padding: 25px;
+    }
+
+    .book-title {
+      font-size: 1.3rem;
+      font-weight: 700;
+      margin-bottom: 10px;
+      color: var(--text-color);
+    }
+
+    .book-grade {
+      color: var(--primary-color);
+      font-weight: 600;
+      margin-bottom: 15px;
+      display: block;
+    }
+
+    .book-desc {
+      color: var(--text-color);
+      opacity: 0.9;
+      margin-bottom: 20px;
+      line-height: 1.7;
+    }
+
+    .book-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--primary-color);
+      text-decoration: none;
+      font-weight: 600;
+      transition: var(--transition);
+    }
+
+    .book-link:hover {
+      gap: 12px;
+    }
+
+    /* Practical Section */
+    .practical {
+      padding: 80px 0;
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(10px);
+    }
+
+    .practical-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 30px;
+    }
+
+    .practical-card {
+      background: var(--card-bg);
+      border-radius: var(--border-radius);
+      padding: 30px;
+      text-align: center;
+      box-shadow: var(--box-shadow);
+      transition: var(--transition);
+      position: relative;
+      overflow: hidden;
+      cursor: pointer;
+      border: 1px solid rgba(0, 0, 0, 0.05);
+      transform: translateX(-50px);
+      opacity: 0;
+    }
+
+    .practical-card.appear {
+      transform: translateX(0);
+      opacity: 1;
+    }
+
+    .practical-card:nth-child(2) {
+      transition-delay: 0.2s;
+    }
+
+    .practical-card:nth-child(3) {
+      transition-delay: 0.4s;
+    }
+
+    .practical-card:hover {
+      transform: translateY(-10px) rotate(2deg);
+      box-shadow: 0 20px 35px rgba(0, 0, 0, 0.2);
+    }
+
+    .practical-icon {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 25px;
+      color: white;
+      font-size: 2rem;
+      background: var(--primary-color);
+      transition: var(--transition);
+    }
+
+    .practical-card:hover .practical-icon {
+      transform: scale(1.2);
+    }
+
+    .practical-title {
+      font-size: 1.4rem;
+      font-weight: 700;
+      margin-bottom: 15px;
+      color: var(--text-color);
+    }
+
+    .practical-desc {
+      color: var(--text-color);
+      opacity: 0.9;
+      font-size: 1rem;
+      line-height: 1.7;
+    }
+    
+    /* 3D Models Section */
+    .model-section {
+      padding: 80px 0;
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(10px);
+    }
+    
+    .model-container {
+      background: var(--card-bg);
+      border-radius: var(--border-radius);
+      overflow: hidden;
+      box-shadow: var(--box-shadow);
+      height: 500px;
+      position: relative;
+    }
+    
+    .model-selector {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      margin-bottom: 30px;
+      flex-wrap: wrap;
+    }
+    
+    .model-btn {
+      padding: 10px 20px;
+      border-radius: 30px;
+      background: var(--primary-color);
+      color: white;
+      border: none;
+      cursor: pointer;
+      transition: var(--transition);
+      font-weight: 600;
+    }
+    
+    .model-btn:hover, .model-btn.active {
+      background: var(--accent-color);
+      color: #333;
+    }
+    
+    .model-info {
+      position: absolute;
+      bottom: 20px;
+      left: 20px;
+      background: rgba(0, 0, 0, 0.7);
+      color: white;
+      padding: 15px;
+      border-radius: var(--border-radius);
+      max-width: 400px;
+      z-index: 10;
+      backdrop-filter: blur(5px);
+    }
+    
+    .model-title {
+      font-size: 1.3rem;
+      margin-bottom: 10px;
+      color: var(--accent-color);
+    }
+
+    /* Footer */
+    footer {
+      background: linear-gradient(to right, #2e7d32, #1b5e20);
+      color: white;
+      padding: 60px 0 20px;
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 40px;
+      margin-bottom: 40px;
+    }
+
+    .footer-logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+
+    .footer-logo-icon {
+      width: 40px;
+      height: 40px;
+      background: white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--primary-color);
+    }
+
+    .footer-logo-text {
+      font-weight: bold;
+      font-size: 1.4rem;
+    }
+
+    .footer-about {
+      color: rgba(255, 255, 255, 0.85);
+      margin-bottom: 20px;
+      line-height: 1.8;
+    }
+
+    .footer-social {
+      display: flex;
+      gap: 15px;
+    }
+
+    .footer-social-icon {
+      width: 40px;
+      height: 40px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+
+    .footer-social-icon:hover {
+      background: rgba(255, 255, 255, 0.2);
+      transform: translateY(-5px);
+    }
+
+    .footer-heading {
+      font-weight: 600;
+      margin-bottom: 25px;
+      font-size: 1.3rem;
+      position: relative;
+      padding-bottom: 10px;
+    }
+
+    .footer-heading::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 50px;
+      height: 3px;
+      background: var(--accent-color);
+    }
+
+    .footer-links {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+
+    .footer-link {
+      color: rgba(255, 255, 255, 0.85);
+      text-decoration: none;
+      transition: var(--transition);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .footer-link:hover {
+      color: white;
+      gap: 15px;
+    }
+
+    .footer-link i {
+      color: var(--accent-color);
+    }
+
+    .footer-bottom {
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      padding-top: 20px;
+      text-align: center;
+      color: rgba(255, 255, 255, 0.7);
+      font-size: 0.95rem;
+    }
+
+    /* Animation Classes */
+    @keyframes float {
+      0% { transform: translateY(0px); }
+      50% { transform: translateY(-15px); }
+      100% { transform: translateY(0px); }
+    }
+
+    .floating {
+      animation: float 5s ease-in-out infinite;
+    }
+
+    /* Responsive */
+    @media (max-width: 992px) {
+      .hero h1 {
+        font-size: 2.3rem;
+      }
+      
+      .hero p {
+        font-size: 1.2rem;
+      }
+      
+      .model-container {
+        height: 400px;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .nav-container {
+        height: 60px;
+      }
+      
+      .hero {
+        padding: 80px 0 40px;
+      }
+      
+      .hero h1 {
+        font-size: 2rem;
+      }
+      
+      .section-title h2 {
+        font-size: 2rem;
+      }
+      
+      .nav-links {
+        display: none;
+      }
+      
+      .hamburger {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        width: 36px;
+        height: 36px;
+        background: none;
+        border: none;
+        cursor: pointer;
+        z-index: 200;
+      }
+      
+      .hamburger span {
+        height: 4px;
+        width: 100%;
+        background: white;
+        margin: 4px 0;
+        border-radius: 2px;
+        transition: 0.3s;
+      }
+      
+      .nav-links.show {
+        display: flex;
+        flex-direction: column;
+        position: absolute;
+        top: 70px;
+        left: 0;
+        width: 100%;
+        background: rgba(76, 175, 80, 0.98);
+        padding: 20px;
+        gap: 15px;
+      }
+      
+      .model-container {
+        height: 300px;
+      }
+    }
+
+    @media (max-width: 576px) {
+      .hero-content {
+        padding: 30px 15px;
+      }
+      
+      .hero h1 {
+        font-size: 1.8rem;
+      }
+      
+      .section-title h2 {
+        font-size: 1.8rem;
+      }
+      
+      .grade-buttons {
+        gap: 10px;
+      }
+      
+      .grade-btn {
+        padding: 10px 20px;
+        font-size: 1rem;
+      }
+      
+      .model-container {
+        height: 250px;
+      }
+      
+      .model-info {
+        max-width: 300px;
+        padding: 10px;
+        font-size: 0.9rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Navigation -->
+  <nav>
+    <div class="container nav-container">
+      <div class="logo">
+        <div class="logo-icon">
+          <i class="fas fa-seedling"></i>
+        </div>
+        <span>কৃষি শিক্ষা (৬ষ্ঠ-১০ম শ্রেণী)</span>
+      </div>
+      <div class="nav-links" id="navLinks">
+        <a href="#"><i class="fas fa-home"></i> হোম</a>
+        <a href="#"><i class="fas fa-book"></i> পাঠ্যপুস্তক</a>
+        <a href="#"><i class="fas fa-video"></i> ভিডিও</a>
+        <a href="#"><i class="fas fa-question-circle"></i> কুইজ</a>
+        <a href="#"><i class="fas fa-info-circle"></i> আমাদের সম্পর্কে</a>
+      </div>
+      <button class="theme-toggle" id="themeToggle">
+        <i class="fas fa-moon"></i>
+      </button>
+      <button class="hamburger" id="hamburgerBtn">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="container hero-content">
+      <h1>কৃষি শিক্ষার ডিজিটাল প্ল্যাটফর্ম</h1>
+      <p>বাংলাদেশের ৬ষ্ঠ থেকে ১০ম শ্রেণির শিক্ষার্থীদের জন্য পাঠ্যপুস্তক ভিত্তিক কৃষি শিক্ষার একটি অনন্য প্ল্যাটফর্ম। ফসল উৎপাদন, মৎস্য চাষ, প্রাণিসম্পদ ও আধুনিক কৃষি প্রযুক্তি সম্পর্কে শিখুন সহজ ও আকর্ষণীয় পদ্ধতিতে।</p>
+      
+      <div class="grade-buttons">
+        <button class="grade-btn active">৬ষ্ঠ শ্রেণী</button>
+        <button class="grade-btn">৭ম শ্রেণী</button>
+        <button class="grade-btn">৮ম শ্রেণী</button>
+        <button class="grade-btn">৯ম শ্রেণী</button>
+        <button class="grade-btn">১০ম শ্রেণী</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Curriculum Section -->
+  <section class="curriculum">
+    <div class="container">
+      <div class="section-title">
+        <h2>পাঠ্যক্রমের বিষয়বস্তু</h2>
+        <p>৬ষ্ঠ থেকে ১০ম শ্রেণির কৃষি শিক্ষা পাঠ্যক্রমের গুরুত্বপূর্ণ বিষয়সমূহ</p>
+      </div>
+      
+      <div class="topics-grid">
+        <div class="topic-card floating">
+          <div class="topic-icon crop-icon">
+            <i class="fas fa-wheat-awn"></i>
+          </div>
+          <h3 class="topic-title">ফসল উৎপাদন</h3>
+          <p class="topic-desc">ধান, গম, ভুট্টা, আলু ও অন্যান্য ফসলের আধুনিক চাষাবাদ পদ্ধতি সম্পর্কে জানুন। বাংলাদেশের প্রধান ফসলসমূহের চাষ পদ্ধতি ও পরিচর্যা।</p>
+        </div>
+        
+        <div class="topic-card floating">
+          <div class="topic-icon soil-icon">
+            <i class="fas fa-mountain"></i>
+          </div>
+          <h3 class="topic-title">মৃত্তিকা ও সারের ব্যবহার</h3>
+          <p class="topic-desc">বিভিন্ন ধরনের মৃত্তিকার বৈশিষ্ট্য, মাটির উর্বরতা বৃদ্ধি, জৈব ও রাসায়নিক সারের সঠিক ব্যবহার সম্পর্কে শিখুন।</p>
+        </div>
+        
+        <div class="topic-card floating">
+          <div class="topic-icon water-icon">
+            <i class="fas fa-droplet"></i>
+          </div>
+          <h3 class="topic-title">সেচ ও পানি ব্যবস্থাপনা</h3>
+          <p class="topic-desc">ফসলের জন্য প্রয়োজনীয় সেচ পদ্ধতি, পানির দক্ষ ব্যবহার, এবং জলাবদ্ধতা নিয়ন্ত্রণের আধুনিক কৌশল সম্পর্কে জানুন।</p>
+        </div>
+        
+        <div class="topic-card floating">
+          <div class="topic-icon animal-icon">
+            <i class="fas fa-cow"></i>
+          </div>
+          <h3 class="topic-title">প্রাণিসম্পদ ও হাঁস-মুরগি</h3>
+          <p class="topic-desc">গবাদি পশু, হাঁস-মুরগি ও অন্যান্য প্রাণীর লালন-পালন, রোগ প্রতিরোধ এবং ব্যবস্থাপনা সম্পর্কে শিখুন।</p>
+        </div>
+        
+        <div class="topic-card floating">
+          <div class="topic-icon crop-icon">
+            <i class="fas fa-apple-whole"></i>
+          </div>
+          <h3 class="topic-title">ফল ও সবজি চাষ</h3>
+          <p class="topic-desc">মৌসুমি ফল ও সবজির চাষাবাদ, সংগ্রহোত্তর ব্যবস্থাপনা এবং বাজারজাতকরণের কৌশল সম্পর্কে জানুন।</p>
+        </div>
+        
+        <div class="topic-card floating">
+          <div class="topic-icon water-icon">
+            <i class="fas fa-fish"></i>
+          </div>
+          <h3 class="topic-title">মৎস্য চাষ</h3>
+          <p class="topic-desc">পুকুরে মাছ চাষ, পোনা উৎপাদন, মাছের রোগ ব্যবস্থাপনা এবং লাভজনক মৎস্য চাষের কৌশল সম্পর্কে জানুন।</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Textbook Section -->
+  <section class="textbooks">
+    <div class="container">
+      <div class="section-title">
+        <h2>পাঠ্যপুস্তকসমূহ</h2>
+        <p>৬ষ্ঠ থেকে ১০ম শ্রেণির কৃষি শিক্ষা বিষয়ক পাঠ্যপুস্তক</p>
+      </div>
+      
+      <div class="books-grid">
+        <div class="book-card">
+          <div class="book-img">
+            <i class="fas fa-book"></i>
+          </div>
+          <div class="book-content">
+            <h3 class="book-title">কৃষি শিক্ষা</h3>
+            <span class="book-grade">৬ষ্ঠ শ্রেণী</span>
+            <p class="book-desc">কৃষির প্রাথমিক ধারণা, ফসলের পরিচিতি এবং ছোট পরিসরে কৃষিকাজ সম্পর্কে মৌলিক ধারণা প্রদান করা হয়েছে।</p>
+            <a href="#" class="book-link">
+              পড়ুন <i class="fas fa-arrow-right"></i>
+            </a>
+          </div>
+        </div>
+        
+        <div class="book-card">
+          <div class="book-img">
+            <i class="fas fa-book"></i>
+          </div>
+          <div class="book-content">
+            <h3 class="book-title">কৃষি শিক্ষা</h3>
+            <span class="book-grade">৭ম শ্রেণী</span>
+            <p class="book-desc">মৃত্তিকা পরিচিতি, ফসল চাষের প্রস্তুতি, সেচ ব্যবস্থাপনা এবং প্রাথমিক প্রাণিসম্পদ সম্পর্কে বিস্তারিত আলোচনা করা হয়েছে।</p>
+            <a href="#" class="book-link">
+              পড়ুন <i class="fas fa-arrow-right"></i>
+            </a>
+          </div>
+        </div>
+        
+        <div class="book-card">
+          <div class="book-img">
+            <i class="fas fa-book"></i>
+          </div>
+          <div class="book-content">
+            <h3 class="book-title">কৃষি শিক্ষা</h3>
+            <span class="book-grade">৮ম শ্রেণী</span>
+            <p class="book-desc">ফসলের রোগ ও পোকামাকড় ব্যবস্থাপনা, ফল ও সবজি চাষ, এবং মৎস্য চাষের প্রাথমিক ধারণা প্রদান করা হয়েছে।</p>
+            <a href="#" class="book-link">
+              পড়ুন <i class="fas fa-arrow-right"></i>
+            </a>
+          </div>
+        </div>
+        
+        <div class="book-card">
+          <div class="book-img">
+            <i class="fas fa-book"></i>
+          </div>
+          <div class="book-content">
+            <h3 class="book-title">কৃষি শিক্ষা</h3>
+            <span class="book-grade">৯ম-১০ম শ্রেণী</span>
+            <p class="book-desc">আধুনিক কৃষি প্রযুক্তি, কৃষি অর্থনীতি, কৃষি বিপণন এবং টেকসই কৃষি ব্যবস্থাপনা সম্পর্কে বিস্তারিত আলোচনা করা হয়েছে।</p>
+            <a href="#" class="book-link">
+              পড়ুন <i class="fas fa-arrow-right"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Practical Section -->
+  <section class="practical">
+    <div class="container">
+      <div class="section-title">
+        <h2>ব্যবহারিক শিক্ষা</h2>
+        <p>কৃষি শিক্ষার ব্যবহারিক দিকসমূহ</p>
+      </div>
+      
+      <div class="practical-grid">
+        <div class="practical-card">
+          <div class="practical-icon">
+            <i class="fas fa-vial"></i>
+          </div>
+          <h3 class="practical-title">মাটি পরীক্ষা</h3>
+          <p class="practical-desc">কীভাবে মাটির নমুনা সংগ্রহ করবেন, মাটির pH পরীক্ষা করবেন এবং মাটির স্বাস্থ্য বিশ্লেষণ করবেন তা শিখুন।</p>
+        </div>
+        
+        <div class="practical-card">
+          <div class="practical-icon">
+            <i class="fas fa-seedling"></i>
+          </div>
+          <h3 class="practical-title">বীজ বপন</h3>
+          <p class="practical-desc">সঠিক পদ্ধতিতে বীজ বপন, চারা উৎপাদন এবং চারা রোপণের ব্যবহারিক পদ্ধতি সম্পর্কে জানুন।</p>
+        </div>
+        
+        <div class="practical-card">
+          <div class="practical-icon">
+            <i class="fas fa-spray-can"></i>
+          </div>
+          <h3 class="practical-title">সার ও কীটনাশক প্রয়োগ</h3>
+          <p class="practical-desc">সঠিক মাত্রায় সার ও কীটনাশক প্রয়োগের কৌশল এবং নিরাপদ ব্যবহার সম্পর্কে শিখুন।</p>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <!-- 3D Models Section -->
+  <section class="model-section">
+    <div class="container">
+      <div class="section-title">
+        <h2>কৃষি মডেল</h2>
+        <p>ইন্টারেক্টিভ 3D মডেলের মাধ্যমে কৃষি সম্পর্কে শিখুন</p>
+      </div>
+      
+      <div class="model-selector">
+        <button class="model-btn active" data-model="soil">মৃত্তিকা কাঠামো</button>
+        <button class="model-btn" data-model="plant">উদ্ভিদ বৃদ্ধি</button>
+        <button class="model-btn" data-model="irrigation">সেচ ব্যবস্থা</button>
+        <button class="model-btn" data-model="tractor">কৃষি যন্ত্রপাতি</button>
+      </div>
+      
+      <div class="model-container" id="modelContainer">
+        <div class="model-info">
+          <h3 class="model-title">মৃত্তিকা কাঠামো</h3>
+          <p>এই 3D মডেলটি মাটির বিভিন্ন স্তর দেখায় এবং কীভাবে বিভিন্ন স্তর উদ্ভিদের বৃদ্ধিতে সহায়তা করে তা প্রদর্শন করে।</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <div class="footer-grid">
+        <div>
+          <div class="footer-logo">
+            <div class="footer-logo-icon">
+              <i class="fas fa-seedling"></i>
+            </div>
+            <span class="footer-logo-text">কৃষি শিক্ষা</span>
+          </div>
+          <p class="footer-about">বাংলাদেশের ৬ষ্ঠ থেকে ১০ম শ্রেণির শিক্ষার্থীদের জন্য পাঠ্যপুস্তক ভিত্তিক কৃষি শিক্ষার একটি ডিজিটাল প্ল্যাটফর্ম।</p>
+          <div class="footer-social">
+            <div class="footer-social-icon">
+              <i class="fab fa-facebook-f"></i>
+            </div>
+            <div class="footer-social-icon">
+              <i class="fab fa-youtube"></i>
+            </div>
+            <div class="footer-social-icon">
+              <i class="fab fa-instagram"></i>
+            </div>
+            <div class="footer-social-icon">
+              <i class="fab fa-twitter"></i>
+            </div>
+          </div>
+        </div>
+        
+        <div>
+          <h4 class="footer-heading">দ্রুত লিংক</h4>
+          <div class="footer-links">
+            <a href="#" class="footer-link"><i class="fas fa-arrow-right"></i> হোম</a>
+            <a href="#" class="footer-link"><i class="fas fa-arrow-right"></i> পাঠ্যপুস্তক</a>
+            <a href="#" class="footer-link"><i class="fas fa-arrow-right"></i> ভিডিও লেকচার</a>
+            <a href="#" class="footer-link"><i class="fas fa-arrow-right"></i> কুইজ</a>
+            <a href="#" class="footer-link"><i class="fas fa-arrow-right"></i> ফলাফল</a>
+          </div>
+        </div>
+        
+        <div>
+          <h4 class="footer-heading">শ্রেণি অনুযায়ী</h4>
+          <div class="footer-links">
+            <a href="#" class="footer-link"><i class="fas fa-arrow-right"></i> ৬ষ্ঠ শ্রেণী</a>
+            <a href="#" class="footer-link"><i class="fas fa-arrow-right"></i> ৭ম শ্রেণী</a>
+            <a href="#" class="footer-link"><i class="fas fa-arrow-right"></i> ৮ম শ্রেণী</a>
+            <a href="#" class="footer-link"><i class="fas fa-arrow-right"></i> ৯ম শ্রেণী</a>
+            <a href="#" class="footer-link"><i class="fas fa-arrow-right"></i> ১০ম শ্রেণী</a>
+          </div>
+        </div>
+        
+        <div>
+          <h4 class="footer-heading">যোগাযোগ</h4>
+          <div class="footer-links">
+            <a href="#" class="footer-link"><i class="fas fa-map-marker-alt"></i> ঢাকা, বাংলাদেশ</a>
+            <a href="mailto:info@krishishikha.com" class="footer-link"><i class="fas fa-envelope"></i> info@krishishikha.com</a>
+            <a href="tel:+8801234567890" class="footer-link"><i class="fas fa-phone"></i> +880 1234 567890</a>
+            <a href="#" class="footer-link"><i class="fas fa-clock"></i> শনি-বৃহঃ: সকাল ৯টা - বিকাল ৫টা</a>
+          </div>
+        </div>
+      </div>
+      
+      <div class="footer-bottom">
+        <p>© ২০২৫ কৃষি শিক্ষা প্ল্যাটফর্ম। সকল অধিকার সংরক্ষিত।</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- React-like components -->
+  <script>
+    // Theme Toggle
+    const themeToggle = document.getElementById('themeToggle');
+    const body = document.body;
+    
+    // Check for saved theme preference
+    const savedTheme = localStorage.getItem('theme');
+    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    
+    if (savedTheme === 'dark' || (!savedTheme && prefersDark)) {
+      body.setAttribute('data-theme', 'dark');
+      themeToggle.innerHTML = '<i class="fas fa-sun"></i>';
+    }
+    
+    themeToggle.addEventListener('click', () => {
+      if (body.getAttribute('data-theme') === 'dark') {
+        body.removeAttribute('data-theme');
+        localStorage.setItem('theme', 'light');
+        themeToggle.innerHTML = '<i class="fas fa-moon"></i>';
+      } else {
+        body.setAttribute('data-theme', 'dark');
+        localStorage.setItem('theme', 'dark');
+        themeToggle.innerHTML = '<i class="fas fa-sun"></i>';
+      }
+    });
+    
+    // Mobile menu toggle
+    const hamburgerBtn = document.getElementById('hamburgerBtn');
+    const navLinks = document.getElementById('navLinks');
+    
+    hamburgerBtn.addEventListener('click', () => {
+      navLinks.classList.toggle('show');
+    });
+    
+    // Grade buttons
+    const gradeButtons = document.querySelectorAll('.grade-btn');
+    gradeButtons.forEach(button => {
+      button.addEventListener('click', () => {
+        gradeButtons.forEach(btn => btn.classList.remove('active'));
+        button.classList.add('active');
+      });
+    });
+    
+    // Scroll animations
+    const animateOnScroll = () => {
+      const elements = document.querySelectorAll('.topic-card, .book-card, .practical-card');
+      const windowHeight = window.innerHeight;
+      
+      elements.forEach(element => {
+        const elementPosition = element.getBoundingClientRect().top;
+        
+        if (elementPosition < windowHeight - 100) {
+          element.classList.add('appear');
+        }
+      });
+    };
+    
+    // Initialize animations
+    window.addEventListener('load', animateOnScroll);
+    window.addEventListener('scroll', animateOnScroll);
+    
+    // Card hover effect
+    const cards = document.querySelectorAll('.topic-card, .book-card, .practical-card');
+    cards.forEach(card => {
+      card.addEventListener('mouseenter', () => {
+        card.style.transform = card.classList.contains('topic-card') ? 
+          'translateY(-15px) rotate(3deg)' : 
+          'translateY(-10px) scale(1.03)';
+      });
+      
+      card.addEventListener('mouseleave', () => {
+        card.style.transform = '';
+      });
+    });
+    
+    // Floating animation for topic cards
+    const topicCards = document.querySelectorAll('.topic-card');
+    topicCards.forEach((card, index) => {
+      card.style.animationDelay = `${index * 0.2}s`;
+    });
+    
+    // 3D Model Viewer
+    class ModelViewer {
+      constructor(containerId) {
+        this.container = document.getElementById(containerId);
+        this.scene = null;
+        this.camera = null;
+        this.renderer = null;
+        this.controls = null;
+        this.model = null;
+        this.currentModel = 'soil';
+        this.info = this.container.querySelector('.model-info');
+        
+        this.init();
+      }
+      
+      init() {
+        // Create scene
+        this.scene = new THREE.Scene();
+        this.scene.background = new THREE.Color(0xf0f9ff);
+        
+        // Create camera
+        this.camera = new THREE.PerspectiveCamera(
+          75,
+          this.container.clientWidth / this.container.clientHeight,
+          0.1,
+          1000
+        );
+        this.camera.position.z = 5;
+        
+        // Create renderer
+        this.renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+        this.renderer.setSize(
+          this.container.clientWidth,
+          this.container.clientHeight
+        );
+        this.container.innerHTML = '';
+        this.container.appendChild(this.renderer.domElement);
+        
+        // Add controls
+        this.controls = new THREE.OrbitControls(this.camera, this.renderer.domElement);
+        this.controls.enableDamping = true;
+        this.controls.dampingFactor = 0.05;
+        
+        // Add lighting
+        const ambientLight = new THREE.AmbientLight(0xffffff, 0.6);
+        this.scene.add(ambientLight);
+        
+        const directionalLight = new THREE.DirectionalLight(0xffffff, 0.8);
+        directionalLight.position.set(10, 20, 15);
+        this.scene.add(directionalLight);
+        
+        // Add info panel
+        this.container.appendChild(this.info);
+        
+        // Load initial model
+        this.loadModel(this.currentModel);
+        
+        // Handle window resize
+        window.addEventListener('resize', () => this.onWindowResize());
+        
+        // Start animation
+        this.animate();
+      }
+      
+      loadModel(modelType) {
+        // Clear previous model
+        if (this.model) {
+          this.scene.remove(this.model);
+        }
+        
+        // Create new model based on type
+        let geometry, material;
+        
+        switch(modelType) {
+          case 'soil':
+            // Soil layers model
+            geometry = this.createSoilLayers();
+            material = new THREE.MeshPhongMaterial({ 
+              color: 0x8B4513,
+              wireframe: false,
+              shininess: 30
+            });
+            this.model = new THREE.Group();
+            this.model.add(new THREE.Mesh(geometry, material));
+            this.info.querySelector('.model-title').textContent = 'মৃত্তিকা কাঠামো';
+            this.info.querySelector('p').textContent = 'এই 3D মডেলটি মাটির বিভিন্ন স্তর দেখায় এবং কীভাবে বিভিন্ন স্তর উদ্ভিদের বৃদ্ধিতে সহায়তা করে তা প্রদর্শন করে।';
+            break;
+            
+          case 'plant':
+            // Plant growth model
+            this.model = this.createPlantModel();
+            this.info.querySelector('.model-title').textContent = 'উদ্ভিদ বৃদ্ধি';
+            this.info.querySelector('p').textContent = 'এই মডেলটি বীজ থেকে পূর্ণাঙ্গ উদ্ভিদে রূপান্তরিত হওয়ার বিভিন্ন পর্যায় প্রদর্শন করে।';
+            break;
+            
+          case 'irrigation':
+            // Irrigation system model
+            this.model = this.createIrrigationModel();
+            this.info.querySelector('.model-title').textContent = 'সেচ ব্যবস্থা';
+            this.info.querySelector('p').textContent = 'এই মডেলটি বিভিন্ন ধরনের সেচ পদ্ধতি এবং কীভাবে তারা জমিতে পানি বিতরণ করে তা প্রদর্শন করে।';
+            break;
+            
+          case 'tractor':
+            // Tractor model
+            this.model = this.createTractorModel();
+            this.info.querySelector('.model-title').textContent = 'কৃষি যন্ত্রপাতি';
+            this.info.querySelector('p').textContent = 'এই মডেলটি আধুনিক কৃষি যন্ত্রপাতির গঠন ও কার্যকারিতা প্রদর্শন করে।';
+            break;
+        }
+        
+        // Add model to scene
+        this.scene.add(this.model);
+      }
+      
+      createSoilLayers() {
+        const group = new THREE.Group();
+        
+        // Create different soil layers
+        const layers = [
+          { color: 0x8B4513, height: 0.5, position: 0 }, // Topsoil
+          { color: 0xA0522D, height: 0.8, position: -0.5 }, // Subsoil
+          { color: 0xCD853F, height: 1.0, position: -1.3 }, // Parent material
+          { color: 0xD2B48C, height: 1.2, position: -2.3 } // Bedrock
+        ];
+        
+        layers.forEach((layer, index) => {
+          const geometry = new THREE.BoxGeometry(3, layer.height, 3);
+          const material = new THREE.MeshPhongMaterial({ 
+            color: layer.color,
+            shininess: 10
+          });
+          const mesh = new THREE.Mesh(geometry, material);
+          mesh.position.y = layer.position;
+          group.add(mesh);
+        });
+        
+        // Add plant
+        const stemGeometry = new THREE.CylinderGeometry(0.05, 0.05, 1, 8);
+        const stemMaterial = new THREE.MeshPhongMaterial({ color: 0x32CD32 });
+        const stem = new THREE.Mesh(stemGeometry, stemMaterial);
+        stem.position.y = 0.5;
+        stem.position.z = -0.5;
+        
+        const leafGeometry = new THREE.ConeGeometry(0.3, 0.8, 4);
+        leafGeometry.rotateZ(Math.PI/2);
+        const leafMaterial = new THREE.MeshPhongMaterial({ color: 0x228B22 });
+        const leaf1 = new THREE.Mesh(leafGeometry, leafMaterial);
+        leaf1.position.set(0.4, 1.0, -0.5);
+        
+        const leaf2 = new THREE.Mesh(leafGeometry, leafMaterial);
+        leaf2.position.set(-0.4, 1.0, -0.5);
+        leaf2.rotation.z = Math.PI;
+        
+        group.add(stem, leaf1, leaf2);
+        
+        return group;
+      }
+      
+      createPlantModel() {
+        const group = new THREE.Group();
+        
+        // Stem
+        const stemGeometry = new THREE.CylinderGeometry(0.1, 0.1, 2, 8);
+        const stemMaterial = new THREE.MeshPhongMaterial({ color: 0x32CD32 });
+        const stem = new THREE.Mesh(stemGeometry, stemMaterial);
+        group.add(stem);
+        
+        // Leaves
+        const leafGeometry = new THREE.PlaneGeometry(0.8, 0.5);
+        const leafMaterial = new THREE.MeshPhongMaterial({ 
+          color: 0x228B22,
+          side: THREE.DoubleSide
+        });
+        
+        const leafPositions = [
+          { y: 0.5, rotation: Math.PI/4 },
+          { y: 1.0, rotation: -Math.PI/5 },
+          { y: 1.5, rotation: Math.PI/3 }
+        ];
+        
+        leafPositions.forEach(pos => {
+          const leaf = new THREE.Mesh(leafGeometry, leafMaterial);
+          leaf.position.y = pos.y;
+          leaf.position.x = 0.4;
+          leaf.rotation.z = pos.rotation;
+          group.add(leaf);
+          
+          const leaf2 = leaf.clone();
+          leaf2.position.x = -0.4;
+          leaf2.rotation.z = -pos.rotation;
+          group.add(leaf2);
+        });
+        
+        // Flower
+        const flowerGeometry = new THREE.SphereGeometry(0.3, 16, 16);
+        const flowerMaterial = new THREE.MeshPhongMaterial({ color: 0xFF69B4 });
+        const flower = new THREE.Mesh(flowerGeometry, flowerMaterial);
+        flower.position.y = 2.0;
+        group.add(flower);
+        
+        // Roots
+        const rootGeometry = new THREE.CylinderGeometry(0.05, 0.02, 0.5, 8);
+        const rootMaterial = new THREE.MeshPhongMaterial({ color: 0x8B4513 });
+        
+        for (let i = 0; i < 6; i++) {
+          const angle = (i / 6) * Math.PI * 2;
+          const root = new THREE.Mesh(rootGeometry, rootMaterial);
+          root.position.y = -0.25;
+          root.position.x = Math.cos(angle) * 0.2;
+          root.position.z = Math.sin(angle) * 0.2;
+          root.rotation.z = Math.PI/2 + Math.random() * 0.4 - 0.2;
+          root.rotation.y = angle;
+          group.add(root);
+        }
+        
+        return group;
+      }
+      
+      createIrrigationModel() {
+        const group = new THREE.Group();
+        
+        // Ground
+        const groundGeometry = new THREE.PlaneGeometry(10, 10);
+        const groundMaterial = new THREE.MeshPhongMaterial({ 
+          color: 0x8B4513,
+          side: THREE.DoubleSide
+        });
+        const ground = new THREE.Mesh(groundGeometry, groundMaterial);
+        ground.rotation.x = -Math.PI/2;
+        group.add(ground);
+        
+        // Plants
+        const plantGeometry = new THREE.ConeGeometry(0.2, 0.8, 8);
+        const plantMaterial = new THREE.MeshPhongMaterial({ color: 0x32CD32 });
+        
+        for (let i = -3; i <= 3; i += 1.5) {
+          for (let j = -3; j <= 3; j += 1.5) {
+            const plant = new THREE.Mesh(plantGeometry, plantMaterial);
+            plant.position.set(i, 0.4, j);
+            plant.rotation.x = Math.PI/2;
+            group.add(plant);
+          }
+        }
+        
+        // Irrigation pipes
+        const pipeGeometry = new THREE.CylinderGeometry(0.05, 0.05, 8, 8);
+        const pipeMaterial = new THREE.MeshPhongMaterial({ color: 0x4682B4 });
+        
+        // Main pipe
+        const mainPipe = new THREE.Mesh(pipeGeometry, pipeMaterial);
+        mainPipe.rotation.z = Math.PI/2;
+        mainPipe.position.y = 0.1;
+        mainPipe.position.z = -4;
+        group.add(mainPipe);
+        
+        // Secondary pipes
+        for (let i = -3; i <= 3; i += 3) {
+          const pipe = new THREE.Mesh(pipeGeometry, pipeMaterial);
+          pipe.position.set(i, 0.1, 0);
+          pipe.rotation.x = Math.PI/2;
+          group.add(pipe);
+          
+          // Sprinklers
+          const sprinklerGeometry = new THREE.SphereGeometry(0.1, 8, 8);
+          const sprinklerMaterial = new THREE.MeshPhongMaterial({ color: 0x1E90FF });
+          const sprinkler = new THREE.Mesh(sprinklerGeometry, sprinklerMaterial);
+          sprinkler.position.set(i, 0.2, 0);
+          group.add(sprinkler);
+          
+          // Water spray
+          const sprayGeometry = new THREE.ConeGeometry(0.3, 0.8, 8);
+          const sprayMaterial = new THREE.MeshPhongMaterial({ 
+            color: 0x87CEEB,
+            transparent: true,
+            opacity: 0.6
+          });
+          const spray = new THREE.Mesh(sprayGeometry, sprayMaterial);
+          spray.position.set(i, 0.8, 0);
+          spray.rotation.x = Math.PI;
+          group.add(spray);
+        }
+        
+        return group;
+      }
+      
+      createTractorModel() {
+        const group = new THREE.Group();
+        
+        // Main body
+        const bodyGeometry = new THREE.BoxGeometry(2, 0.8, 1.2);
+        const bodyMaterial = new THREE.MeshPhongMaterial({ color: 0xFF4500 });
+        const body = new THREE.Mesh(bodyGeometry, bodyMaterial);
+        body.position.y = 0.4;
+        group.add(body);
+        
+        // Cabin
+        const cabinGeometry = new THREE.BoxGeometry(0.8, 0.8, 0.8);
+        const cabinMaterial = new THREE.MeshPhongMaterial({ color: 0x1E90FF });
+        const cabin = new THREE.Mesh(cabinGeometry, cabinMaterial);
+        cabin.position.set(0.4, 0.8, 0);
+        group.add(cabin);
+        
+        // Wheels
+        const wheelGeometry = new THREE.CylinderGeometry(0.4, 0.4, 0.2, 16);
+        wheelGeometry.rotateZ(Math.PI/2);
+        const wheelMaterial = new THREE.MeshPhongMaterial({ color: 0x2F4F4F });
+        
+        // Front wheels
+        const frontWheel1 = new THREE.Mesh(wheelGeometry, wheelMaterial);
+        frontWheel1.position.set(1.0, 0.4, -0.6);
+        group.add(frontWheel1);
+        
+        const frontWheel2 = frontWheel1.clone();
+        frontWheel2.position.z = 0.6;
+        group.add(frontWheel2);
+        
+        // Back wheels
+        const backWheel1 = new THREE.Mesh(wheelGeometry, wheelMaterial);
+        backWheel1.position.set(-0.8, 0.4, -0.6);
+        backWheel1.scale.set(1.2, 1.2, 1.2);
+        group.add(backWheel1);
+        
+        const backWheel2 = backWheel1.clone();
+        backWheel2.position.z = 0.6;
+        group.add(backWheel2);
+        
+        // Plow
+        const plowGeometry = new THREE.BoxGeometry(0.1, 0.4, 1.5);
+        const plowMaterial = new THREE.MeshPhongMaterial({ color: 0xA9A9A9 });
+        const plow = new THREE.Mesh(plowGeometry, plowMaterial);
+        plow.position.set(-1.5, 0.2, 0);
+        plow.rotation.z = Math.PI/6;
+        group.add(plow);
+        
+        return group;
+      }
+      
+      onWindowResize() {
+        this.camera.aspect = this.container.clientWidth / this.container.clientHeight;
+        this.camera.updateProjectionMatrix();
+        this.renderer.setSize(
+          this.container.clientWidth,
+          this.container.clientHeight
+        );
+      }
+      
+      animate() {
+        requestAnimationFrame(() => this.animate());
+        
+        if (this.model) {
+          // Add subtle rotation
+          this.model.rotation.y += 0.005;
+        }
+        
+        this.controls.update();
+        this.renderer.render(this.scene, this.camera);
+      }
+    }
+    
+    // Model selector
+    const modelButtons = document.querySelectorAll('.model-btn');
+    const modelViewer = new ModelViewer('modelContainer');
+    
+    modelButtons.forEach(button => {
+      button.addEventListener('click', () => {
+        modelButtons.forEach(btn => btn.classList.remove('active'));
+        button.classList.add('active');
+        modelViewer.currentModel = button.dataset.model;
+        modelViewer.loadModel(modelViewer.currentModel);
+      });
+    });
+  </script>
+</body>
+</html>

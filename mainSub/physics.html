@@ -1,0 +1,930 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quantum Physics Explorer | Student Guidebook AI</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        :root {
+            --primary: #4a6bff;
+            --secondary: #00b4d8;
+            --accent: #9d4edd;
+            --light: #f0f7ff;
+            --dark: #1a1a2e;
+            --darker: #0f0f1a;
+            --card-bg: rgba(255, 255, 255, 0.95);
+            --text: #333;
+            --border: #e0e0ff;
+            --success: #00c853;
+        }
+
+        body {
+            background: linear-gradient(135deg, #f0f7ff, #e0f2fe);
+            color: var(--text);
+            min-height: 100vh;
+            overflow-x: hidden;
+            padding-bottom: 40px;
+        }
+
+        .header {
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            color: white;
+            padding: 15px 0;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            background: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            color: var(--primary);
+        }
+
+        .logo-text {
+            font-size: 24px;
+            font-weight: 700;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 25px;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .nav-links a:hover {
+            transform: translateY(-2px);
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.7);
+        }
+
+        .hero {
+            text-align: center;
+            padding: 60px 20px 40px;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><circle cx="50" cy="50" r="1" fill="%234a6bff" opacity="0.2"/></svg>');
+            background-size: 40px;
+        }
+
+        .hero h1 {
+            font-size: 3.2rem;
+            margin-bottom: 15px;
+            background: linear-gradient(to right, var(--primary), var(--accent));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            max-width: 700px;
+            margin: 0 auto 30px;
+            color: #555;
+            line-height: 1.6;
+        }
+
+        .bangla-text {
+            font-family: 'Noto Sans Bengali', sans-serif;
+            font-size: 1.4rem;
+            color: var(--primary);
+            font-weight: 600;
+            margin: 15px 0;
+        }
+
+        .search-container {
+            max-width: 700px;
+            margin: 30px auto;
+            position: relative;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 16px 25px;
+            font-size: 1.1rem;
+            border: 2px solid var(--border);
+            border-radius: 50px;
+            background: white;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s;
+        }
+
+        .search-input:focus {
+            outline: none;
+            border-color: var(--secondary);
+            box-shadow: 0 5px 25px rgba(0, 180, 216, 0.2);
+        }
+
+        .search-btn {
+            position: absolute;
+            right: 8px;
+            top: 8px;
+            padding: 10px 25px;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            color: white;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .search-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(74, 107, 255, 0.4);
+        }
+
+        .topics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin: 40px 0;
+        }
+
+        .topic-card {
+            background: var(--card-bg);
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+            transition: all 0.4s;
+            border: 1px solid var(--border);
+        }
+
+        .topic-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
+        }
+
+        .card-header {
+            padding: 25px 25px 15px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            background: linear-gradient(to right, var(--light), white);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .card-icon {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            color: white;
+        }
+
+        .card-title {
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .card-content {
+            padding: 20px 25px;
+        }
+
+        .card-content p {
+            line-height: 1.7;
+            margin-bottom: 15px;
+            color: #555;
+        }
+
+        .card-content .bangla-text {
+            font-size: 1.2rem;
+            margin: 10px 0;
+        }
+
+        .formula {
+            background: rgba(74, 107, 255, 0.08);
+            padding: 15px;
+            border-radius: 10px;
+            font-family: 'Cambria Math', serif;
+            font-size: 1.4rem;
+            text-align: center;
+            margin: 15px 0;
+            border: 1px dashed var(--primary);
+            color: var(--dark);
+        }
+
+        .interactive-lab {
+            padding: 25px;
+            background: rgba(255, 255, 255, 0.7);
+            border-radius: 15px;
+            margin-top: 20px;
+            border: 1px solid var(--border);
+        }
+
+        .lab-title {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 15px;
+            color: var(--accent);
+        }
+
+        .simulation-container {
+            height: 200px;
+            background: white;
+            border-radius: 10px;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid var(--border);
+            margin: 15px 0;
+        }
+
+        .controls {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin: 20px 0;
+            flex-wrap: wrap;
+        }
+
+        .control-group {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .control-label {
+            font-weight: 600;
+            color: var(--primary);
+            font-size: 0.9rem;
+        }
+
+        .slider {
+            width: 180px;
+            height: 8px;
+            -webkit-appearance: none;
+            background: #e0e0ff;
+            border-radius: 5px;
+            outline: none;
+        }
+
+        .slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: var(--accent);
+            cursor: pointer;
+            box-shadow: 0 0 8px rgba(157, 78, 221, 0.5);
+        }
+
+        .value-display {
+            font-weight: 700;
+            font-size: 1.1rem;
+            color: var(--accent);
+        }
+
+        .card-footer {
+            padding: 20px 25px;
+            background: rgba(74, 107, 255, 0.05);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .btn {
+            padding: 10px 20px;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn:hover {
+            background: var(--accent);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(157, 78, 221, 0.3);
+        }
+
+        .topic-tag {
+            background: rgba(74, 107, 255, 0.1);
+            color: var(--primary);
+            padding: 6px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        .quantum-lab {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            margin: 50px 0 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            border: 1px solid var(--border);
+        }
+
+        .lab-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .lab-header h2 {
+            font-size: 2.2rem;
+            color: var(--primary);
+            margin-bottom: 10px;
+        }
+
+        .lab-header p {
+            color: #666;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .lab-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+        }
+
+        .lab-controls {
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+        }
+
+        .control-card {
+            background: var(--light);
+            padding: 20px;
+            border-radius: 12px;
+            border: 1px solid var(--border);
+        }
+
+        .lab-simulation {
+            height: 350px;
+            background: var(--darker);
+            border-radius: 12px;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+        }
+
+        .footer {
+            text-align: center;
+            padding: 30px 0;
+            margin-top: 50px;
+            color: #666;
+            border-top: 1px solid var(--border);
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                gap: 15px;
+                font-size: 0.9rem;
+            }
+            
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .lab-content {
+                grid-template-columns: 1fr;
+            }
+            
+            .lab-simulation {
+                height: 300px;
+            }
+        }
+
+        /* Quantum Particles */
+        .quantum-particle {
+            position: absolute;
+            border-radius: 50%;
+            background: radial-gradient(circle at 30% 30%, var(--secondary), var(--primary));
+            box-shadow: 0 0 10px rgba(0, 180, 216, 0.7);
+            animation: pulse 2s infinite;
+        }
+
+        .wave-particle {
+            position: absolute;
+            border-radius: 50%;
+            background: radial-gradient(circle at 30% 30%, var(--accent), #6a00ff);
+            box-shadow: 0 0 10px rgba(157, 78, 221, 0.7);
+            animation: wave 3s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); opacity: 0.7; }
+            50% { transform: scale(1.2); opacity: 1; }
+            100% { transform: scale(1); opacity: 0.7; }
+        }
+
+        @keyframes wave {
+            0% { transform: translateX(0) translateY(0); }
+            25% { transform: translateX(20px) translateY(-20px); }
+            50% { transform: translateX(0) translateY(0); }
+            75% { transform: translateX(-20px) translateY(20px); }
+            100% { transform: translateX(0) translateY(0); }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <nav class="nav">
+                <div class="logo">
+                    <div class="logo-icon">
+                        <i class="fas fa-atom"></i>
+                    </div>
+                    <div class="logo-text">Physics Explorer</div>
+                </div>
+                <div class="nav-links">
+                    <a href="#"><i class="fas fa-home"></i> Home</a>
+                    <a href="#"><i class="fas fa-book"></i> Lessons</a>
+                    <a href="#"><i class="fas fa-vial"></i> Labs</a>
+                    <a href="#"><i class="fas fa-question-circle"></i> Help</a>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="container">
+            <h1>Quantum Physics for Bangladeshi Students</h1>
+            <p>Explore the fascinating world of quantum physics with interactive simulations and easy-to-understand explanations tailored for classes 6-12</p>
+            
+            <div class="bangla-text">কোয়ান্টাম পদার্থবিজ্ঞানের জগতে স্বাগতম</div>
+            
+            <div class="search-container">
+                <input type="text" class="search-input" placeholder="Search quantum physics concepts...">
+                <button class="search-btn">
+                    <i class="fas fa-search"></i> Search
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <div class="container">
+        <div class="topics-grid">
+            <div class="topic-card">
+                <div class="card-header">
+                    <div class="card-icon">
+                        <i class="fas fa-lightbulb"></i>
+                    </div>
+                    <h2 class="card-title">Photoelectric Effect</h2>
+                </div>
+                <div class="card-content">
+                    <p>When light shines on certain materials, it can cause electrons to be emitted. This is called the photoelectric effect.</p>
+                    <div class="bangla-text">আলোকতড়িৎ ক্রিয়া</div>
+                    <div class="formula">E = hf</div>
+                    <p>Energy of a photon equals Planck's constant times frequency.</p>
+                    
+                    <div class="interactive-lab">
+                        <div class="lab-title">
+                            <i class="fas fa-flask"></i>
+                            <h3>Interactive Lab</h3>
+                        </div>
+                        <div class="simulation-container" id="photoelectric-sim">
+                            <!-- Simulation will appear here -->
+                        </div>
+                        <div class="controls">
+                            <div class="control-group">
+                                <span class="control-label">Light Frequency</span>
+                                <input type="range" min="1" max="10" value="5" class="slider" id="frequency-slider">
+                                <span class="value-display" id="frequency-value">5.0 × 10¹⁴ Hz</span>
+                            </div>
+                            <div class="control-group">
+                                <span class="control-label">Light Intensity</span>
+                                <input type="range" min="1" max="10" value="5" class="slider" id="intensity-slider">
+                                <span class="value-display" id="intensity-value">Medium</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <span class="topic-tag">Class 11-12</span>
+                    <button class="btn">
+                        Learn More <i class="fas fa-arrow-right"></i>
+                    </button>
+                </div>
+            </div>
+
+            <div class="topic-card">
+                <div class="card-header">
+                    <div class="card-icon">
+                        <i class="fas fa-wave-square"></i>
+                    </div>
+                    <h2 class="card-title">Wave-Particle Duality</h2>
+                </div>
+                <div class="card-content">
+                    <p>Quantum objects like electrons behave as both particles and waves depending on how we observe them.</p>
+                    <div class="bangla-text">তরঙ্গ-কণা দ্বৈততা</div>
+                    <div class="formula">λ = h/p</div>
+                    <p>De Broglie wavelength equals Planck's constant divided by momentum.</p>
+                    
+                    <div class="interactive-lab">
+                        <div class="lab-title">
+                            <i class="fas fa-flask"></i>
+                            <h3>Interactive Lab</h3>
+                        </div>
+                        <div class="simulation-container" id="duality-sim">
+                            <!-- Simulation will appear here -->
+                        </div>
+                        <div class="controls">
+                            <div class="control-group">
+                                <span class="control-label">Particle Speed</span>
+                                <input type="range" min="1" max="10" value="5" class="slider" id="speed-slider">
+                                <span class="value-display" id="speed-value">0.5c</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <span class="topic-tag">Class 11-12</span>
+                    <button class="btn">
+                        Learn More <i class="fas fa-arrow-right"></i>
+                    </button>
+                </div>
+            </div>
+
+            <div class="topic-card">
+                <div class="card-header">
+                    <div class="card-icon">
+                        <i class="fas fa-atom"></i>
+                    </div>
+                    <h2 class="card-title">Atomic Structure</h2>
+                </div>
+                <div class="card-content">
+                    <p>Atoms have a nucleus with protons and neutrons, surrounded by electrons in specific energy levels.</p>
+                    <div class="bangla-text">পরমাণুর গঠন</div>
+                    <div class="formula">E<sub>n</sub> = -13.6/n² eV</div>
+                    <p>Energy of electron in nth orbit in hydrogen atom.</p>
+                    
+                    <div class="interactive-lab">
+                        <div class="lab-title">
+                            <i class="fas fa-flask"></i>
+                            <h3>Interactive Lab</h3>
+                        </div>
+                        <div class="simulation-container" id="atom-sim">
+                            <!-- Simulation will appear here -->
+                        </div>
+                        <div class="controls">
+                            <div class="control-group">
+                                <span class="control-label">Electron Level</span>
+                                <input type="range" min="1" max="7" value="3" class="slider" id="level-slider">
+                                <span class="value-display" id="level-value">Level 3</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <span class="topic-tag">Class 9-12</span>
+                    <button class="btn">
+                        Learn More <i class="fas fa-arrow-right"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div class="quantum-lab">
+            <div class="lab-header">
+                <h2>Quantum Physics Laboratory</h2>
+                <p>Adjust parameters to see how they affect quantum systems and particle behavior</p>
+                <div class="bangla-text">কোয়ান্টাম গবেষণাগার</div>
+            </div>
+            
+            <div class="lab-content">
+                <div class="lab-controls">
+                    <div class="control-card">
+                        <h3><i class="fas fa-sliders-h"></i> Experiment Controls</h3>
+                        <div class="controls" style="justify-content: flex-start; margin-top: 20px;">
+                            <div class="control-group">
+                                <span class="control-label">Energy Level</span>
+                                <input type="range" min="1" max="10" value="5" class="slider" id="energy-slider">
+                                <span class="value-display" id="energy-value">5.0 eV</span>
+                            </div>
+                            <div class="control-group">
+                                <span class="control-label">Particle Count</span>
+                                <input type="range" min="5" max="50" value="20" class="slider" id="count-slider">
+                                <span class="value-display" id="count-value">20 particles</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="control-card">
+                        <h3><i class="fas fa-info-circle"></i> Quantum Principles</h3>
+                        <ul style="margin: 15px 0 0 20px; line-height: 1.8; color: #555;">
+                            <li>Electrons exist in discrete energy levels</li>
+                            <li>Light behaves as both particles and waves</li>
+                            <li>Quantum superposition allows multiple states</li>
+                            <li>Measurement affects quantum systems</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="control-card">
+                        <h3><i class="fas fa-book"></i> Curriculum Connection</h3>
+                        <p style="margin-top: 10px; line-height: 1.6; color: #555;">
+                            These concepts align with the Bangladesh National Curriculum for classes 11-12 Physics, specifically in Modern Physics and Atomic Structure chapters.
+                        </p>
+                        <div class="bangla-text" style="margin-top: 10px;">
+                            বাংলাদেশ জাতীয় পাঠ্যক্রমের (ক্লাস ১১-১২ পদার্থবিজ্ঞান) সাথে সম্পর্কিত
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="lab-simulation" id="quantum-lab-sim">
+                    <!-- Quantum lab simulation will appear here -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="container">
+            <p>© 2023 Physics Explorer | Student Guidebook AI</p>
+            <p>Designed for Bangladeshi Students (Classes 6-12) | Quantum Physics Education</p>
+            <div class="bangla-text">বাংলাদেশের শিক্ষার্থীদের জন্য পদার্থবিজ্ঞান শিক্ষা</div>
+        </div>
+    </footer>
+
+    <script>
+        // Initialize simulations
+        function initPhotoelectricSim() {
+            const container = document.getElementById('photoelectric-sim');
+            container.innerHTML = '';
+            
+            // Create light source
+            const light = document.createElement('div');
+            light.style.position = 'absolute';
+            light.style.left = '20px';
+            light.style.top = '50%';
+            light.style.transform = 'translateY(-50%)';
+            light.style.width = '40px';
+            light.style.height = '40px';
+            light.style.background = 'radial-gradient(circle, #ffeb3b, #ff9800)';
+            light.style.borderRadius = '50%';
+            light.style.boxShadow = '0 0 20px #ffeb3b';
+            container.appendChild(light);
+            
+            // Create metal surface
+            const metal = document.createElement('div');
+            metal.style.position = 'absolute';
+            metal.style.right = '20px';
+            metal.style.top = '0';
+            metal.style.bottom = '0';
+            metal.style.width = '40px';
+            metal.style.background = 'linear-gradient(to right, #b0bec5, #78909c)';
+            container.appendChild(metal);
+            
+            // Create electrons
+            for (let i = 0; i < 8; i++) {
+                setTimeout(() => {
+                    const electron = document.createElement('div');
+                    electron.classList.add('quantum-particle');
+                    electron.style.width = '12px';
+                    electron.style.height = '12px';
+                    electron.style.right = '60px';
+                    electron.style.top = `${30 + i*20}px`;
+                    electron.style.background = 'radial-gradient(circle at 30% 30%, #00b4d8, #4a6bff)';
+                    electron.style.boxShadow = '0 0 8px #4a6bff';
+                    container.appendChild(electron);
+                    
+                    // Animate electron
+                    electron.animate([
+                        { transform: 'translateX(0)', opacity: 1 },
+                        { transform: 'translateX(-180px)', opacity: 0 }
+                    ], {
+                        duration: 1500,
+                        easing: 'ease-out'
+                    });
+                }, i * 300);
+            }
+        }
+        
+        function initDualitySim() {
+            const container = document.getElementById('duality-sim');
+            container.innerHTML = '';
+            
+            // Create wave pattern
+            for (let i = 0; i < 5; i++) {
+                const wave = document.createElement('div');
+                wave.style.position = 'absolute';
+                wave.style.bottom = '0';
+                wave.style.height = `${15 + i*5}px`;
+                wave.style.width = '100%';
+                wave.style.background = `rgba(74, 107, 255, ${0.1 + i*0.1})`;
+                
+                const animation = wave.animate([
+                    { transform: 'translateX(-100%)' },
+                    { transform: 'translateX(100%)' }
+                ], {
+                    duration: 3000 + i*1000,
+                    iterations: Infinity
+                });
+                
+                container.appendChild(wave);
+            }
+            
+            // Create particles
+            for (let i = 0; i < 15; i++) {
+                const particle = document.createElement('div');
+                particle.classList.add('wave-particle');
+                particle.style.width = '10px';
+                particle.style.height = '10px';
+                particle.style.left = `${Math.random() * 100}%`;
+                particle.style.top = `${Math.random() * 100}%`;
+                particle.style.animationDelay = `${Math.random() * 2}s`;
+                container.appendChild(particle);
+            }
+        }
+        
+        function initAtomSim() {
+            const container = document.getElementById('atom-sim');
+            container.innerHTML = '';
+            
+            // Create nucleus
+            const nucleus = document.createElement('div');
+            nucleus.style.position = 'absolute';
+            nucleus.style.left = '50%';
+            nucleus.style.top = '50%';
+            nucleus.style.transform = 'translate(-50%, -50%)';
+            nucleus.style.width = '40px';
+            nucleus.style.height = '40px';
+            nucleus.style.background = 'radial-gradient(circle, #f44336, #b71c1c)';
+            nucleus.style.borderRadius = '50%';
+            container.appendChild(nucleus);
+            
+            // Create orbits
+            for (let i = 1; i <= 4; i++) {
+                const orbit = document.createElement('div');
+                orbit.style.position = 'absolute';
+                orbit.style.left = '50%';
+                orbit.style.top = '50%';
+                orbit.style.transform = 'translate(-50%, -50%)';
+                orbit.style.width = `${i * 60}px`;
+                orbit.style.height = `${i * 60}px`;
+                orbit.style.border = '1px dashed rgba(74, 107, 255, 0.3)';
+                orbit.style.borderRadius = '50%';
+                container.appendChild(orbit);
+                
+                // Create electrons
+                const electron = document.createElement('div');
+                electron.classList.add('quantum-particle');
+                electron.style.width = '14px';
+                electron.style.height = '14px';
+                electron.style.left = '50%';
+                electron.style.top = '50%';
+                electron.style.transform = `translate(-50%, -50%) translateX(${i * 30}px)`;
+                electron.style.background = 'radial-gradient(circle at 30% 30%, #00b4d8, #4a6bff)';
+                container.appendChild(electron);
+                
+                // Animate electron
+                electron.animate([
+                    { transform: `translate(-50%, -50%) translateX(${i * 30}px) rotate(0deg)` },
+                    { transform: `translate(-50%, -50%) translateX(${i * 30}px) rotate(360deg)` }
+                ], {
+                    duration: 4000 + i*2000,
+                    iterations: Infinity
+                });
+            }
+        }
+        
+        function initQuantumLab() {
+            const container = document.getElementById('quantum-lab-sim');
+            container.innerHTML = '';
+            
+            // Create particles
+            for (let i = 0; i < 25; i++) {
+                const particle = document.createElement('div');
+                particle.classList.add('quantum-particle');
+                
+                // Random properties
+                const size = 8 + Math.random() * 12;
+                const left = Math.random() * 100;
+                const top = Math.random() * 100;
+                const type = Math.random() > 0.5 ? 'quantum' : 'wave';
+                
+                particle.style.width = `${size}px`;
+                particle.style.height = `${size}px`;
+                particle.style.left = `${left}%`;
+                particle.style.top = `${top}%`;
+                
+                if (type === 'wave') {
+                    particle.classList.add('wave-particle');
+                    particle.style.background = 'radial-gradient(circle at 30% 30%, #9d4edd, #6a00ff)';
+                    particle.style.boxShadow = '0 0 8px rgba(157, 78, 221, 0.7)';
+                    particle.style.animation = 'wave 4s infinite';
+                } else {
+                    particle.style.background = 'radial-gradient(circle at 30% 30%, #00b4d8, #4a6bff)';
+                    particle.style.boxShadow = '0 0 8px rgba(74, 107, 255, 0.7)';
+                }
+                
+                particle.style.animationDelay = `${Math.random() * 2}s`;
+                container.appendChild(particle);
+            }
+        }
+        
+        // Initialize sliders
+        function initSliders() {
+            const frequencySlider = document.getElementById('frequency-slider');
+            const intensitySlider = document.getElementById('intensity-slider');
+            const speedSlider = document.getElementById('speed-slider');
+            const levelSlider = document.getElementById('level-slider');
+            const energySlider = document.getElementById('energy-slider');
+            const countSlider = document.getElementById('count-slider');
+            
+            const frequencyValue = document.getElementById('frequency-value');
+            const intensityValue = document.getElementById('intensity-value');
+            const speedValue = document.getElementById('speed-value');
+            const levelValue = document.getElementById('level-value');
+            const energyValue = document.getElementById('energy-value');
+            const countValue = document.getElementById('count-value');
+            
+            frequencySlider.addEventListener('input', function() {
+                frequencyValue.textContent = `${this.value}.0 × 10¹⁴ Hz`;
+                initPhotoelectricSim();
+            });
+            
+            intensitySlider.addEventListener('input', function() {
+                const intensities = ['Low', 'Medium', 'High'];
+                intensityValue.textContent = intensities[Math.floor(this.value/3.34)];
+                initPhotoelectricSim();
+            });
+            
+            speedSlider.addEventListener('input', function() {
+                speedValue.textContent = `${(this.value/10).toFixed(1)}c`;
+                initDualitySim();
+            });
+            
+            levelSlider.addEventListener('input', function() {
+                levelValue.textContent = `Level ${this.value}`;
+                initAtomSim();
+            });
+            
+            energySlider.addEventListener('input', function() {
+                energyValue.textContent = `${this.value}.0 eV`;
+                initQuantumLab();
+            });
+            
+            countSlider.addEventListener('input', function() {
+                countValue.textContent = `${this.value} particles`;
+                initQuantumLab();
+            });
+        }
+        
+        // Initialize everything
+        document.addEventListener('DOMContentLoaded', function() {
+            initPhotoelectricSim();
+            initDualitySim();
+            initAtomSim();
+            initQuantumLab();
+            initSliders();
+        });
+    </script>
+</body>
+</html>

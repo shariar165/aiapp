@@ -1,0 +1,1063 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>তথ্য ও যোগাযোগ প্রযুক্তি | শিক্ষা গাইড বিডি</title>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Bengali:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --primary-color: #43b581;
+      --secondary-color: #9ad3bc;
+      --accent-color: #ff6b6b;
+      --bg-color: #f8f9fa;
+      --card-bg: #ffffff;
+      --text-color: #333333;
+      --border-radius: 16px;
+      --box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+      --transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      --gradient-ict: linear-gradient(135deg, #43b581 0%, #1a936f 100%);
+    }
+
+    [data-theme="dark"] {
+      --primary-color: #64d29b;
+      --secondary-color: #a8e6cf;
+      --accent-color: #ff8e8e;
+      --bg-color: #121212;
+      --card-bg: #1e1e1e;
+      --text-color: #f0f0f0;
+      --box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
+    }
+
+    body {
+      font-family: 'Noto Sans Bengali', sans-serif;
+      background-color: var(--bg-color);
+      color: var(--text-color);
+      line-height: 1.6;
+      overflow-x: hidden;
+      position: relative;
+      transition: background-color 0.5s, color 0.5s;
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: url('https://images.unsplash.com/photo-1518770660439-4636190af475?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1920&q=80') no-repeat center center;
+      background-size: cover;
+      opacity: 0.15;
+      z-index: -1;
+    }
+
+    [data-theme="dark"] body::before {
+      opacity: 0.1;
+      filter: brightness(0.5) contrast(1.2);
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    /* Theme Toggle */
+    .theme-toggle {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      width: 50px;
+      height: 50px;
+      background: var(--card-bg);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      box-shadow: var(--box-shadow);
+      z-index: 1000;
+      border: none;
+      color: var(--text-color);
+      font-size: 1.5rem;
+      transition: var(--transition);
+    }
+
+    .theme-toggle:hover {
+      transform: scale(1.1) rotate(15deg);
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+    }
+
+    /* Header */
+    header {
+      padding: 20px 0;
+      background: var(--card-bg);
+      box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .header-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+    }
+
+    .logo-icon {
+      width: 50px;
+      height: 50px;
+      background: var(--gradient-ict);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 1.5rem;
+    }
+
+    .logo-text {
+      font-size: 1.4rem;
+      font-weight: 700;
+      background: var(--gradient-ict);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 25px;
+    }
+
+    .nav-links a {
+      color: var(--text-color);
+      text-decoration: none;
+      font-weight: 600;
+      position: relative;
+      padding: 5px 0;
+      transition: color 0.3s;
+    }
+
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0;
+      height: 3px;
+      background: var(--primary-color);
+      border-radius: 3px;
+      transition: width 0.3s;
+    }
+
+    .nav-links a:hover::after {
+      width: 100%;
+    }
+
+    .nav-links a:hover {
+      color: var(--primary-color);
+    }
+
+    /* Hero Section */
+    .hero {
+      padding: 100px 0 60px;
+      text-align: center;
+    }
+
+    .hero-content {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .hero h1 {
+      font-size: 3.5rem;
+      margin-bottom: 20px;
+      line-height: 1.2;
+      animation: fadeInDown 1s ease;
+    }
+
+    .hero h1 span {
+      background: var(--gradient-ict);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      position: relative;
+    }
+
+    .hero p {
+      font-size: 1.4rem;
+      margin-bottom: 40px;
+      color: var(--secondary-color);
+      animation: fadeInUp 1s ease 0.2s forwards;
+      opacity: 0;
+    }
+
+    .hero-buttons {
+      display: flex;
+      gap: 20px;
+      justify-content: center;
+      margin-top: 40px;
+      animation: fadeInUp 1s ease 0.4s forwards;
+      opacity: 0;
+    }
+
+    .btn {
+      padding: 14px 32px;
+      border-radius: 50px;
+      font-weight: 600;
+      font-size: 1.1rem;
+      cursor: pointer;
+      transition: var(--transition);
+      border: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .btn-primary {
+      background: var(--gradient-ict);
+      color: white;
+      box-shadow: 0 8px 20px rgba(67, 181, 129, 0.3);
+    }
+
+    .btn-outline {
+      background: transparent;
+      border: 2px solid var(--primary-color);
+      color: var(--primary-color);
+    }
+
+    .btn:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 12px 25px rgba(0, 0, 0, 0.15);
+    }
+
+    .btn-primary:hover {
+      box-shadow: 0 12px 25px rgba(67, 181, 129, 0.4);
+    }
+
+    .btn-outline:hover {
+      background: var(--primary-color);
+      color: white;
+    }
+
+    /* Features */
+    .features {
+      padding: 80px 0;
+    }
+
+    .section-title {
+      text-align: center;
+      margin-bottom: 60px;
+    }
+
+    .section-title h2 {
+      font-size: 2.5rem;
+      margin-bottom: 20px;
+      position: relative;
+      display: inline-block;
+    }
+
+    .section-title h2::after {
+      content: '';
+      position: absolute;
+      bottom: -10px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 80px;
+      height: 4px;
+      background: var(--primary-color);
+      border-radius: 2px;
+    }
+
+    .section-title p {
+      max-width: 700px;
+      margin: 0 auto;
+      font-size: 1.2rem;
+      color: var(--secondary-color);
+    }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 30px;
+    }
+
+    .feature-card {
+      background: var(--card-bg);
+      border-radius: var(--border-radius);
+      padding: 35px 30px;
+      text-align: center;
+      box-shadow: var(--box-shadow);
+      transition: var(--transition);
+      position: relative;
+      overflow: hidden;
+      border: 1px solid rgba(67, 181, 129, 0.1);
+    }
+
+    .feature-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 5px;
+      height: 100%;
+      background: var(--gradient-ict);
+      transition: width 0.4s ease;
+    }
+
+    .feature-card:hover::before {
+      width: 100%;
+      opacity: 0.1;
+    }
+
+    .feature-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+    }
+
+    .feature-icon {
+      width: 80px;
+      height: 80px;
+      background: var(--gradient-ict);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 25px;
+      color: white;
+      font-size: 2rem;
+      transition: var(--transition);
+    }
+
+    .feature-card:hover .feature-icon {
+      transform: scale(1.1) rotate(10deg);
+      box-shadow: 0 8px 20px rgba(67, 181, 129, 0.3);
+    }
+
+    .feature-title {
+      font-size: 1.5rem;
+      margin-bottom: 15px;
+      color: var(--text-color);
+    }
+
+    .feature-desc {
+      color: var(--secondary-color);
+      font-size: 1.1rem;
+    }
+
+    /* Curriculum */
+    .curriculum {
+      padding: 80px 0;
+      background: rgba(67, 181, 129, 0.05);
+      border-radius: 40px 40px 0 0;
+    }
+
+    .curriculum-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 25px;
+    }
+
+    .grade-card {
+      background: var(--card-bg);
+      border-radius: var(--border-radius);
+      overflow: hidden;
+      box-shadow: var(--box-shadow);
+      transition: var(--transition);
+      border: 1px solid rgba(67, 181, 129, 0.1);
+    }
+
+    .grade-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+    }
+
+    .grade-header {
+      background: var(--gradient-ict);
+      padding: 20px;
+      text-align: center;
+      color: white;
+    }
+
+    .grade-header h3 {
+      font-size: 1.8rem;
+      margin-bottom: 5px;
+    }
+
+    .grade-content {
+      padding: 25px;
+    }
+
+    .topics-list {
+      list-style: none;
+    }
+
+    .topics-list li {
+      padding: 12px 0;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .topics-list li::before {
+      content: '✓';
+      color: var(--primary-color);
+      font-weight: bold;
+    }
+
+    .topics-list li:last-child {
+      border-bottom: none;
+    }
+
+    /* Resources */
+    .resources {
+      padding: 80px 0;
+    }
+
+    .resources-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 25px;
+    }
+
+    .resource-card {
+      background: var(--card-bg);
+      border-radius: var(--border-radius);
+      overflow: hidden;
+      box-shadow: var(--box-shadow);
+      transition: var(--transition);
+      border: 1px solid rgba(67, 181, 129, 0.1);
+    }
+
+    .resource-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+    }
+
+    .resource-img {
+      height: 200px;
+      background: var(--gradient-ict);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 4rem;
+    }
+
+    .resource-content {
+      padding: 25px;
+    }
+
+    .resource-title {
+      font-size: 1.5rem;
+      margin-bottom: 15px;
+      color: var(--text-color);
+    }
+
+    .resource-desc {
+      color: var(--secondary-color);
+      margin-bottom: 20px;
+    }
+
+    .resource-btn {
+      display: inline-block;
+      padding: 10px 20px;
+      background: var(--primary-color);
+      color: white;
+      border-radius: 50px;
+      text-decoration: none;
+      font-weight: 600;
+      transition: var(--transition);
+    }
+
+    .resource-btn:hover {
+      background: #3aa372;
+      transform: translateY(-3px);
+      box-shadow: 0 5px 15px rgba(67, 181, 129, 0.3);
+    }
+
+    /* Footer */
+    footer {
+      background: linear-gradient(to right, #1a1a1a, #000033);
+      color: white;
+      padding: 60px 0 20px;
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 40px;
+      margin-bottom: 40px;
+    }
+
+    .footer-logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+
+    .footer-logo-icon {
+      width: 40px;
+      height: 40px;
+      background: var(--gradient-ict);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+    }
+
+    .footer-logo-text {
+      font-weight: bold;
+      font-size: 1.4rem;
+    }
+
+    .footer-about {
+      color: #aaa;
+      margin-bottom: 20px;
+      line-height: 1.8;
+    }
+
+    .footer-heading {
+      font-weight: 600;
+      margin-bottom: 20px;
+      font-size: 1.3rem;
+      position: relative;
+      padding-bottom: 10px;
+    }
+
+    .footer-heading::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 50px;
+      height: 3px;
+      background: var(--primary-color);
+      border-radius: 2px;
+    }
+
+    .footer-links {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .footer-link {
+      color: #aaa;
+      text-decoration: none;
+      transition: color 0.3s;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .footer-link:hover {
+      color: var(--primary-color);
+    }
+
+    .footer-social {
+      display: flex;
+      gap: 15px;
+      margin-top: 20px;
+    }
+
+    .footer-social-icon {
+      width: 45px;
+      height: 45px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: background 0.3s;
+      font-size: 1.2rem;
+    }
+
+    .footer-social-icon:hover {
+      background: var(--primary-color);
+      transform: translateY(-5px);
+    }
+
+    .footer-bottom {
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      padding-top: 20px;
+      text-align: center;
+      color: #aaa;
+      font-size: 0.9rem;
+    }
+
+    /* Animations */
+    @keyframes fadeInDown {
+      from {
+        opacity: 0;
+        transform: translateY(-40px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(40px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes float {
+      0% {
+        transform: translateY(0);
+      }
+      50% {
+        transform: translateY(-15px);
+      }
+      100% {
+        transform: translateY(0);
+      }
+    }
+
+    .floating {
+      animation: float 4s ease-in-out infinite;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .header-container {
+        flex-direction: column;
+        gap: 20px;
+      }
+      
+      .hero h1 {
+        font-size: 2.5rem;
+      }
+      
+      .hero p {
+        font-size: 1.2rem;
+      }
+      
+      .hero-buttons {
+        flex-direction: column;
+        gap: 15px;
+      }
+      
+      .btn {
+        width: 100%;
+        justify-content: center;
+      }
+      
+      .section-title h2 {
+        font-size: 2rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .hero h1 {
+        font-size: 2rem;
+      }
+      
+      .nav-links {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 15px;
+      }
+    }
+
+    /* Particle Animation */
+    .particles {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: -1;
+    }
+
+    .particle {
+      position: absolute;
+      background: var(--primary-color);
+      border-radius: 50%;
+      opacity: 0.3;
+    }
+  </style>
+</head>
+<body>
+  <!-- Theme Toggle -->
+  <button class="theme-toggle" id="themeToggle">
+    <i class="fas fa-moon"></i>
+  </button>
+
+  <!-- Particle Animation -->
+  <div class="particles" id="particles"></div>
+
+  <!-- Header -->
+  <header>
+    <div class="container">
+      <div class="header-container">
+        <a href="#" class="logo">
+          <div class="logo-icon">
+            <i class="fas fa-laptop-code"></i>
+          </div>
+          <div class="logo-text">শিক্ষা গাইড বিডি</div>
+        </a>
+        
+        <div class="nav-links">
+          <a href="#">হোম</a>
+          <a href="#">পাঠ্যক্রম</a>
+          <a href="#">সম্পদ</a>
+          <a href="#">কুইজ</a>
+          <a href="#">প্রকল্প</a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="container">
+      <div class="hero-content">
+        <h1>ডিজিটাল বাংলাদেশের <span>তথ্য ও যোগাযোগ প্রযুক্তি</span></h1>
+        <p>৬ষ্ঠ থেকে ১২শ শ্রেণির শিক্ষার্থীদের জন্য আধুনিক ও ইন্টারেক্টিভ আইসিটি শিক্ষা</p>
+        
+        <div class="hero-buttons">
+          <button class="btn btn-primary">
+            <i class="fas fa-book-open"></i> পাঠ্যক্রম দেখুন
+          </button>
+          <button class="btn btn-outline">
+            <i class="fas fa-video"></i> ভিডিও টিউটোরিয়াল
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Features Section -->
+  <section class="features">
+    <div class="container">
+      <div class="section-title">
+        <h2>আমাদের বিশেষ সুবিধা</h2>
+        <p>আইসিটি শিক্ষাকে সহজ, আকর্ষণীয় এবং কার্যকর করার জন্য আমাদের বিশেষ সুবিধাসমূহ</p>
+      </div>
+      
+      <div class="features-grid">
+        <div class="feature-card">
+          <div class="feature-icon">
+            <i class="fas fa-code"></i>
+          </div>
+          <h3 class="feature-title">প্রোগ্রামিং শেখা</h3>
+          <p class="feature-desc">স্ক্র্যাচ, পাইথন, সি++ সহ বিভিন্ন প্রোগ্রামিং ভাষা হাতে-কলমে শিখুন</p>
+        </div>
+        
+        <div class="feature-card">
+          <div class="feature-icon">
+            <i class="fas fa-network-wired"></i>
+          </div>
+          <h3 class="feature-title">নেটওয়ার্কিং</h3>
+          <p class="feature-desc">ইন্টারনেট, নেটওয়ার্ক সুরক্ষা এবং ডেটা কমিউনিকেশন সম্পর্কে জানুন</p>
+        </div>
+        
+        <div class="feature-card">
+          <div class="feature-icon">
+            <i class="fas fa-database"></i>
+          </div>
+          <h3 class="feature-title">ডেটাবেস ম্যানেজমেন্ট</h3>
+          <p class="feature-desc">এমএস এক্সেস এবং এসকিউএল ব্যবহার করে ডেটাবেস ডিজাইন ও ম্যানেজমেন্ট</p>
+        </div>
+        
+        <div class="feature-card">
+          <div class="feature-icon">
+            <i class="fas fa-shield-alt"></i>
+          </div>
+          <h3 class="feature-title">সাইবার সুরক্ষা</h3>
+          <p class="feature-desc">ডিজিটাল নিরাপত্তা, পাসওয়ার্ড ম্যানেজমেন্ট এবং অনলাইন সুরক্ষা</p>
+        </div>
+        
+        <div class="feature-card">
+          <div class="feature-icon">
+            <i class="fas fa-robot"></i>
+          </div>
+          <h3 class="feature-title">কৃত্রিম বুদ্ধিমত্তা</h3>
+          <p class="feature-desc">এআই এর মৌলিক ধারণা এবং এর প্রাত্যহিক জীবনের প্রয়োগ</p>
+        </div>
+        
+        <div class="feature-card">
+          <div class="feature-icon">
+            <i class="fas fa-project-diagram"></i>
+          </div>
+          <h3 class="feature-title">প্রজেক্ট ভিত্তিক শেখা</h3>
+          <p class="feature-desc">বাস্তব জীবনের সমস্যা সমাধানের মাধ্যমে আইসিটি দক্ষতা উন্নয়ন</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Curriculum Section -->
+  <section class="curriculum">
+    <div class="container">
+      <div class="section-title">
+        <h2>শ্রেণিভিত্তিক পাঠ্যক্রম</h2>
+        <p>জাতীয় শিক্ষাক্রম ও পাঠ্যপুস্তক বোর্ড (এনসিটিবি) কর্তৃক প্রণীত সিলেবাস</p>
+      </div>
+      
+      <div class="curriculum-grid">
+        <div class="grade-card">
+          <div class="grade-header">
+            <h3>৬ষ্ঠ - ৮ম শ্রেণি</h3>
+            <p>বুনিয়াদি আইসিটি শিক্ষা</p>
+          </div>
+          <div class="grade-content">
+            <ul class="topics-list">
+              <li>কম্পিউটারের মৌলিক ধারণা</li>
+              <li>ওয়ার্ড প্রসেসিং (MS Word)</li>
+              <li>স্প্রেডশীট (MS Excel)</li>
+              <li>প্রেজেন্টেশন (MS PowerPoint)</li>
+              <li>ইন্টারনেট ও ই-মেইল</li>
+              <li>স্ক্র্যাচ প্রোগ্রামিং</li>
+            </ul>
+          </div>
+        </div>
+        
+        <div class="grade-card">
+          <div class="grade-header">
+            <h3>৯ম - ১০ম শ্রেণি</h3>
+            <p>মাধ্যমিক স্তরের আইসিটি</p>
+          </div>
+          <div class="grade-content">
+            <ul class="topics-list">
+              <li>ডেটা কমিউনিকেশন ও নেটওয়ার্কিং</li>
+              <li>ওয়েব ডিজাইন (HTML, CSS)</li>
+              <li>প্রোগ্রামিং (C, Python)</li>
+              <li>ডেটাবেস ম্যানেজমেন্ট (MS Access)</li>
+              <li>ডিজিটাল নিরাপত্তা ও নৈতিকতা</li>
+              <li>এনিমেশন ও গ্রাফিক্স ডিজাইন</li>
+            </ul>
+          </div>
+        </div>
+        
+        <div class="grade-card">
+          <div class="grade-header">
+            <h3>১১শ - ১২শ শ্রেণি</h3>
+            <p>উচ্চ মাধ্যমিক আইসিটি</p>
+          </div>
+          <div class="grade-content">
+            <ul class="topics-list">
+              <li>কম্পিউটার আর্কিটেকচার</li>
+              <li>অবজেক্ট ওরিয়েন্টেড প্রোগ্রামিং</li>
+              <li>ওয়েব ডেভেলপমেন্ট (PHP, JavaScript)</li>
+              <li>স্ট্রাকচার্ড কুয়েরি ল্যাঙ্গুয়েজ (SQL)</li>
+              <li>কৃত্রিম বুদ্ধিমত্তার ভিত্তি</li>
+              <li>ই-কমার্স ও ডিজিটাল মার্কেটিং</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Resources Section -->
+  <section class="resources">
+    <div class="container">
+      <div class="section-title">
+        <h2>শিক্ষা সম্পদ</h2>
+        <p>আইসিটি শেখার জন্য প্রয়োজনীয় ডিজিটাল রিসোর্স</p>
+      </div>
+      
+      <div class="resources-grid">
+        <div class="resource-card">
+          <div class="resource-img">
+            <i class="fas fa-book floating"></i>
+          </div>
+          <div class="resource-content">
+            <h3 class="resource-title">ডিজিটাল পাঠ্যপুস্তক</h3>
+            <p class="resource-desc">এনসিটিবি অনুমোদিত সকল শ্রেণির আইসিটি বইয়ের পিডিএফ সংস্করণ</p>
+            <a href="#" class="resource-btn">ডাউনলোড করুন</a>
+          </div>
+        </div>
+        
+        <div class="resource-card">
+          <div class="resource-img">
+            <i class="fas fa-video floating"></i>
+          </div>
+          <div class="resource-content">
+            <h3 class="resource-title">ভিডিও টিউটোরিয়াল</h3>
+            <p class="resource-desc">বিষয়ভিত্তিক ভিডিও লেকচার এবং প্র্যাকটিক্যাল ডেমো</p>
+            <a href="#" class="resource-btn">দেখুন এখন</a>
+          </div>
+        </div>
+        
+        <div class="resource-card">
+          <div class="resource-img">
+            <i class="fas fa-laptop-code floating"></i>
+          </div>
+          <div class="resource-content">
+            <h3 class="resource-title">ইন্টারেক্টিভ কোডিং</h3>
+            <p class="resource-desc">ওয়েব-ভিত্তিক কোড এডিটরে সরাসরি প্রোগ্রামিং অনুশীলন</p>
+            <a href="#" class="resource-btn">শুরু করুন</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <div class="footer-grid">
+        <div>
+          <div class="footer-logo">
+            <div class="footer-logo-icon">
+              <i class="fas fa-laptop-code"></i>
+            </div>
+            <span class="footer-logo-text">শিক্ষা গাইড বিডি</span>
+          </div>
+          <p class="footer-about">বাংলাদেশের শিক্ষার্থীদের জন্য একটি আধুনিক শিক্ষা প্ল্যাটফর্ম যেখানে আইসিটি শিক্ষাকে সহজ, আকর্ষণীয় এবং কার্যকরভাবে উপস্থাপন করা হয়।</p>
+          <div class="footer-social">
+            <div class="footer-social-icon">
+              <i class="fab fa-facebook-f"></i>
+            </div>
+            <div class="footer-social-icon">
+              <i class="fab fa-youtube"></i>
+            </div>
+            <div class="footer-social-icon">
+              <i class="fab fa-instagram"></i>
+            </div>
+            <div class="footer-social-icon">
+              <i class="fab fa-linkedin-in"></i>
+            </div>
+          </div>
+        </div>
+        
+        <div>
+          <h4 class="footer-heading">গুরুত্বপূর্ণ লিংক</h4>
+          <div class="footer-links">
+            <a href="#" class="footer-link"><i class="fas fa-arrow-right"></i> এনসিটিবি ওয়েবসাইট</a>
+            <a href="#" class="footer-link"><i class="fas fa-arrow-right"></i> শিক্ষা মন্ত্রণালয়</a>
+            <a href="#" class="footer-link"><i class="fas fa-arrow-right"></i> ডিজিটাল বাংলাদেশ</a>
+            <a href="#" class="footer-link"><i class="fas fa-arrow-right"></i> মুক্তপাঠ</a>
+          </div>
+        </div>
+        
+        <div>
+          <h4 class="footer-heading">শ্রেণি ভিত্তিক রিসোর্স</h4>
+          <div class="footer-links">
+            <a href="#" class="footer-link"><i class="fas fa-arrow-right"></i> ৬ষ্ঠ-৮ম শ্রেণি</a>
+            <a href="#" class="footer-link"><i class="fas fa-arrow-right"></i> ৯ম-১০ম শ্রেণি</a>
+            <a href="#" class="footer-link"><i class="fas fa-arrow-right"></i> ১১শ-১২শ শ্রেণি</a>
+            <a href="#" class="footer-link"><i class="fas fa-arrow-right"></i> ভর্তি প্রস্তুতি</a>
+          </div>
+        </div>
+        
+        <div>
+          <h4 class="footer-heading">যোগাযোগ</h4>
+          <div class="footer-links">
+            <a href="#" class="footer-link"><i class="fas fa-envelope"></i> info@shikkhaguidebd.com</a>
+            <a href="#" class="footer-link"><i class="fas fa-phone-alt"></i> +৮৮০ ১৭XX-XXXXXX</a>
+            <a href="#" class="footer-link"><i class="fas fa-map-marker-alt"></i> ঢাকা, বাংলাদেশ</a>
+          </div>
+        </div>
+      </div>
+      
+      <div class="footer-bottom">
+        <p>© ২০২৫ শিক্ষা গাইড বিডি। সকল অধিকার সংরক্ষিত। ডিজিটাল বাংলাদেশের অংশ হিসেবে গঠিত</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Theme Toggle
+    const themeToggle = document.getElementById('themeToggle');
+    const body = document.body;
+    const particlesContainer = document.getElementById('particles');
+    
+    // Check for saved theme preference
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme) {
+      body.setAttribute('data-theme', savedTheme);
+      themeToggle.innerHTML = savedTheme === 'dark' ? '<i class="fas fa-sun"></i>' : '<i class="fas fa-moon"></i>';
+    }
+    
+    themeToggle.addEventListener('click', () => {
+      if (body.getAttribute('data-theme') === 'dark') {
+        body.removeAttribute('data-theme');
+        localStorage.setItem('theme', 'light');
+        themeToggle.innerHTML = '<i class="fas fa-moon"></i>';
+      } else {
+        body.setAttribute('data-theme', 'dark');
+        localStorage.setItem('theme', 'dark');
+        themeToggle.innerHTML = '<i class="fas fa-sun"></i>';
+      }
+    });
+    
+    // Create floating particles
+    function createParticles() {
+      const colors = ['#43b581', '#1a936f', '#9ad3bc', '#64d29b'];
+      
+      for (let i = 0; i < 25; i++) {
+        const particle = document.createElement('div');
+        particle.classList.add('particle');
+        
+        // Random properties
+        const size = Math.random() * 10 + 2;
+        const posX = Math.random() * 100;
+        const posY = Math.random() * 100;
+        const color = colors[Math.floor(Math.random() * colors.length)];
+        const animationDuration = Math.random() * 15 + 10;
+        const animationDelay = Math.random() * 5;
+        
+        particle.style.width = `${size}px`;
+        particle.style.height = `${size}px`;
+        particle.style.left = `${posX}%`;
+        particle.style.top = `${posY}%`;
+        particle.style.background = color;
+        particle.style.animation = `float ${animationDuration}s ease-in-out ${animationDelay}s infinite`;
+        
+        particlesContainer.appendChild(particle);
+      }
+    }
+    
+    // Initialize
+    document.addEventListener('DOMContentLoaded', () => {
+      createParticles();
+      
+      // Add hover effect to cards
+      const cards = document.querySelectorAll('.feature-card, .grade-card, .resource-card');
+      cards.forEach(card => {
+        card.addEventListener('mouseenter', () => {
+          card.style.transform = 'translateY(-10px)';
+          card.style.boxShadow = '0 15px 35px rgba(0, 0, 0, 0.1)';
+        });
+        
+        card.addEventListener('mouseleave', () => {
+          card.style.transform = 'translateY(0)';
+          card.style.boxShadow = '0 8px 30px rgba(0, 0, 0, 0.08)';
+        });
+      });
+    });
+  </script>
+</body>
+</html>

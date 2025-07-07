@@ -1,0 +1,1457 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Futuristic Engineering Admissions - Bangladesh</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Bengali:wght@400;700&display=swap" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/GLTFLoader.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/libs/stats.min.js"></script>
+  <style>
+    :root {
+      --primary: #3498db;
+      --secondary: #2ecc71;
+      --accent: #ff6b6b;
+      --dark: #121212;
+      --light: #f5f5f5;
+      --card-bg: rgba(30, 30, 35, 0.95);
+      --text: #f0f0f0;
+      --shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+      --transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      --neon-primary: #4df0ff;
+      --neon-secondary: #ff4df0;
+      --neon-accent: #fffd4d;
+      --glass: rgba(20, 20, 25, 0.6);
+      --glass-border: rgba(255, 255, 255, 0.1);
+      --hologram-blue: rgba(77, 240, 255, 0.1);
+      --hologram-pink: rgba(255, 77, 240, 0.1);
+      --hologram-yellow: rgba(255, 253, 77, 0.1);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Noto Sans Bengali', 'Segoe UI', sans-serif;
+    }
+
+    body {
+      background: radial-gradient(circle at center, #0f1a3d 0%, #0a0f23 70%);
+      color: var(--text);
+      min-height: 100vh;
+      overflow-x: hidden;
+      position: relative;
+      line-height: 1.6;
+    }
+
+    /* Holographic Background */
+    .holographic-bg {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      z-index: -3;
+      background: 
+        radial-gradient(circle at 20% 30%, var(--hologram-blue) 0%, transparent 40%),
+        radial-gradient(circle at 80% 70%, var(--hologram-pink) 0%, transparent 40%),
+        radial-gradient(circle at 50% 10%, var(--hologram-yellow) 0%, transparent 40%);
+      opacity: 0.7;
+    }
+
+    /* Grid Overlay */
+    .grid-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: 
+        linear-gradient(rgba(0, 0, 0, 0.2) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0, 0, 0, 0.2) 1px, transparent 1px);
+      background-size: 50px 50px;
+      z-index: -2;
+      opacity: 0.3;
+    }
+
+    /* Particle Network */
+    #particle-canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+    }
+
+    /* Header & Navigation */
+    header {
+      padding: 1.5rem 5%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      backdrop-filter: blur(12px);
+      background: var(--glass);
+      border-bottom: 1px solid var(--glass-border);
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .logo-icon {
+      width: 50px;
+      height: 50px;
+      background: var(--neon-primary);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--dark);
+      font-size: 1.8rem;
+      box-shadow: 0 0 20px var(--neon-primary);
+      animation: pulse 2s infinite;
+    }
+
+    .logo-text {
+      font-size: 1.8rem;
+      font-weight: 700;
+      background: linear-gradient(45deg, var(--neon-primary), var(--neon-secondary));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      display: inline-block;
+      line-height: 1;
+      text-shadow: 0 0 10px rgba(77, 240, 255, 0.5);
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+    }
+
+    .nav-links a {
+      color: var(--light);
+      text-decoration: none;
+      font-weight: 500;
+      position: relative;
+      padding: 0.5rem 0;
+      transition: var(--transition);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .nav-links a:hover {
+      color: var(--neon-primary);
+      text-shadow: 0 0 8px var(--neon-primary);
+    }
+
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: var(--neon-primary);
+      box-shadow: 0 0 8px var(--neon-primary);
+      transition: var(--transition);
+    }
+
+    .nav-links a:hover::after {
+      width: 100%;
+    }
+
+    .theme-toggle {
+      background: var(--glass);
+      border: 1px solid var(--glass-border);
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      box-shadow: 0 0 15px rgba(77, 240, 255, 0.3);
+      transition: var(--transition);
+      color: var(--neon-primary);
+    }
+
+    .theme-toggle:hover {
+      transform: scale(1.1) rotate(15deg);
+      background: var(--neon-primary);
+      color: var(--dark);
+      box-shadow: 0 0 25px var(--neon-primary);
+    }
+
+    /* Mobile Menu */
+    .mobile-menu-btn {
+      display: none;
+      background: none;
+      border: none;
+      color: var(--neon-primary);
+      font-size: 1.8rem;
+      cursor: pointer;
+      z-index: 101;
+    }
+
+    .mobile-menu {
+      position: fixed;
+      top: 0;
+      right: -300px;
+      width: 280px;
+      height: 100vh;
+      background: var(--card-bg);
+      backdrop-filter: blur(20px);
+      z-index: 100;
+      padding: 6rem 2rem 2rem;
+      transition: all 0.5s ease;
+      box-shadow: -5px 0 20px rgba(0,0,0,0.5);
+      border-left: 1px solid var(--glass-border);
+    }
+
+    .mobile-menu.active {
+      right: 0;
+    }
+
+    .mobile-menu-links {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+
+    .mobile-menu-links a {
+      color: var(--light);
+      text-decoration: none;
+      font-size: 1.2rem;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      padding: 0.8rem 1.5rem;
+      border-radius: 10px;
+      transition: var(--transition);
+      background: rgba(77, 240, 255, 0.05);
+    }
+
+    .mobile-menu-links a:hover {
+      background: rgba(77, 240, 255, 0.15);
+      transform: translateX(5px);
+    }
+
+    .close-menu {
+      position: absolute;
+      top: 1.5rem;
+      right: 1.5rem;
+      background: none;
+      border: none;
+      color: var(--neon-primary);
+      font-size: 1.5rem;
+      cursor: pointer;
+    }
+
+    /* Hero Section */
+    .hero {
+      padding: 5rem 5% 3rem;
+      text-align: center;
+      max-width: 900px;
+      margin: 0 auto;
+      position: relative;
+      z-index: 10;
+    }
+
+    .hero h1 {
+      font-size: 3.5rem;
+      margin-bottom: 1.5rem;
+      line-height: 1.2;
+      color: white;
+      text-shadow: 0 0 20px var(--neon-primary);
+      animation: fadeInUp 1s ease;
+    }
+
+    .hero h1 span {
+      background: linear-gradient(45deg, var(--neon-secondary), var(--neon-primary));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      text-shadow: 0 0 15px var(--neon-secondary);
+    }
+
+    .hero p {
+      font-size: 1.3rem;
+      margin-bottom: 2rem;
+      color: var(--light);
+      max-width: 700px;
+      margin-left: auto;
+      margin-right: auto;
+      animation: fadeInUp 1s ease 0.2s forwards;
+      opacity: 0;
+    }
+
+    /* Futuristic Button */
+    .cta-button {
+      display: inline-block;
+      padding: 1rem 2.5rem;
+      background: linear-gradient(45deg, var(--neon-primary), var(--neon-secondary));
+      color: var(--dark);
+      font-weight: 700;
+      border-radius: 50px;
+      text-decoration: none;
+      font-size: 1.1rem;
+      margin-top: 1rem;
+      transition: var(--transition);
+      box-shadow: 0 0 20px var(--neon-primary);
+      border: none;
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+      z-index: 1;
+    }
+
+    .cta-button::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+      transition: 0.5s;
+      z-index: -1;
+    }
+
+    .cta-button:hover::before {
+      left: 100%;
+    }
+
+    .cta-button:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 30px var(--neon-primary);
+    }
+
+    /* Engineering University Section */
+    .engineering-section {
+      padding: 2rem 5%;
+      max-width: 1400px;
+      margin: 0 auto;
+      position: relative;
+      z-index: 10;
+    }
+    
+    .section-title {
+      font-size: 2.5rem;
+      text-align: center;
+      margin-bottom: 3rem;
+      color: white;
+      position: relative;
+      display: inline-block;
+      left: 50%;
+      transform: translateX(-50%);
+      text-shadow: 0 0 15px var(--neon-primary);
+    }
+    
+    .section-title::after {
+      content: '';
+      position: absolute;
+      bottom: -10px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 150px;
+      height: 4px;
+      background: linear-gradient(to right, var(--neon-primary), var(--neon-secondary));
+      border-radius: 2px;
+      box-shadow: 0 0 10px var(--neon-primary);
+    }
+    
+    .engineering-cards {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 3rem;
+    }
+    
+    .engineering-card {
+      width: 100%;
+      max-width: 600px;
+      background: var(--glass);
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+      transition: var(--transition);
+      position: relative;
+      border: 1px solid var(--glass-border);
+      backdrop-filter: blur(10px);
+    }
+    
+    .engineering-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 20px 40px rgba(77, 240, 255, 0.3);
+    }
+    
+    .card-header {
+      padding: 2rem;
+      text-align: center;
+      background: linear-gradient(135deg, var(--neon-primary), var(--neon-secondary));
+      color: var(--dark);
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .card-header::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+      transform: rotate(45deg);
+      transition: 0.5s;
+    }
+    
+    .card-header:hover::before {
+      top: 50%;
+      left: 50%;
+    }
+    
+    .card-header h3 {
+      font-size: 2.2rem;
+      margin-bottom: 1rem;
+      position: relative;
+      z-index: 1;
+    }
+    
+    .card-body {
+      padding: 2rem;
+    }
+    
+    .university-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1.5rem;
+    }
+    
+    .uni-card {
+      background: rgba(77, 240, 255, 0.05);
+      border-radius: 15px;
+      padding: 1.5rem;
+      transition: var(--transition);
+      border: 1px solid var(--glass-border);
+      backdrop-filter: blur(5px);
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .uni-card:hover {
+      background: rgba(77, 240, 255, 0.1);
+      transform: translateY(-5px);
+      box-shadow: 0 5px 15px rgba(77, 240, 255, 0.2);
+    }
+    
+    .uni-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(77, 240, 255, 0.1), transparent);
+      transition: 0.5s;
+    }
+    
+    .uni-card:hover::before {
+      left: 100%;
+    }
+    
+    .uni-header {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 1rem;
+    }
+    
+    .uni-logo {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 2px solid var(--neon-primary);
+      box-shadow: 0 0 10px var(--neon-primary);
+    }
+    
+    .uni-name {
+      font-size: 1.3rem;
+      font-weight: 600;
+      color: var(--neon-primary);
+    }
+    
+    .uni-stats {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+    }
+    
+    .uni-stat {
+      background: rgba(77, 240, 255, 0.1);
+      border-radius: 10px;
+      padding: 0.8rem;
+      text-align: center;
+      border: 1px solid var(--glass-border);
+    }
+    
+    .uni-stat-value {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--neon-primary);
+    }
+    
+    .uni-stat-label {
+      font-size: 0.9rem;
+      color: var(--text);
+      opacity: 0.8;
+    }
+    
+    .uni-info {
+      margin-top: 1rem;
+      padding-top: 1rem;
+      border-top: 1px dashed var(--glass-border);
+    }
+    
+    .uni-info p {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-bottom: 0.5rem;
+      font-size: 0.95rem;
+    }
+    
+    .uni-info i {
+      color: var(--neon-primary);
+      min-width: 20px;
+    }
+
+    /* 3D Model Containers */
+    .building-model {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      width: 200px;
+      height: 200px;
+      z-index: 5;
+      pointer-events: none;
+    }
+
+    .dna-model {
+      position: fixed;
+      bottom: 20px;
+      left: 20px;
+      width: 150px;
+      height: 150px;
+      z-index: 5;
+      pointer-events: none;
+    }
+
+    /* Floating Tech Elements */
+    .floating-tech {
+      position: fixed;
+      z-index: -1;
+    }
+    
+    .floating-tech.gear {
+      top: 15%;
+      left: 5%;
+      width: 100px;
+      height: 100px;
+      animation: float 15s infinite linear;
+      opacity: 0.3;
+      filter: blur(1px);
+    }
+    
+    .floating-tech.circuit {
+      bottom: 20%;
+      right: 10%;
+      width: 150px;
+      height: 150px;
+      animation: float 18s infinite linear reverse;
+      opacity: 0.2;
+    }
+
+    /* AI Assistant */
+    .ai-assistant {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      width: 70px;
+      height: 70px;
+      background: linear-gradient(135deg, var(--neon-primary), var(--neon-secondary));
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      z-index: 99;
+      box-shadow: 0 0 20px var(--neon-primary), 0 5px 15px rgba(0,0,0,0.3);
+      transition: var(--transition);
+    }
+
+    .ai-assistant:hover {
+      transform: scale(1.1);
+      box-shadow: 0 0 30px var(--neon-primary), 0 8px 25px rgba(0,0,0,0.4);
+    }
+
+    .ai-assistant i {
+      font-size: 2rem;
+      color: var(--dark);
+    }
+
+    /* Footer */
+    footer {
+      padding: 2rem 5%;
+      text-align: center;
+      margin-top: 3rem;
+      color: var(--light);
+      position: relative;
+      z-index: 10;
+      background: var(--glass);
+      border-top: 1px solid var(--glass-border);
+      backdrop-filter: blur(10px);
+    }
+    
+    footer p {
+      opacity: 0.8;
+      font-size: 0.9rem;
+    }
+
+    /* Hologram Effects */
+    .hologram-effect {
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hologram-effect::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(0deg, transparent, rgba(77, 240, 255, 0.1), transparent);
+      z-index: -1;
+      animation: hologramScan 4s linear infinite;
+    }
+
+    @keyframes hologramScan {
+      0% { top: -100%; }
+      100% { top: 100%; }
+    }
+
+    /* Animations */
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes pulse {
+      0% { 
+        transform: scale(1);
+        box-shadow: 0 0 20px var(--neon-primary);
+      }
+      50% { 
+        transform: scale(1.05);
+        box-shadow: 0 0 30px var(--neon-primary);
+      }
+      100% { 
+        transform: scale(1);
+        box-shadow: 0 0 20px var(--neon-primary);
+      }
+    }
+    
+    @keyframes float {
+      0% { transform: translateY(0) rotate(0deg); }
+      25% { transform: translateY(-20px) rotate(90deg); }
+      50% { transform: translateY(0) rotate(180deg); }
+      75% { transform: translateY(20px) rotate(270deg); }
+      100% { transform: translateY(0) rotate(360deg); }
+    }
+
+    /* Responsive Design */
+    @media (max-width: 992px) {
+      .engineering-cards {
+        flex-direction: column;
+        align-items: center;
+      }
+      
+      .hero h1 {
+        font-size: 2.8rem;
+      }
+      
+      .building-model, .dna-model {
+        width: 150px;
+        height: 150px;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .nav-links {
+        display: none;
+      }
+      
+      .mobile-menu-btn {
+        display: block;
+      }
+      
+      .hero h1 {
+        font-size: 2.3rem;
+      }
+      
+      .section-title {
+        font-size: 2rem;
+      }
+      
+      .card-header h3 {
+        font-size: 1.8rem;
+      }
+      
+      .building-model, .dna-model {
+        width: 120px;
+        height: 120px;
+        top: 10px;
+        right: 10px;
+      }
+      
+      .dna-model {
+        left: 10px;
+        bottom: 10px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .hero {
+        padding: 3rem 5%;
+      }
+      
+      .hero h1 {
+        font-size: 1.8rem;
+      }
+      
+      .hero p {
+        font-size: 1.1rem;
+      }
+      
+      .section-title {
+        font-size: 1.6rem;
+        margin-bottom: 2rem;
+      }
+      
+      .section-title::after {
+        width: 100px;
+      }
+      
+      .university-grid {
+        grid-template-columns: 1fr;
+      }
+      
+      .building-model, .dna-model {
+        display: none;
+      }
+      
+      .floating-tech {
+        display: none;
+      }
+      
+      .ai-assistant {
+        bottom: 20px;
+        right: 20px;
+        width: 60px;
+        height: 60px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Futuristic Background Elements -->
+  <div class="holographic-bg"></div>
+  <div class="grid-overlay"></div>
+  <canvas id="particle-canvas"></canvas>
+  
+  <!-- Floating Tech Elements -->
+  <div class="floating-tech gear">
+    <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M50 15L56.6987 20.6975L65.4508 18.9042L68.75 27.5L77.2452 31.2548L75.452 40.0069L81.1495 46.7056L75.452 53.4042L77.2452 62.1563L68.75 65.9111L65.4508 74.5069L56.6987 72.7137L50 78.4111L43.3013 72.7137L34.5492 74.5069L31.25 65.9111L22.7548 62.1563L24.548 53.4042L18.8505 46.7056L24.548 40.0069L22.7548 31.2548L31.25 27.5L34.5492 18.9042L43.3013 20.6975L50 15Z" stroke="#4df0ff" stroke-width="2"/>
+      <circle cx="50" cy="46.7056" r="15" stroke="#4df0ff" stroke-width="2"/>
+    </svg>
+  </div>
+  
+  <div class="floating-tech circuit">
+    <svg viewBox="0 0 150 150" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <rect x="25" y="25" width="30" height="30" stroke="#ff4df0" stroke-width="2"/>
+      <rect x="95" y="25" width="30" height="30" stroke="#ff4df0" stroke-width="2"/>
+      <rect x="25" y="95" width="30" height="30" stroke="#ff4df0" stroke-width="2"/>
+      <rect x="95" y="95" width="30" height="30" stroke="#ff4df0" stroke-width="2"/>
+      <path d="M55 40H95M55 110H95M40 55V95M110 55V95" stroke="#ff4df0" stroke-width="2" stroke-linecap="round"/>
+      <circle cx="75" cy="75" r="10" stroke="#ff4df0" stroke-width="2"/>
+    </svg>
+  </div>
+
+  <!-- 3D Models -->
+  <div class="building-model" id="building"></div>
+  <div class="dna-model" id="dna"></div>
+
+  <!-- AI Assistant -->
+  <div class="ai-assistant">
+    <i class="fas fa-robot"></i>
+  </div>
+
+  <!-- Header -->
+  <header>
+    <div class="logo">
+      <div class="logo-icon">
+        <i class="fas fa-microchip"></i>
+      </div>
+      <div class="logo-text">প্রকৌশল ভবিষ্যৎ</div>
+    </div>
+    
+    <nav class="nav-links">
+      <a href="#"><i class="fas fa-home"></i> হোম</a>
+      <a href="#"><i class="fas fa-brain"></i> প্রস্তুতি</a>
+      <a href="#"><i class="fas fa-atom"></i> বিশ্ববিদ্যালয়</a>
+      <a href="#"><i class="fas fa-robot"></i> সহায়তা</a>
+    </nav>
+    
+    <button class="mobile-menu-btn" id="mobileMenuBtn">
+      <i class="fas fa-bars"></i>
+    </button>
+    
+    <button class="theme-toggle" id="themeToggle">
+      <i class="fas fa-moon"></i>
+    </button>
+  </header>
+
+  <!-- Mobile Menu -->
+  <div class="mobile-menu" id="mobileMenu">
+    <button class="close-menu" id="closeMenu">
+      <i class="fas fa-times"></i>
+    </button>
+    <nav class="mobile-menu-links">
+      <a href="#"><i class="fas fa-home"></i> হোম</a>
+      <a href="#"><i class="fas fa-brain"></i> প্রস্তুতি</a>
+      <a href="#"><i class="fas fa-atom"></i> বিশ্ববিদ্যালয়</a>
+      <a href="#"><i class="fas fa-robot"></i> সহায়তা</a>
+      <a href="#"><i class="fas fa-book"></i> রিসোর্স</a>
+      <a href="#"><i class="fas fa-chart-line"></i> প্রবেশপত্র</a>
+    </nav>
+  </div>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <h1>ভবিষ্যতের <span>প্রকৌশলী</span> তৈরির পথ</h1>
+    <p>কৃত্রিম বুদ্ধিমত্তা, রোবোটিক্স ও ন্যানোপ্রযুক্তিতে বিশেষায়িত ভর্তি তথ্য</p>
+    <button class="cta-button">ভর্তি প্রক্রিয়া শুরু করুন</button>
+  </section>
+
+  <!-- Engineering University Section -->
+  <section class="engineering-section">
+    <h2 class="section-title">প্রকৌশল বিশ্ববিদ্যালয়সমূহ</h2>
+    
+    <div class="engineering-cards">
+      <!-- BUET Card -->
+      <div class="engineering-card hologram-effect">
+        <div class="card-header">
+          <h3>বাংলাদেশ প্রকৌশল বিশ্ববিদ্যালয় (বুয়েট)</h3>
+          <p>বাংলাদেশের শীর্ষস্থানীয় প্রকৌশল বিশ্ববিদ্যালয়</p>
+        </div>
+        <div class="card-body">
+          <div class="university-grid">
+            <div class="uni-card">
+              <div class="uni-header">
+                <img src="https://upload.wikimedia.org/wikipedia/en/thumb/3/3d/Bangladesh_University_of_Engineering_and_Technology_logo.svg/1200px-Bangladesh_University_of_Engineering_and_Technology_logo.svg.png" alt="BUET" class="uni-logo">
+                <div class="uni-name">বুয়েট</div>
+              </div>
+              <div class="uni-stats">
+                <div class="uni-stat">
+                  <div class="uni-stat-value">1,200</div>
+                  <div class="uni-stat-label">মোট সিট</div>
+                </div>
+                <div class="uni-stat">
+                  <div class="uni-stat-value">1912</div>
+                  <div class="uni-stat-label">প্রতিষ্ঠা</div>
+                </div>
+                <div class="uni-stat">
+                  <div class="uni-stat-value">15:1</div>
+                  <div class="uni-stat-label">প্রার্থী:সিট</div>
+                </div>
+                <div class="uni-stat">
+                  <div class="uni-stat-value">12</div>
+                  <div class="uni-stat-label">বিভাগ</div>
+                </div>
+              </div>
+              <div class="uni-info">
+                <p><i class="fas fa-map-marker-alt"></i> ঢাকা, বাংলাদেশ</p>
+                <p><i class="fas fa-calendar-check"></i> ভর্তি: ডিসেম্বর-জানুয়ারি</p>
+                <p><i class="fas fa-globe"></i> www.buet.ac.bd</p>
+                <p><i class="fas fa-star"></i> QS এশিয়া র্যাঙ্কিং: 301-350</p>
+              </div>
+            </div>
+          </div>
+          
+          <div class="uni-details" style="margin-top: 2rem;">
+            <h4 style="font-size: 1.4rem; margin-bottom: 1rem; color: var(--neon-primary);">ভর্তি তথ্য</h4>
+            <ul style="list-style: none; padding-left: 1rem;">
+              <li style="margin-bottom: 0.8rem; display: flex; align-items: flex-start;">
+                <i class="fas fa-check-circle" style="color: var(--neon-primary); margin-right: 0.8rem; margin-top: 0.3rem;"></i>
+                <span>ভর্তি পরীক্ষা: পদার্থবিদ্যা, রসায়ন, গণিত ও ইংরেজি</span>
+              </li>
+              <li style="margin-bottom: 0.8rem; display: flex; align-items: flex-start;">
+                <i class="fas fa-check-circle" style="color: var(--neon-primary); margin-right: 0.8rem; margin-top: 0.3rem;"></i>
+                <span>মোট সময়: ৪ ঘন্টা</span>
+              </li>
+              <li style="margin-bottom: 0.8rem; display: flex; align-items: flex-start;">
+                <i class="fas fa-check-circle" style="color: var(--neon-primary); margin-right: 0.8rem; margin-top: 0.3rem;"></i>
+                <span>নম্বর: পদার্থবিদ্যা (২০০), রসায়ন (২০০), গণিত (২০০), ইংরেজি (১০০)</span>
+              </li>
+              <li style="margin-bottom: 0.8rem; display: flex; align-items: flex-start;">
+                <i class="fas fa-check-circle" style="color: var(--neon-primary); margin-right: 0.8rem; margin-top: 0.3rem;"></i>
+                <span>সর্বনিম্ন যোগ্যতা: এসএসসি ও এইচএসসি মিলে জিপিএ ৮.০০</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      
+      <!-- GST Universities Card -->
+      <div class="engineering-card hologram-effect">
+        <div class="card-header">
+          <h3>জিপিএসটি প্রকৌশল বিশ্ববিদ্যালয়</h3>
+          <p>বাংলাদেশের সরকারি প্রকৌশল বিশ্ববিদ্যালয়সমূহ</p>
+        </div>
+        <div class="card-body">
+          <div class="university-grid">
+            <!-- RUET -->
+            <div class="uni-card">
+              <div class="uni-header">
+                <img src="https://upload.wikimedia.org/wikipedia/en/thumb/4/4d/Rajshahi_University_of_Engineering_%26_Technology_logo.png/220px-Rajshahi_University_of_Engineering_%26_Technology_logo.png" alt="RUET" class="uni-logo">
+                <div class="uni-name">রুয়েট</div>
+              </div>
+              <div class="uni-stats">
+                <div class="uni-stat">
+                  <div class="uni-stat-value">1,050</div>
+                  <div class="uni-stat-label">মোট সিট</div>
+                </div>
+                <div class="uni-stat">
+                  <div class="uni-stat-value">1964</div>
+                  <div class="uni-stat-label">প্রতিষ্ঠা</div>
+                </div>
+                <div class="uni-stat">
+                  <div class="uni-stat-value">12:1</div>
+                  <div class="uni-stat-label">প্রার্থী:সিট</div>
+                </div>
+              </div>
+              <div class="uni-info">
+                <p><i class="fas fa-map-marker-alt"></i> রাজশাহী</p>
+                <p><i class="fas fa-calendar-check"></i> ভর্তি: আগস্ট-সেপ্টেম্বর</p>
+                <p><i class="fas fa-globe"></i> www.ruet.ac.bd</p>
+              </div>
+            </div>
+            
+            <!-- CUET -->
+            <div class="uni-card">
+              <div class="uni-header">
+                <img src="https://upload.wikimedia.org/wikipedia/en/thumb/8/8b/CUET_Logo.png/220px-CUET_Logo.png" alt="CUET" class="uni-logo">
+                <div class="uni-name">চুয়েট</div>
+              </div>
+              <div class="uni-stats">
+                <div class="uni-stat">
+                  <div class="uni-stat-value">950</div>
+                  <div class="uni-stat-label">মোট সিট</div>
+                </div>
+                <div class="uni-stat">
+                  <div class="uni-stat-value">1968</div>
+                  <div class="uni-stat-label">প্রতিষ্ঠা</div>
+                </div>
+                <div class="uni-stat">
+                  <div class="uni-stat-value">10:1</div>
+                  <div class="uni-stat-label">প্রার্থী:সিট</div>
+                </div>
+              </div>
+              <div class="uni-info">
+                <p><i class="fas fa-map-marker-alt"></i> চট্টগ্রাম</p>
+                <p><i class="fas fa-calendar-check"></i> ভর্তি: সেপ্টেম্বর-অক্টোবর</p>
+                <p><i class="fas fa-globe"></i> www.cuet.ac.bd</p>
+              </div>
+            </div>
+            
+            <!-- KUET -->
+            <div class="uni-card">
+              <div class="uni-header">
+                <img src="https://upload.wikimedia.org/wikipedia/en/thumb/3/3c/Khulna_University_of_Engineering_%26_Technology_logo.png/220px-Khulna_University_of_Engineering_%26_Technology_logo.png" alt="KUET" class="uni-logo">
+                <div class="uni-name">কুয়েট</div>
+              </div>
+              <div class="uni-stats">
+                <div class="uni-stat">
+                  <div class="uni-stat-value">900</div>
+                  <div class="uni-stat-label">মোট সিট</div>
+                </div>
+                <div class="uni-stat">
+                  <div class="uni-stat-value">1967</div>
+                  <div class="uni-stat-label">প্রতিষ্ঠা</div>
+                </div>
+                <div class="uni-stat">
+                  <div class="uni-stat-value">9:1</div>
+                  <div class="uni-stat-label">প্রার্থী:সিট</div>
+                </div>
+              </div>
+              <div class="uni-info">
+                <p><i class="fas fa-map-marker-alt"></i> খুলনা</p>
+                <p><i class="fas fa-calendar-check"></i> ভর্তি: সেপ্টেম্বর-অক্টোবর</p>
+                <p><i class="fas fa-globe"></i> www.kuet.ac.bd</p>
+              </div>
+            </div>
+            
+            <!-- DUET -->
+            <div class="uni-card">
+              <div class="uni-header">
+                <img src="https://upload.wikimedia.org/wikipedia/en/thumb/1/1c/DUET_Logo.png/220px-DUET_Logo.png" alt="DUET" class="uni-logo">
+                <div class="uni-name">ডুয়েট</div>
+              </div>
+              <div class="uni-stats">
+                <div class="uni-stat">
+                  <div class="uni-stat-value">800</div>
+                  <div class="uni-stat-label">মোট সিট</div>
+                </div>
+                <div class="uni-stat">
+                  <div class="uni-stat-value">1980</div>
+                  <div class="uni-stat-label">প্রতিষ্ঠা</div>
+                </div>
+                <div class="uni-stat">
+                  <div class="uni-stat-value">8:1</div>
+                  <div class="uni-stat-label">প্রার্থী:সিট</div>
+                </div>
+              </div>
+              <div class="uni-info">
+                <p><i class="fas fa-map-marker-alt"></i> গাজীপুর</p>
+                <p><i class="fas fa-calendar-check"></i> ভর্তি: অক্টোবর-নভেম্বর</p>
+                <p><i class="fas fa-globe"></i> www.duet.ac.bd</p>
+              </div>
+            </div>
+          </div>
+          
+          <div class="uni-details" style="margin-top: 2rem;">
+            <h4 style="font-size: 1.4rem; margin-bottom: 1rem; color: var(--neon-primary);">ভর্তি তথ্য</h4>
+            <ul style="list-style: none; padding-left: 1rem;">
+              <li style="margin-bottom: 0.8rem; display: flex; align-items: flex-start;">
+                <i class="fas fa-check-circle" style="color: var(--neon-primary); margin-right: 0.8rem; margin-top: 0.3rem;"></i>
+                <span>ভর্তি পরীক্ষা: পদার্থবিদ্যা, রসায়ন, গণিত ও ইংরেজি</span>
+              </li>
+              <li style="margin-bottom: 0.8rem; display: flex; align-items: flex-start;">
+                <i class="fas fa-check-circle" style="color: var(--neon-primary); margin-right: 0.8rem; margin-top: 0.3rem;"></i>
+                <span>মোট সময়: ৩ ঘন্টা</span>
+              </li>
+              <li style="margin-bottom: 0.8rem; display: flex; align-items: flex-start;">
+                <i class="fas fa-check-circle" style="color: var(--neon-primary); margin-right: 0.8rem; margin-top: 0.3rem;"></i>
+                <span>নম্বর: পদার্থবিদ্যা (২০০), রসায়ন (২০০), গণিত (২০০), ইংরেজি (১০০)</span>
+              </li>
+              <li style="margin-bottom: 0.8rem; display: flex; align-items: flex-start;">
+                <i class="fas fa-check-circle" style="color: var(--neon-primary); margin-right: 0.8rem; margin-top: 0.3rem;"></i>
+                <span>সর্বনিম্ন যোগ্যতা: এসএসসি ও এইচএসসি মিলে জিপিএ ৭.০০</span>
+              </li>
+              <li style="margin-bottom: 0.8rem; display: flex; align-items: flex-start;">
+                <i class="fas fa-check-circle" style="color: var(--neon-primary); margin-right: 0.8rem; margin-top: 0.3rem;"></i>
+                <span>ভর্তি পরীক্ষা সাধারণত মে-জুন মাসে অনুষ্ঠিত হয়</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <p>© ২০২৩ বাংলাদেশ প্রকৌশল ভবিষ্যৎ পোর্টাল | সর্বাধুনিক ভর্তি তথ্য ব্যবস্থা</p>
+  </footer>
+
+  <script>
+    // Dark mode toggle
+    function setupDarkModeToggle() {
+      const toggleBtn = document.getElementById('themeToggle');
+      const body = document.body;
+      
+      // Check for saved theme preference
+      const savedTheme = localStorage.getItem('theme');
+      if (savedTheme === 'dark') {
+        body.classList.add('dark-mode');
+        toggleBtn.innerHTML = '<i class="fas fa-sun"></i>';
+      }
+      
+      toggleBtn.addEventListener('click', () => {
+        body.classList.toggle('dark-mode');
+        
+        if (body.classList.contains('dark-mode')) {
+          localStorage.setItem('theme', 'dark');
+          toggleBtn.innerHTML = '<i class="fas fa-sun"></i>';
+        } else {
+          localStorage.setItem('theme', 'light');
+          toggleBtn.innerHTML = '<i class="fas fa-moon"></i>';
+        }
+      });
+    }
+
+    // Mobile menu toggle
+    function setupMobileMenu() {
+      const menuBtn = document.getElementById('mobileMenuBtn');
+      const closeBtn = document.getElementById('closeMenu');
+      const mobileMenu = document.getElementById('mobileMenu');
+      
+      menuBtn.addEventListener('click', () => {
+        mobileMenu.classList.add('active');
+      });
+      
+      closeBtn.addEventListener('click', () => {
+        mobileMenu.classList.remove('active');
+      });
+    }
+
+    // Particle Network Background
+    function createParticleNetwork() {
+      const canvas = document.getElementById('particle-canvas');
+      const ctx = canvas.getContext('2d');
+      
+      // Set canvas dimensions
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+      
+      // Particle class
+      class Particle {
+        constructor() {
+          this.x = Math.random() * canvas.width;
+          this.y = Math.random() * canvas.height;
+          this.vx = (Math.random() - 0.5) * 0.5;
+          this.vy = (Math.random() - 0.5) * 0.5;
+          this.radius = Math.random() * 1.5 + 0.5;
+          this.color = `rgba(${
+            Math.floor(Math.random() * 56 + 200)
+          }, ${
+            Math.floor(Math.random() * 56 + 200)
+          }, 255, 0.8)`;
+        }
+        
+        update() {
+          this.x += this.vx;
+          this.y += this.vy;
+          
+          // Bounce off edges
+          if (this.x < 0 || this.x > canvas.width) this.vx *= -1;
+          if (this.y < 0 || this.y > canvas.height) this.vy *= -1;
+        }
+        
+        draw() {
+          ctx.beginPath();
+          ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+          ctx.fillStyle = this.color;
+          ctx.fill();
+        }
+      }
+      
+      // Create particles
+      const particles = [];
+      const particleCount = Math.floor(canvas.width * canvas.height / 5000);
+      
+      for (let i = 0; i < particleCount; i++) {
+        particles.push(new Particle());
+      }
+      
+      // Draw connecting lines
+      function drawLines() {
+        for (let i = 0; i < particles.length; i++) {
+          for (let j = i + 1; j < particles.length; j++) {
+            const dx = particles[i].x - particles[j].x;
+            const dy = particles[i].y - particles[j].y;
+            const distance = Math.sqrt(dx * dx + dy * dy);
+            
+            if (distance < 150) {
+              const opacity = 1 - distance / 150;
+              ctx.beginPath();
+              ctx.moveTo(particles[i].x, particles[i].y);
+              ctx.lineTo(particles[j].x, particles[j].y);
+              ctx.strokeStyle = `rgba(77, 240, 255, ${opacity * 0.2})`;
+              ctx.lineWidth = 1;
+              ctx.stroke();
+            }
+          }
+        }
+      }
+      
+      // Animation loop
+      function animate() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        
+        particles.forEach(particle => {
+          particle.update();
+          particle.draw();
+        });
+        
+        drawLines();
+        
+        requestAnimationFrame(animate);
+      }
+      
+      animate();
+      
+      // Handle window resize
+      window.addEventListener('resize', () => {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+      });
+    }
+
+    // Create 3D building model
+    function createBuildingModel() {
+      const container = document.getElementById('building');
+      
+      if (typeof THREE !== 'undefined') {
+        // Scene setup
+        const scene = new THREE.Scene();
+        scene.background = null;
+        const camera = new THREE.PerspectiveCamera(75, 1, 0.1, 1000);
+        const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
+        renderer.setSize(200, 200);
+        renderer.setPixelRatio(window.devicePixelRatio);
+        container.appendChild(renderer.domElement);
+        
+        // Lighting
+        const ambientLight = new THREE.AmbientLight(0x4df0ff, 0.5);
+        scene.add(ambientLight);
+        
+        const directionalLight = new THREE.DirectionalLight(0xff4df0, 1);
+        directionalLight.position.set(5, 5, 5);
+        scene.add(directionalLight);
+        
+        const pointLight = new THREE.PointLight(0xfffd4d, 1);
+        pointLight.position.set(-5, 5, 5);
+        scene.add(pointLight);
+        
+        // Create futuristic building
+        const createTower = (x, z, height, color) => {
+          const geometry = new THREE.BoxGeometry(8, height, 8);
+          const material = new THREE.MeshPhongMaterial({ 
+            color: color,
+            emissive: color,
+            emissiveIntensity: 0.2,
+            shininess: 50,
+            transparent: true,
+            opacity: 0.9
+          });
+          
+          const tower = new THREE.Mesh(geometry, material);
+          tower.position.set(x, height/2, z);
+          scene.add(tower);
+          
+          // Add windows
+          const windowGeometry = new THREE.BoxGeometry(1, 1, 0.1);
+          const windowMaterial = new THREE.MeshBasicMaterial({ 
+            color: 0x4df0ff,
+            emissive: 0x4df0ff,
+            emissiveIntensity: 0.5
+          });
+          
+          for (let i = 0; i < height/3; i++) {
+            for (let j = -1; j <= 1; j += 2) {
+              for (let k = -1; k <= 1; k += 2) {
+                const window = new THREE.Mesh(windowGeometry, windowMaterial);
+                window.position.set(j * 2.5, i * 3 + 5, k * 2.5);
+                tower.add(window);
+              }
+            }
+          }
+          
+          return tower;
+        };
+        
+        // Create towers
+        const tower1 = createTower(-10, -10, 40, 0x4df0ff);
+        const tower2 = createTower(10, 10, 50, 0xff4df0);
+        const tower3 = createTower(0, 0, 60, 0xfffd4d);
+        
+        // Create base
+        const baseGeometry = new THREE.BoxGeometry(50, 5, 50);
+        const baseMaterial = new THREE.MeshPhongMaterial({ 
+          color: 0x444444,
+          shininess: 30
+        });
+        const base = new THREE.Mesh(baseGeometry, baseMaterial);
+        base.position.y = -2.5;
+        scene.add(base);
+        
+        // Position camera
+        camera.position.set(0, 30, 50);
+        camera.lookAt(0, 20, 0);
+        
+        // Animation
+        function animate() {
+          requestAnimationFrame(animate);
+          
+          tower1.rotation.y += 0.005;
+          tower2.rotation.y -= 0.007;
+          tower3.rotation.y += 0.004;
+          
+          renderer.render(scene, camera);
+        }
+        
+        animate();
+        
+        // Handle window resize
+        window.addEventListener('resize', () => {
+          camera.aspect = 1;
+          camera.updateProjectionMatrix();
+          renderer.setSize(200, 200);
+        });
+      }
+    }
+
+    // Create DNA helix model
+    function createDNAModel() {
+      const container = document.getElementById('dna');
+      
+      if (typeof THREE !== 'undefined') {
+        // Scene setup
+        const scene = new THREE.Scene();
+        scene.background = null;
+        const camera = new THREE.PerspectiveCamera(75, 1, 0.1, 1000);
+        const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
+        renderer.setSize(150, 150);
+        renderer.setPixelRatio(window.devicePixelRatio);
+        container.appendChild(renderer.domElement);
+        
+        // Lighting
+        const ambientLight = new THREE.AmbientLight(0x4df0ff, 0.3);
+        scene.add(ambientLight);
+        
+        const pointLight = new THREE.PointLight(0xff4df0, 1);
+        pointLight.position.set(10, 10, 10);
+        scene.add(pointLight);
+        
+        // Create DNA helix
+        const helixRadius = 5;
+        const helixHeight = 20;
+        const segments = 20;
+        
+        // Create the backbone
+        const backboneMaterial = new THREE.MeshPhongMaterial({ 
+          color: 0x4df0ff,
+          emissive: 0x4df0ff,
+          emissiveIntensity: 0.2,
+          shininess: 50
+        });
+        
+        // Create the base pairs
+        const baseMaterial = new THREE.MeshPhongMaterial({ 
+          color: 0xff4df0,
+          emissive: 0xff4df0,
+          emissiveIntensity: 0.2,
+          shininess: 50
+        });
+        
+        const backbone1 = new THREE.Group();
+        const backbone2 = new THREE.Group();
+        const basePairs = new THREE.Group();
+        
+        for (let i = 0; i < segments; i++) {
+          // Create backbone spheres
+          const angle = (i / segments) * Math.PI * 2 * 2; // Two turns
+          const x1 = helixRadius * Math.cos(angle);
+          const y1 = (i / segments) * helixHeight - helixHeight / 2;
+          const z1 = helixRadius * Math.sin(angle);
+          
+          const x2 = helixRadius * Math.cos(angle + Math.PI);
+          const y2 = y1;
+          const z2 = helixRadius * Math.sin(angle + Math.PI);
+          
+          const sphereGeometry = new THREE.SphereGeometry(0.5, 16, 16);
+          
+          const sphere1 = new THREE.Mesh(sphereGeometry, backboneMaterial);
+          sphere1.position.set(x1, y1, z1);
+          backbone1.add(sphere1);
+          
+          const sphere2 = new THREE.Mesh(sphereGeometry, backboneMaterial);
+          sphere2.position.set(x2, y2, z2);
+          backbone2.add(sphere2);
+          
+          // Create base pair cylinders
+          if (i > 0) {
+            const baseGeometry = new THREE.CylinderGeometry(0.2, 0.2, helixRadius * 2, 8);
+            baseGeometry.rotateZ(Math.PI / 2);
+            
+            const base = new THREE.Mesh(baseGeometry, baseMaterial);
+            base.position.set(0, y1, 0);
+            base.lookAt(new THREE.Vector3(x1, y1, z1));
+            basePairs.add(base);
+          }
+        }
+        
+        scene.add(backbone1);
+        scene.add(backbone2);
+        scene.add(basePairs);
+        
+        // Position camera
+        camera.position.set(15, 0, 0);
+        camera.lookAt(0, 0, 0);
+        
+        // Animation
+        function animate() {
+          requestAnimationFrame(animate);
+          
+          backbone1.rotation.y += 0.01;
+          backbone2.rotation.y += 0.01;
+          basePairs.rotation.y += 0.01;
+          
+          renderer.render(scene, camera);
+        }
+        
+        animate();
+        
+        // Handle window resize
+        window.addEventListener('resize', () => {
+          camera.aspect = 1;
+          camera.updateProjectionMatrix();
+          renderer.setSize(150, 150);
+        });
+      }
+    }
+
+    // Initialize page
+    document.addEventListener('DOMContentLoaded', () => {
+      setupDarkModeToggle();
+      setupMobileMenu();
+      createParticleNetwork();
+      createBuildingModel();
+      createDNAModel();
+      
+      // Add animation to cards
+      const cards = document.querySelectorAll('.engineering-card');
+      cards.forEach((card, index) => {
+        card.style.animation = `fadeInUp 1s ease ${index * 0.2}s forwards`;
+        card.style.opacity = '0';
+      });
+      
+      // Set default to dark mode
+      document.body.classList.add('dark-mode');
+      document.getElementById('themeToggle').innerHTML = '<i class="fas fa-sun"></i>';
+      localStorage.setItem('theme', 'dark');
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,880 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>মনোবিজ্ঞান শিক্ষা | বাংলাদেশ</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Bengali:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #8e44ad;
+            --secondary: #9b59b6;
+            --accent: #d2b7e5;
+            --light: #f5f3f7;
+            --dark: #2c1a3f;
+            --card-bg: rgba(255, 255, 255, 0.85);
+            --text: #333;
+            --transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        [data-theme="dark"] {
+            --primary: #c77dff;
+            --secondary: #9d4edd;
+            --accent: #5a189a;
+            --light: #1a0a2e;
+            --dark: #e0aaff;
+            --card-bg: rgba(45, 10, 80, 0.85);
+            --text: #f8f4ff;
+        }
+
+        body {
+            font-family: 'Noto Sans Bengali', sans-serif;
+            background: linear-gradient(135deg, #2c1a3f, #4a235a);
+            color: var(--text);
+            min-height: 100vh;
+            position: relative;
+            overflow-x: hidden;
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="400" height="400" viewBox="0 0 200 200"><path d="M100,40 C60,40 40,60 40,100 C40,140 60,160 100,160 C140,160 160,140 160,100 C160,60 140,40 100,40 Z M70,80 C80,70 120,70 130,80 M80,120 C90,110 110,110 120,120" fill="none" stroke="rgba(157,78,221,0.15)" stroke-width="2"/></svg>');
+            background-size: 300px;
+            background-attachment: fixed;
+            transition: var(--transition);
+        }
+
+        body::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(44, 26, 63, 0.8);
+            z-index: -1;
+        }
+
+        [data-theme="dark"] body::before {
+            background: rgba(26, 10, 46, 0.9);
+        }
+
+        /* Header & Navigation */
+        header {
+            background: var(--light);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+            padding: 1rem 2rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            transition: var(--transition);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .logo-icon {
+            width: 45px;
+            height: 45px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.4rem;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            animation: pulse 3s infinite;
+        }
+
+        .logo-text {
+            font-weight: 700;
+            font-size: 1.4rem;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 1.5rem;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: var(--text);
+            text-decoration: none;
+            font-weight: 600;
+            position: relative;
+            transition: var(--transition);
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 3px;
+            background: var(--primary);
+            transition: var(--transition);
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+
+        .theme-toggle {
+            background: var(--primary);
+            color: white;
+            border: none;
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            transition: var(--transition);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .theme-toggle:hover {
+            transform: rotate(30deg) scale(1.1);
+        }
+
+        /* Hero Section */
+        .hero {
+            max-width: 1200px;
+            margin: 4rem auto;
+            padding: 0 2rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            gap: 2rem;
+            position: relative;
+        }
+
+        .hero-content {
+            max-width: 800px;
+            z-index: 2;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1.5rem;
+            line-height: 1.2;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            animation: fadeInUp 1s ease-out;
+        }
+
+        .hero p {
+            font-size: 1.4rem;
+            margin-bottom: 2rem;
+            color: var(--light);
+            animation: fadeInUp 1s ease-out 0.2s forwards;
+            opacity: 0;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 1rem 2.5rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 1.2rem;
+            transition: var(--transition);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+            animation: fadeInUp 1s ease-out 0.4s forwards;
+            opacity: 0;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+        }
+
+        /* Animated Brain */
+        .brain-container {
+            position: relative;
+            width: 300px;
+            height: 300px;
+            margin: 2rem auto;
+        }
+
+        .brain-animation {
+            width: 100%;
+            height: 100%;
+            position: relative;
+        }
+
+        .brain-svg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .neuron {
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            background: var(--accent);
+            border-radius: 50%;
+            box-shadow: 0 0 15px var(--accent);
+            animation: pulse 2s infinite;
+        }
+
+        /* Features Section */
+        .features {
+            max-width: 1200px;
+            margin: 5rem auto;
+            padding: 0 2rem;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .section-title h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            position: relative;
+            display: inline-block;
+        }
+
+        .section-title h2::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 4px;
+            background: var(--primary);
+            border-radius: 2px;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .feature-card {
+            background: var(--card-bg);
+            border-radius: 20px;
+            padding: 2rem;
+            text-align: center;
+            transition: var(--transition);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(10px);
+            animation: fadeInUp 0.8s ease-out;
+            animation-fill-mode: both;
+        }
+
+        .feature-card:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+
+        .feature-card:nth-child(3) {
+            animation-delay: 0.4s;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-15px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+        }
+
+        .feature-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.5rem;
+            color: white;
+            font-size: 2rem;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .feature-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--text);
+        }
+
+        .feature-card p {
+            color: var(--text);
+            line-height: 1.6;
+        }
+
+        /* Topics Section */
+        .topics {
+            max-width: 1200px;
+            margin: 5rem auto;
+            padding: 0 2rem;
+        }
+
+        .topics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .topic-card {
+            background: var(--card-bg);
+            border-radius: 15px;
+            padding: 1.5rem;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(10px);
+            animation: fadeIn 0.8s ease-out;
+            animation-fill-mode: both;
+        }
+
+        .topic-card:nth-child(2) {
+            animation-delay: 0.1s;
+        }
+
+        .topic-card:nth-child(3) {
+            animation-delay: 0.2s;
+        }
+
+        .topic-card:nth-child(4) {
+            animation-delay: 0.3s;
+        }
+
+        .topic-card:nth-child(5) {
+            animation-delay: 0.4s;
+        }
+
+        .topic-card:nth-child(6) {
+            animation-delay: 0.5s;
+        }
+
+        .topic-card:hover {
+            transform: translateY(-10px) rotate(2deg);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+        }
+
+        .topic-icon {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5rem;
+            flex-shrink: 0;
+        }
+
+        .topic-content h3 {
+            font-size: 1.2rem;
+            margin-bottom: 0.3rem;
+            color: var(--text);
+        }
+
+        .topic-content p {
+            font-size: 0.9rem;
+            color: var(--text);
+            opacity: 0.8;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--dark);
+            color: var(--light);
+            padding: 3rem 2rem;
+            margin-top: 5rem;
+            text-align: center;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .footer-logo {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 1.5rem;
+        }
+
+        .footer-logo-icon {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.2rem;
+        }
+
+        .footer-logo-text {
+            font-weight: 700;
+            font-size: 1.5rem;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin: 2rem 0;
+            flex-wrap: wrap;
+        }
+
+        .footer-links a {
+            color: var(--accent);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .footer-links a:hover {
+            color: white;
+        }
+
+        .social-icons {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .social-icon {
+            width: 45px;
+            height: 45px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--accent);
+            font-size: 1.2rem;
+            transition: var(--transition);
+        }
+
+        .social-icon:hover {
+            background: var(--primary);
+            color: white;
+            transform: translateY(-5px);
+        }
+
+        .copyright {
+            margin-top: 2rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: var(--accent);
+        }
+
+        /* Animations */
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0) rotate(0deg);
+            }
+            25% {
+                transform: translateY(-15px) rotate(2deg);
+            }
+            50% {
+                transform: translateY(0px) rotate(-2deg);
+            }
+            75% {
+                transform: translateY(-10px) rotate(3deg);
+            }
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+                opacity: 1;
+            }
+            50% {
+                transform: scale(1.1);
+                opacity: 0.7;
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes neuronPulse {
+            0%, 100% {
+                transform: scale(1);
+                opacity: 0.7;
+            }
+            50% {
+                transform: scale(1.5);
+                opacity: 1;
+            }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero p {
+                font-size: 1.2rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .section-title h2 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header with Navigation -->
+    <header>
+        <div class="nav-container">
+            <div class="logo">
+                <div class="logo-icon">
+                    <i class="fas fa-brain"></i>
+                </div>
+                <div class="logo-text">মনোবিজ্ঞান শিক্ষা</div>
+            </div>
+            <nav class="nav-links">
+                <a href="#">হোম</a>
+                <a href="#">বিষয়সমূহ</a>
+                <a href="#">শিখন উপকরণ</a>
+                <a href="#">পরীক্ষা</a>
+                <a href="#">শিক্ষক</a>
+            </nav>
+            <button class="theme-toggle" id="themeToggle">
+                <i class="fas fa-moon"></i>
+            </button>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>মনোবিজ্ঞানের জগতে স্বাগতম</h1>
+            <p>৬ষ্ঠ থেকে ১২শ শ্রেণীর বাংলাদেশী শিক্ষার্থীদের জন্য মনোবিজ্ঞানের সহজবোধ্য পাঠ</p>
+            <a href="#" class="cta-button">
+                <i class="fas fa-book-open"></i> শেখা শুরু করুন
+            </a>
+        </div>
+        
+        <div class="brain-container">
+            <div class="brain-animation">
+                <svg class="brain-svg" viewBox="0 0 200 200">
+                    <path d="M100,40 C60,40 40,60 40,100 C40,140 60,160 100,160 C140,160 160,140 160,100 C160,60 140,40 100,40 Z M70,80 C80,70 120,70 130,80 M80,120 C90,110 110,110 120,120" 
+                          fill="none" 
+                          stroke="var(--accent)" 
+                          stroke-width="4" 
+                          stroke-linecap="round"/>
+                </svg>
+                <div class="neuron" style="top: 30%; left: 40%; animation-delay: 0s;"></div>
+                <div class="neuron" style="top: 45%; left: 60%; animation-delay: 0.5s;"></div>
+                <div class="neuron" style="top: 65%; left: 45%; animation-delay: 1s;"></div>
+                <div class="neuron" style="top: 55%; left: 35%; animation-delay: 1.5s;"></div>
+                <div class="neuron" style="top: 70%; left: 60%; animation-delay: 2s;"></div>
+            </div>
+        </div>
+
+        <!-- Added two cards below the hero content -->
+        <div style="display: flex; gap: 2rem; justify-content: center; margin-top: 2rem; flex-wrap: wrap;">
+            <div class="feature-card" style="max-width:320px;">
+                <div class="feature-icon">
+                    <i class="fas fa-user-graduate"></i>
+                </div>
+                <h3>শিক্ষার্থীর জন্য</h3>
+                <p>মনোবিজ্ঞান শেখার জন্য ইন্টারেক্টিভ কুইজ, ভিডিও ও সহজ টপিক ব্যাখ্যা।</p>
+            </div>
+            <div class="feature-card" style="max-width:320px;">
+                <div class="feature-icon">
+                    <i class="fas fa-chalkboard-teacher"></i>
+                </div>
+                <h3>শিক্ষকের জন্য</h3>
+                <p>ক্লাস পরিচালনা, মূল্যায়ন ও শিক্ষার্থীদের অগ্রগতি ট্র্যাক করার সুবিধা।</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features">
+        <div class="section-title">
+            <h2>আমাদের বিশেষ সুবিধাসমূহ</h2>
+            <p>মনোবিজ্ঞান শেখার জন্য অনন্য অভিজ্ঞতা</p>
+        </div>
+        
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-book"></i>
+                </div>
+                <h3>সহজ পাঠ্যক্রম</h3>
+                <p>ক্লাস অনুযায়ী মনোবিজ্ঞানের জটিল বিষয়গুলো সহজ বাংলায় ব্যাখ্যা করা হয়েছে</p>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-video"></i>
+                </div>
+                <h3>অ্যানিমেটেড লেকচার</h3>
+                <p>মজাদার অ্যানিমেশনের মাধ্যমে মনোবিজ্ঞানের ধারণাগুলো বোঝানো হয়েছে</p>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-brain"></i>
+                </div>
+                <h3>মস্তিষ্কের মডেল</h3>
+                <p>ইন্টারেক্টিভ 3D মস্তিষ্ক মডেলের মাধ্যমে বিভিন্ন অংশের কার্যাবলী শিখুন</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Topics Section -->
+    <section class="topics">
+        <div class="section-title">
+            <h2>মনোবিজ্ঞানের গুরুত্বপূর্ণ বিষয়</h2>
+            <p>৬ষ্ঠ থেকে ১২শ শ্রেণীর জন্য প্রয়োজনীয় টপিকস</p>
+        </div>
+        
+        <div class="topics-grid">
+            <div class="topic-card">
+                <div class="topic-icon">
+                    <i class="fas fa-user"></i>
+                </div>
+                <div class="topic-content">
+                    <h3>ব্যক্তিত্বের মনোবিজ্ঞান</h3>
+                    <p>ব্যক্তিত্বের ধরন ও বৈশিষ্ট্য</p>
+                </div>
+            </div>
+            
+            <div class="topic-card">
+                <div class="topic-icon">
+                    <i class="fas fa-memory"></i>
+                </div>
+                <div class="topic-content">
+                    <h3>স্মৃতি ও শিখন প্রক্রিয়া</h3>
+                    <p>কীভাবে আমরা শিখি ও মনে রাখি</p>
+                </div>
+            </div>
+            
+            <div class="topic-card">
+                <div class="topic-icon">
+                    <i class="fas fa-heart"></i>
+                </div>
+                <div class="topic-content">
+                    <h3>আবেগ ও অনুভূতি</h3>
+                    <p>মানবিক আবেগের ধরন ও প্রকাশ</p>
+                </div>
+            </div>
+            
+            <div class="topic-card">
+                <div class="topic-icon">
+                    <i class="fas fa-users"></i>
+                </div>
+                <div class="topic-content">
+                    <h3>সামাজিক মনোবিজ্ঞান</h3>
+                    <p>সমাজে মানুষের আচরণ</p>
+                </div>
+            </div>
+            
+            <div class="topic-card">
+                <div class="topic-icon">
+                    <i class="fas fa-child"></i>
+                </div>
+                <div class="topic-content">
+                    <h3>বিকাশমূলক মনোবিজ্ঞান</h3>
+                    <p>শিশু থেকে বয়স্ক হওয়া পর্যন্ত</p>
+                </div>
+            </div>
+            
+            <div class="topic-card">
+                <div class="topic-icon">
+                    <i class="fas fa-stethoscope"></i>
+                </div>
+                <div class="topic-content">
+                    <h3>মনোরোগ বিজ্ঞান</h3>
+                    <p>মানসিক স্বাস্থ্য ও রোগ</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-logo">
+                <div class="footer-logo-icon">
+                    <i class="fas fa-brain"></i>
+                </div>
+                <div class="footer-logo-text">মনোবিজ্ঞান শিক্ষা</div>
+            </div>
+            
+            <p>বাংলাদেশের শিক্ষার্থীদের জন্য মনোবিজ্ঞান শেখার আদর্শ প্ল্যাটফর্ম</p>
+            
+            <div class="footer-links">
+                <a href="#">হোম</a>
+                <a href="#">বিষয়সমূহ</a>
+                <a href="#">শিখন উপকরণ</a>
+                <a href="#">পরীক্ষা</a>
+                <a href="#">যোগাযোগ</a>
+            </div>
+            
+            <div class="social-icons">
+                <a href="#" class="social-icon">
+                    <i class="fab fa-facebook-f"></i>
+                </a>
+                <a href="#" class="social-icon">
+                    <i class="fab fa-youtube"></i>
+                </a>
+                <a href="#" class="social-icon">
+                    <i class="fab fa-instagram"></i>
+                </a>
+                <a href="#" class="social-icon">
+                    <i class="fab fa-whatsapp"></i>
+                </a>
+            </div>
+            
+            <div class="copyright">
+                &copy; ২০২৫ মনোবিজ্ঞান শিক্ষা | বাংলাদেশ
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Theme toggle functionality
+        const themeToggle = document.getElementById('themeToggle');
+        const body = document.body;
+        const icon = themeToggle.querySelector('i');
+        
+        // Check for saved theme preference
+        const savedTheme = localStorage.getItem('theme');
+        if (savedTheme) {
+            body.setAttribute('data-theme', savedTheme);
+            updateThemeIcon();
+        }
+        
+        // Toggle theme on button click
+        themeToggle.addEventListener('click', () => {
+            if (body.getAttribute('data-theme') === 'dark') {
+                body.removeAttribute('data-theme');
+                localStorage.setItem('theme', 'light');
+            } else {
+                body.setAttribute('data-theme', 'dark');
+                localStorage.setItem('theme', 'dark');
+            }
+            updateThemeIcon();
+        });
+        
+        // Update theme icon based on current theme
+        function updateThemeIcon() {
+            if (body.getAttribute('data-theme') === 'dark') {
+                icon.className = 'fas fa-sun';
+            } else {
+                icon.className = 'fas fa-moon';
+            }
+        }
+        
+        // Create floating neurons
+        const brainContainer = document.querySelector('.brain-container');
+        for (let i = 0; i < 15; i++) {
+            const neuron = document.createElement('div');
+            neuron.className = 'neuron';
+            
+            // Random position
+            const top = Math.random() * 100;
+            const left = Math.random() * 100;
+            
+            // Random animation delay
+            const delay = Math.random() * 2;
+            
+            neuron.style.top = `${top}%`;
+            neuron.style.left = `${left}%`;
+            neuron.style.animationDelay = `${delay}s`;
+            neuron.style.animation = `neuronPulse ${2 + Math.random() * 2}s infinite`;
+            
+            brainContainer.querySelector('.brain-animation').appendChild(neuron);
+        }
+        
+        // Add scroll animations
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.animationPlayState = 'running';
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.1 });
+        
+        // Observe all animated elements
+        document.querySelectorAll('.feature-card, .topic-card').forEach(card => {
+            card.style.animationPlayState = 'paused';
+            observer.observe(card);
+        });
+    </script>
+</body>
+</html>

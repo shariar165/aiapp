@@ -1,0 +1,1296 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>চারু ও কারুকলা | ৬ষ্ঠ-১২শ শ্রেণী</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Bengali:wght@400;700&display=swap" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.min.js"></script>
+  <style>
+    :root {
+      --primary-color: #e74c3c;
+      --secondary-color: #f39c12;
+      --accent-color: #3498db;
+      --text-color: #2c3e50;
+      --bg-color: #f8f9fa;
+      --card-bg: #ffffff;
+      --border-radius: 16px;
+      --box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+      --transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      --art-color: #e74c3c;
+      --craft-color: #27ae60;
+      --design-color: #9b59b6;
+      --culture-color: #f1c40f;
+    }
+
+    [data-theme="dark"] {
+      --primary-color: #e74c3c;
+      --secondary-color: #f1c40f;
+      --accent-color: #3498db;
+      --text-color: #ecf0f1;
+      --bg-color: #121212;
+      --card-bg: #1e1e1e;
+      --box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+      --art-color: #e74c3c;
+      --craft-color: #2ecc71;
+      --design-color: #9b59b6;
+      --culture-color: #f1c40f;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Noto Sans Bengali', sans-serif;
+      background-color: var(--bg-color);
+      color: var(--text-color);
+      line-height: 1.8;
+      position: relative;
+      min-height: 100vh;
+      overflow-x: hidden;
+      background-image: url('https://images.unsplash.com/photo-1547891654-e66ed7ebb968?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1920&q=80');
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
+      transition: var(--transition);
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.7);
+      z-index: -1;
+      transition: var(--transition);
+    }
+
+    [data-theme="dark"] body::before {
+      background: rgba(0, 0, 0, 0.85);
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    /* Navigation */
+    nav {
+      background: rgba(231, 76, 60, 0.95);
+      backdrop-filter: blur(10px);
+      box-shadow: var(--box-shadow);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .nav-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      height: 80px;
+      padding: 0 20px;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 1.6rem;
+      font-weight: bold;
+      color: white;
+    }
+
+    .logo-icon {
+      width: 50px;
+      height: 50px;
+      background: white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--primary-color);
+      animation: pulse 3s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.1); }
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 30px;
+      align-items: center;
+    }
+
+    .nav-links a {
+      color: white;
+      text-decoration: none;
+      font-weight: 600;
+      transition: var(--transition);
+      position: relative;
+      padding: 5px 0;
+      font-size: 1.1rem;
+    }
+
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0;
+      height: 3px;
+      background: var(--accent-color);
+      transition: var(--transition);
+      border-radius: 2px;
+    }
+
+    .nav-links a:hover::after {
+      width: 100%;
+    }
+
+    .theme-toggle {
+      background: rgba(255, 255, 255, 0.2);
+      color: white;
+      border: none;
+      border-radius: 30px;
+      width: 50px;
+      height: 50px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+
+    .theme-toggle:hover {
+      background: rgba(255, 255, 255, 0.3);
+      transform: rotate(15deg);
+    }
+
+    /* Hero Section */
+    .hero {
+      padding: 120px 0 80px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-content {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 40px;
+      background: rgba(255, 255, 255, 0.15);
+      backdrop-filter: blur(12px);
+      border-radius: var(--border-radius);
+      box-shadow: var(--box-shadow);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      animation: fadeInUp 1.2s ease-out forwards;
+    }
+
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(40px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .hero h1 {
+      font-size: 3.5rem;
+      font-weight: 800;
+      margin-bottom: 20px;
+      color: white;
+      text-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+      background: linear-gradient(45deg, var(--secondary-color), var(--accent-color), var(--primary-color));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      animation: gradientShift 8s infinite alternate;
+    }
+
+    @keyframes gradientShift {
+      0% { background-position: 0% 50%; }
+      100% { background-position: 100% 50%; }
+    }
+
+    .hero p {
+      font-size: 1.4rem;
+      color: rgba(255, 255, 255, 0.95);
+      margin: 0 auto 40px;
+      line-height: 1.8;
+    }
+
+    .grade-buttons {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 15px;
+      margin-top: 30px;
+    }
+
+    .grade-btn {
+      padding: 14px 28px;
+      border-radius: 50px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: var(--transition);
+      border: 2px solid white;
+      background: rgba(255, 255, 255, 0.2);
+      color: white;
+      font-size: 1.1rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .grade-btn:hover, .grade-btn.active {
+      background: var(--accent-color);
+      color: white;
+      transform: translateY(-5px) scale(1.05);
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+    }
+
+    /* Art Forms Section */
+    .art-forms {
+      padding: 100px 0;
+    }
+
+    .section-title {
+      text-align: center;
+      margin-bottom: 70px;
+    }
+
+    .section-title h2 {
+      font-size: 2.8rem;
+      font-weight: 800;
+      margin-bottom: 20px;
+      color: var(--text-color);
+      position: relative;
+      display: inline-block;
+      padding-bottom: 15px;
+    }
+
+    .section-title h2::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 120px;
+      height: 5px;
+      background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
+      border-radius: 3px;
+    }
+
+    .section-title p {
+      color: var(--text-color);
+      max-width: 700px;
+      margin: 0 auto;
+      font-size: 1.3rem;
+      opacity: 0.9;
+    }
+
+    .forms-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 30px;
+    }
+
+    .form-card {
+      background: var(--card-bg);
+      border-radius: var(--border-radius);
+      overflow: hidden;
+      box-shadow: var(--box-shadow);
+      transition: var(--transition);
+      position: relative;
+      transform: translateY(30px);
+      opacity: 0;
+      cursor: pointer;
+    }
+
+    .form-card.appear {
+      transform: translateY(0);
+      opacity: 1;
+    }
+
+    .form-card:hover {
+      transform: translateY(-15px) rotate(2deg);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.25);
+    }
+
+    .form-icon {
+      height: 200px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 5rem;
+      color: white;
+    }
+
+    .art-icon { background: var(--art-color); }
+    .craft-icon { background: var(--craft-color); }
+    .design-icon { background: var(--design-color); }
+    .culture-icon { background: var(--culture-color); }
+
+    .form-content {
+      padding: 25px;
+    }
+
+    .form-title {
+      font-size: 1.6rem;
+      font-weight: 700;
+      margin-bottom: 15px;
+      color: var(--text-color);
+    }
+
+    .form-desc {
+      color: var(--text-color);
+      opacity: 0.9;
+      margin-bottom: 20px;
+      line-height: 1.7;
+    }
+
+    .form-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--accent-color);
+      text-decoration: none;
+      font-weight: 600;
+      transition: var(--transition);
+    }
+
+    .form-link:hover {
+      gap: 12px;
+    }
+
+    /* 3D Models Section */
+    .model-section {
+      padding: 100px 0;
+      background: rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(10px);
+    }
+
+    .model-container {
+      background: var(--card-bg);
+      border-radius: var(--border-radius);
+      overflow: hidden;
+      box-shadow: var(--box-shadow);
+      height: 500px;
+      position: relative;
+    }
+
+    .model-selector {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      margin-bottom: 40px;
+      flex-wrap: wrap;
+    }
+
+    .model-btn {
+      padding: 12px 25px;
+      border-radius: 50px;
+      background: var(--primary-color);
+      color: white;
+      border: none;
+      cursor: pointer;
+      transition: var(--transition);
+      font-weight: 600;
+      font-size: 1.1rem;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .model-btn:hover, .model-btn.active {
+      background: var(--accent-color);
+      transform: translateY(-5px);
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+    }
+
+    .model-info {
+      position: absolute;
+      bottom: 30px;
+      left: 30px;
+      background: rgba(0, 0, 0, 0.7);
+      color: white;
+      padding: 20px;
+      border-radius: var(--border-radius);
+      max-width: 450px;
+      z-index: 10;
+      backdrop-filter: blur(5px);
+      transform: translateX(-20px);
+      opacity: 0;
+      transition: var(--transition);
+    }
+
+    .model-info.show {
+      transform: translateX(0);
+      opacity: 1;
+    }
+
+    .model-title {
+      font-size: 1.5rem;
+      margin-bottom: 15px;
+      color: var(--accent-color);
+    }
+
+    /* Gallery Section */
+    .gallery {
+      padding: 100px 0;
+    }
+
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 25px;
+    }
+
+    .gallery-item {
+      border-radius: var(--border-radius);
+      overflow: hidden;
+      box-shadow: var(--box-shadow);
+      height: 300px;
+      position: relative;
+      cursor: pointer;
+      transform: scale(0.95);
+      opacity: 0;
+      transition: var(--transition);
+    }
+
+    .gallery-item.appear {
+      transform: scale(1);
+      opacity: 1;
+    }
+
+    .gallery-item:hover {
+      transform: scale(1.03);
+      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+    }
+
+    .gallery-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: var(--transition);
+    }
+
+    .gallery-item:hover img {
+      transform: scale(1.1);
+    }
+
+    .gallery-overlay {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      padding: 20px;
+      background: linear-gradient(transparent, rgba(0,0,0,0.8));
+      color: white;
+      transform: translateY(100%);
+      transition: var(--transition);
+    }
+
+    .gallery-item:hover .gallery-overlay {
+      transform: translateY(0);
+    }
+
+    /* Footer */
+    footer {
+      background: linear-gradient(135deg, #e74c3c, #c0392b);
+      color: white;
+      padding: 80px 0 30px;
+      margin-top: 100px;
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 40px;
+      margin-bottom: 40px;
+    }
+
+    .footer-logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+
+    .footer-logo-icon {
+      width: 50px;
+      height: 50px;
+      background: white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--primary-color);
+    }
+
+    .footer-logo-text {
+      font-weight: bold;
+      font-size: 1.6rem;
+    }
+
+    .footer-about {
+      color: rgba(255, 255, 255, 0.85);
+      margin-bottom: 25px;
+      line-height: 1.8;
+      font-size: 1.1rem;
+    }
+
+    .footer-social {
+      display: flex;
+      gap: 15px;
+    }
+
+    .footer-social-icon {
+      width: 45px;
+      height: 45px;
+      background: rgba(255, 255, 255, 0.15);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: var(--transition);
+      font-size: 1.2rem;
+    }
+
+    .footer-social-icon:hover {
+      background: rgba(255, 255, 255, 0.25);
+      transform: translateY(-5px);
+    }
+
+    .footer-heading {
+      font-weight: 700;
+      margin-bottom: 25px;
+      font-size: 1.5rem;
+      position: relative;
+      padding-bottom: 15px;
+    }
+
+    .footer-heading::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 60px;
+      height: 4px;
+      background: var(--accent-color);
+      border-radius: 2px;
+    }
+
+    .footer-links {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+
+    .footer-link {
+      color: rgba(255, 255, 255, 0.85);
+      text-decoration: none;
+      transition: var(--transition);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 1.1rem;
+    }
+
+    .footer-link:hover {
+      color: white;
+      gap: 18px;
+    }
+
+    .footer-link i {
+      color: var(--accent-color);
+      font-size: 1.2rem;
+    }
+
+    .footer-bottom {
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      padding-top: 30px;
+      text-align: center;
+      color: rgba(255, 255, 255, 0.8);
+      font-size: 1.1rem;
+    }
+
+    /* Responsive */
+    @media (max-width: 992px) {
+      .hero h1 {
+        font-size: 2.8rem;
+      }
+      
+      .model-container {
+        height: 400px;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .nav-container {
+        height: 70px;
+      }
+      
+      .hero {
+        padding: 90px 0 50px;
+      }
+      
+      .hero h1 {
+        font-size: 2.3rem;
+      }
+      
+      .section-title h2 {
+        font-size: 2.2rem;
+      }
+      
+      .nav-links {
+        display: none;
+      }
+      
+      .hamburger {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        width: 40px;
+        height: 40px;
+        background: none;
+        border: none;
+        cursor: pointer;
+        z-index: 200;
+      }
+      
+      .hamburger span {
+        height: 4px;
+        width: 100%;
+        background: white;
+        margin: 4px 0;
+        border-radius: 2px;
+        transition: 0.3s;
+      }
+      
+      .nav-links.show {
+        display: flex;
+        flex-direction: column;
+        position: absolute;
+        top: 70px;
+        left: 0;
+        width: 100%;
+        background: rgba(231, 76, 60, 0.98);
+        padding: 25px;
+        gap: 20px;
+      }
+      
+      .model-container {
+        height: 350px;
+      }
+    }
+
+    @media (max-width: 576px) {
+      .hero-content {
+        padding: 25px;
+      }
+      
+      .hero h1 {
+        font-size: 2rem;
+      }
+      
+      .section-title h2 {
+        font-size: 1.9rem;
+      }
+      
+      .grade-buttons {
+        gap: 12px;
+      }
+      
+      .grade-btn {
+        padding: 12px 20px;
+        font-size: 1rem;
+      }
+      
+      .model-container {
+        height: 300px;
+      }
+      
+      .model-info {
+        max-width: 280px;
+        padding: 15px;
+        font-size: 0.9rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Navigation -->
+  <nav>
+    <div class="container nav-container">
+      <div class="logo">
+        <div class="logo-icon">
+          <i class="fas fa-palette"></i>
+        </div>
+        <span>চারু ও কারুকলা</span>
+      </div>
+      <div class="nav-links" id="navLinks">
+        <a href="#"><i class="fas fa-home"></i> হোম</a>
+        <a href="#"><i class="fas fa-paint-brush"></i> শিল্পকলা</a>
+        <a href="#"><i class="fas fa-hands"></i> কারুশিল্প</a>
+        <a href="#"><i class="fas fa-video"></i> টিউটোরিয়াল</a>
+        <a href="#"><i class="fas fa-info-circle"></i> আমাদের সম্পর্কে</a>
+      </div>
+      <button class="theme-toggle" id="themeToggle">
+        <i class="fas fa-moon"></i>
+      </button>
+      <button class="hamburger" id="hamburgerBtn">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="container hero-content">
+      <h1>শিল্পের জগতে স্বাগতম</h1>
+      <p>বাংলাদেশের ৬ষ্ঠ থেকে ১২শ শ্রেণির শিক্ষার্থীদের জন্য চারু ও কারুকলার একটি অনন্য ডিজিটাল প্ল্যাটফর্ম। চিত্রকলা, মৃৎশিল্প, বুনন, এবং ঐতিহ্যবাহী কারুশিল্পের বিস্ময়কর জগত অন্বেষণ করুন।</p>
+      
+      <div class="grade-buttons">
+        <button class="grade-btn active">৬ষ্ঠ-৮ম শ্রেণী</button>
+        <button class="grade-btn">৯ম-১০ম শ্রেণী</button>
+        <button class="grade-btn">১১শ-১২শ শ্রেণী</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Art Forms Section -->
+  <section class="art-forms">
+    <div class="container">
+      <div class="section-title">
+        <h2>শিল্পের বিভিন্ন শাখা</h2>
+        <p>বাংলাদেশের ঐতিহ্যবাহী ও আধুনিক চারু ও কারুকলার বিস্তৃত পরিসর</p>
+      </div>
+      
+      <div class="forms-grid">
+        <div class="form-card floating">
+          <div class="form-icon art-icon">
+            <i class="fas fa-paint-brush"></i>
+          </div>
+          <div class="form-content">
+            <h3 class="form-title">চিত্রকলা</h3>
+            <p class="form-desc">জলরং, তেলরং, প্যাস্টেল এবং অন্যান্য মাধ্যম ব্যবহার করে চিত্রাঙ্কনের কৌশল শিখুন। বাংলাদেশের ঐতিহ্যবাহী চিত্রশৈলী সম্পর্কে জানুন।</p>
+            <a href="#" class="form-link">
+              আরও জানুন <i class="fas fa-arrow-right"></i>
+            </a>
+          </div>
+        </div>
+        
+        <div class="form-card floating">
+          <div class="form-icon craft-icon">
+            <i class="fas fa-hands"></i>
+          </div>
+          <div class="form-content">
+            <h3 class="form-title">মৃৎশিল্প</h3>
+            <p class="form-desc">কুমারের চাক ব্যবহার করে মাটির পাত্র তৈরি থেকে শুরু করে আধুনিক সিরামিক শিল্পের কৌশল শিখুন। বাংলাদেশের মৃৎশিল্পের ইতিহাস জানুন।</p>
+            <a href="#" class="form-link">
+              আরও জানুন <i class="fas fa-arrow-right"></i>
+            </a>
+          </div>
+        </div>
+        
+        <div class="form-card floating">
+          <div class="form-icon design-icon">
+            <i class="fas fa-pencil-ruler"></i>
+          </div>
+          <div class="form-content">
+            <h3 class="form-title">গ্রাফিক ডিজাইন</h3>
+            <p class="form-desc">ডিজিটাল আর্ট, টাইপোগ্রাফি এবং ভিজ্যুয়াল কমিউনিকেশনের মৌলিক বিষয়গুলি শিখুন। সমসাময়িক ডিজাইন সফ্টওয়্যার ব্যবহারের কৌশল রপ্ত করুন।</p>
+            <a href="#" class="form-link">
+              আরও জানুন <i class="fas fa-arrow-right"></i>
+            </a>
+          </div>
+        </div>
+        
+        <div class="form-card floating">
+          <div class="form-icon culture-icon">
+            <i class="fas fa-flag"></i>
+          </div>
+          <div class="form-content">
+            <h3 class="form-title">ঐতিহ্যবাহী কারুশিল্প</h3>
+            <p class="form-desc">নকশিকাঁথা, শোলার কাজ, কাঠ খোদাই এবং বাংলাদেশের অন্যান্য ঐতিহ্যবাহী কারুশিল্পের কৌশল ও ইতিহাস সম্পর্কে জানুন।</p>
+            <a href="#" class="form-link">
+              আরও জানুন <i class="fas fa-arrow-right"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3D Models Section -->
+  <section class="model-section">
+    <div class="container">
+      <div class="section-title">
+        <h2>ইন্টারেক্টিভ শিল্প সরঞ্জাম</h2>
+        <p>3D মডেলের মাধ্যমে শিল্প সরঞ্জাম সম্পর্কে জানুন এবং অন্বেষণ করুন</p>
+      </div>
+      
+      <div class="model-selector">
+        <button class="model-btn active" data-model="paintbrush">
+          <i class="fas fa-paint-brush"></i> ব্রাশ ও প্যালেট
+        </button>
+        <button class="model-btn" data-model="pottery">
+          <i class="fas fa-mortar-pestle"></i> মৃৎশিল্প সরঞ্জাম
+        </button>
+        <button class="model-btn" data-model="loom">
+          <i class="fas fa-border-all"></i> তাঁতশিল্প
+        </button>
+        <button class="model-btn" data-model="sculpture">
+          <i class="fas fa-monument"></i> ভাস্কর্য সরঞ্জাম
+        </button>
+      </div>
+      
+      <div class="model-container" id="modelContainer">
+        <div class="model-info">
+          <h3 class="model-title">চিত্রাঙ্কন সরঞ্জাম</h3>
+          <p>বিভিন্ন ধরনের ব্রাশ, পেইন্ট প্যালেট এবং চিত্রাঙ্কনের অন্যান্য সরঞ্জাম সম্পর্কে জানুন। প্রতিটি সরঞ্জামের ব্যবহার ও কার্যকারিতা বুঝুন।</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Gallery Section -->
+  <section class="gallery">
+    <div class="container">
+      <div class="section-title">
+        <h2>শিক্ষার্থীদের শিল্পকর্ম</h2>
+        <p>বিভিন্ন শ্রেণির শিক্ষার্থীদের সৃষ্টিশীল শিল্পকর্মের গ্যালারি</p>
+      </div>
+      
+      <div class="gallery-grid">
+        <div class="gallery-item">
+          <img src="https://images.unsplash.com/photo-1579783902614-a3fb3927b6a5?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Student Artwork">
+          <div class="gallery-overlay">
+            <h3>আব্দুল্লাহ, ৭ম শ্রেণী</h3>
+            <p>জলরং চিত্র</p>
+          </div>
+        </div>
+        
+        <div class="gallery-item">
+          <img src="https://images.unsplash.com/photo-1583207884889-d79abf0d0aa3?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Pottery">
+          <div class="gallery-overlay">
+            <h3>সুমাইয়া, ৯ম শ্রেণী</h3>
+            <p>মৃৎশিল্প</p>
+          </div>
+        </div>
+        
+        <div class="gallery-item">
+          <img src="https://images.unsplash.com/photo-1614174498953-e7ce4b933e82?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Textile Art">
+          <div class="gallery-overlay">
+            <h3>ফারিয়া, ১১শ শ্রেণী</h3>
+            <p>বুনন শিল্প</p>
+          </div>
+        </div>
+        
+        <div class="gallery-item">
+          <img src="https://images.unsplash.com/photo-1598880940080-ff9a29891b85?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Sculpture">
+          <div class="gallery-overlay">
+            <h3>রিফাত, ৮ম শ্রেণী</h3>
+            <p>কাঠ খোদাই</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <div class="footer-grid">
+        <div>
+          <div class="footer-logo">
+            <div class="footer-logo-icon">
+              <i class="fas fa-palette"></i>
+            </div>
+            <span class="footer-logo-text">চারু ও কারুকলা</span>
+          </div>
+          <p class="footer-about">বাংলাদেশের ৬ষ্ঠ থেকে ১২শ শ্রেণির শিক্ষার্থীদের জন্য চারু ও কারুকলার একটি ডিজিটাল প্ল্যাটফর্ম। আমরা শিল্পের মাধ্যমে সৃজনশীলতা ও সাংস্কৃতিক ঐতিহ্য সংরক্ষণে কাজ করছি।</p>
+          <div class="footer-social">
+            <div class="footer-social-icon">
+              <i class="fab fa-facebook-f"></i>
+            </div>
+            <div class="footer-social-icon">
+              <i class="fab fa-youtube"></i>
+            </div>
+            <div class="footer-social-icon">
+              <i class="fab fa-instagram"></i>
+            </div>
+            <div class="footer-social-icon">
+              <i class="fab fa-twitter"></i>
+            </div>
+          </div>
+        </div>
+        
+        <div>
+          <h4 class="footer-heading">গুরুত্বপূর্ণ লিংক</h4>
+          <div class="footer-links">
+            <a href="#" class="footer-link"><i class="fas fa-arrow-right"></i> পাঠ পরিকল্পনা</a>
+            <a href="#" class="footer-link"><i class="fas fa-arrow-right"></i> ভিডিও টিউটোরিয়াল</a>
+            <a href="#" class="footer-link"><i class="fas fa-arrow-right"></i> অনলাইন প্রতিযোগিতা</a>
+            <a href="#" class="footer-link"><i class="fas fa-arrow-right"></i> শিক্ষক গাইডলাইন</a>
+            <a href="#" class="footer-link"><i class="fas fa-arrow-right"></i> শিক্ষার্থীদের গ্যালারি</a>
+          </div>
+        </div>
+        
+        <div>
+          <h4 class="footer-heading">শিল্পের বিভাগ</h4>
+          <div class="footer-links">
+            <a href="#" class="footer-link"><i class="fas fa-arrow-right"></i> চিত্রকলা</a>
+            <a href="#" class="footer-link"><i class="fas fa-arrow-right"></i> মৃৎশিল্প</a>
+            <a href="#" class="footer-link"><i class="fas fa-arrow-right"></i> বুনন শিল্প</a>
+            <a href="#" class="footer-link"><i class="fas fa-arrow-right"></i> কাঠ খোদাই</a>
+            <a href="#" class="footer-link"><i class="fas fa-arrow-right"></i> ডিজিটাল আর্ট</a>
+          </div>
+        </div>
+        
+        <div>
+          <h4 class="footer-heading">যোগাযোগ</h4>
+          <div class="footer-links">
+            <a href="#" class="footer-link"><i class="fas fa-map-marker-alt"></i> শিল্পকলা একাডেমি, ঢাকা</a>
+            <a href="mailto:info@arts-crafts.edu.bd" class="footer-link"><i class="fas fa-envelope"></i> info@arts-crafts.edu.bd</a>
+            <a href="tel:+8801234567890" class="footer-link"><i class="fas fa-phone"></i> +880 1234 567890</a>
+            <a href="#" class="footer-link"><i class="fas fa-clock"></i> শনি-বৃহঃ: সকাল ১০টা - বিকাল ৪টা</a>
+          </div>
+        </div>
+      </div>
+      
+      <div class="footer-bottom">
+        <p>© ২০২৫ চারু ও কারুকলা শিক্ষা প্ল্যাটফর্ম। বাংলাদেশের শিক্ষার্থীদের সৃজনশীলতার বিকাশে নিবেদিত।</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Theme Toggle
+    const themeToggle = document.getElementById('themeToggle');
+    const body = document.body;
+    
+    // Check for saved theme preference
+    const savedTheme = localStorage.getItem('theme');
+    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    
+    if (savedTheme === 'dark' || (!savedTheme && prefersDark)) {
+      body.setAttribute('data-theme', 'dark');
+      themeToggle.innerHTML = '<i class="fas fa-sun"></i>';
+    }
+    
+    themeToggle.addEventListener('click', () => {
+      if (body.getAttribute('data-theme') === 'dark') {
+        body.removeAttribute('data-theme');
+        localStorage.setItem('theme', 'light');
+        themeToggle.innerHTML = '<i class="fas fa-moon"></i>';
+      } else {
+        body.setAttribute('data-theme', 'dark');
+        localStorage.setItem('theme', 'dark');
+        themeToggle.innerHTML = '<i class="fas fa-sun"></i>';
+      }
+    });
+    
+    // Mobile menu toggle
+    const hamburgerBtn = document.getElementById('hamburgerBtn');
+    const navLinks = document.getElementById('navLinks');
+    
+    hamburgerBtn.addEventListener('click', () => {
+      navLinks.classList.toggle('show');
+    });
+    
+    // Grade buttons
+    const gradeButtons = document.querySelectorAll('.grade-btn');
+    gradeButtons.forEach(button => {
+      button.addEventListener('click', () => {
+        gradeButtons.forEach(btn => btn.classList.remove('active'));
+        button.classList.add('active');
+      });
+    });
+    
+    // Scroll animations
+    const animateOnScroll = () => {
+      const elements = document.querySelectorAll('.form-card, .gallery-item');
+      const windowHeight = window.innerHeight;
+      
+      elements.forEach(element => {
+        const elementPosition = element.getBoundingClientRect().top;
+        
+        if (elementPosition < windowHeight - 100) {
+          element.classList.add('appear');
+        }
+      });
+      
+      // Show model info after a delay
+      const modelInfo = document.querySelector('.model-info');
+      if (modelInfo && !modelInfo.classList.contains('show')) {
+        setTimeout(() => {
+          modelInfo.classList.add('show');
+        }, 2000);
+      }
+    };
+    
+    // Initialize animations
+    window.addEventListener('load', animateOnScroll);
+    window.addEventListener('scroll', animateOnScroll);
+    
+    // Card hover effect
+    const cards = document.querySelectorAll('.form-card');
+    cards.forEach(card => {
+      card.addEventListener('mouseenter', () => {
+        card.style.transform = 'translateY(-15px) rotate(2deg)';
+      });
+      
+      card.addEventListener('mouseleave', () => {
+        card.style.transform = '';
+      });
+    });
+    
+    // Gallery item animation
+    const galleryItems = document.querySelectorAll('.gallery-item');
+    galleryItems.forEach(item => {
+      item.addEventListener('mouseenter', () => {
+        item.querySelector('img').style.transform = 'scale(1.1)';
+      });
+      
+      item.addEventListener('mouseleave', () => {
+        item.querySelector('img').style.transform = 'scale(1)';
+      });
+    });
+    
+    // 3D Model Viewer
+    class ModelViewer {
+      constructor(containerId) {
+        this.container = document.getElementById(containerId);
+        this.scene = null;
+        this.camera = null;
+        this.renderer = null;
+        this.controls = null;
+        this.model = null;
+        this.currentModel = 'paintbrush';
+        
+        this.init();
+      }
+      
+      init() {
+        // Create scene
+        this.scene = new THREE.Scene();
+        this.scene.background = new THREE.Color(0xf8f9fa);
+        
+        // Create camera
+        this.camera = new THREE.PerspectiveCamera(
+          75,
+          this.container.clientWidth / this.container.clientHeight,
+          0.1,
+          1000
+        );
+        this.camera.position.z = 8;
+        
+        // Create renderer
+        this.renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+        this.renderer.setSize(
+          this.container.clientWidth,
+          this.container.clientHeight
+        );
+        this.container.innerHTML = '';
+        this.container.appendChild(this.renderer.domElement);
+        
+        // Add controls
+        this.controls = new THREE.OrbitControls(this.camera, this.renderer.domElement);
+        this.controls.enableDamping = true;
+        this.controls.dampingFactor = 0.05;
+        
+        // Add lighting
+        const ambientLight = new THREE.AmbientLight(0xffffff, 0.6);
+        this.scene.add(ambientLight);
+        
+        const directionalLight = new THREE.DirectionalLight(0xffffff, 0.8);
+        directionalLight.position.set(10, 20, 15);
+        this.scene.add(directionalLight);
+        
+        // Load initial model
+        this.loadModel(this.currentModel);
+        
+        // Handle window resize
+        window.addEventListener('resize', () => this.onWindowResize());
+        
+        // Start animation
+        this.animate();
+      }
+      
+      loadModel(modelType) {
+        // Clear previous model
+        if (this.model) {
+          this.scene.remove(this.model);
+        }
+        
+        // Create new model based on type
+        this.model = new THREE.Group();
+        
+        switch(modelType) {
+          case 'paintbrush':
+            this.createPaintbrushModel();
+            break;
+            
+          case 'pottery':
+            this.createPotteryModel();
+            break;
+            
+          case 'loom':
+            this.createLoomModel();
+            break;
+            
+          case 'sculpture':
+            this.createSculptureModel();
+            break;
+        }
+        
+        // Add model to scene
+        this.scene.add(this.model);
+      }
+      
+      createPaintbrushModel() {
+        // Palette
+        const paletteGeometry = new THREE.CylinderGeometry(1.5, 1.5, 0.3, 32);
+        const paletteMaterial = new THREE.MeshPhongMaterial({ 
+          color: 0x3498db,
+          shininess: 30
+        });
+        const palette = new THREE.Mesh(paletteGeometry, paletteMaterial);
+        palette.rotation.x = Math.PI/2;
+        palette.position.y = -0.5;
+        this.model.add(palette);
+        
+        // Paint spots
+        const paintColors = [0xe74c3c, 0xf1c40f, 0x2ecc71, 0x9b59b6];
+        for (let i = 0; i < 4; i++) {
+          const angle = (i / 4) * Math.PI * 2;
+          const paintGeometry = new THREE.CylinderGeometry(0.3, 0.3, 0.1, 32);
+          const paintMaterial = new THREE.MeshPhongMaterial({ 
+            color: paintColors[i],
+            shininess: 20
+          });
+          const paint = new THREE.Mesh(paintGeometry, paintMaterial);
+          paint.position.set(Math.cos(angle) * 0.8, -0.5, Math.sin(angle) * 0.8);
+          this.model.add(paint);
+        }
+        
+        // Paintbrush
+        const handleGeometry = new THREE.CylinderGeometry(0.15, 0.15, 4, 16);
+        const handleMaterial = new THREE.MeshPhongMaterial({ color: 0x8e44ad });
+        const handle = new THREE.Mesh(handleGeometry, handleMaterial);
+        handle.position.y = 1.5;
+        handle.rotation.z = Math.PI/4;
+        
+        const brushGeometry = new THREE.CylinderGeometry(0.3, 0.15, 1.5, 16);
+        const brushMaterial = new THREE.MeshPhongMaterial({ color: 0xf39c12 });
+        const brush = new THREE.Mesh(brushGeometry, brushMaterial);
+        brush.position.y = 3.25;
+        brush.rotation.z = Math.PI/4;
+        
+        this.model.add(handle, brush);
+      }
+      
+      createPotteryModel() {
+        // Potter's wheel
+        const wheelGeometry = new THREE.CylinderGeometry(2, 2, 0.5, 32);
+        const wheelMaterial = new THREE.MeshPhongMaterial({ 
+          color: 0x7f8c8d,
+          shininess: 20
+        });
+        const wheel = new THREE.Mesh(wheelGeometry, wheelMaterial);
+        wheel.position.y = -1;
+        this.model.add(wheel);
+        
+        // Clay pot
+        const points = [];
+        for (let i = 0; i <= 10; i++) {
+          const angle = (i / 10) * Math.PI * 2;
+          points.push(new THREE.Vector2(
+            Math.cos(angle) * 1 + 0.3 * Math.sin(angle * 3),
+            (i - 5) * 0.5
+          ));
+        }
+        
+        const potGeometry = new THREE.LatheGeometry(points, 32);
+        const potMaterial = new THREE.MeshPhongMaterial({ 
+          color: 0x8B4513,
+          shininess: 10
+        });
+        const pot = new THREE.Mesh(potGeometry, potMaterial);
+        pot.position.y = 0.5;
+        this.model.add(pot);
+        
+        // Tools
+        const toolPositions = [
+          { x: -1.5, z: -1.5, color: 0x3498db },
+          { x: -2, z: 0, color: 0xe74c3c },
+          { x: -1.5, z: 1.5, color: 0x2ecc71 }
+        ];
+        
+        toolPositions.forEach(pos => {
+          const handleGeometry = new THREE.CylinderGeometry(0.1, 0.1, 1, 16);
+          const handleMaterial = new THREE.MeshPhongMaterial({ color: 0x34495e });
+          const handle = new THREE.Mesh(handleGeometry, handleMaterial);
+          handle.position.set(pos.x, -0.5, pos.z);
+          handle.rotation.z = Math.PI/4;
+          
+          const toolGeometry = new THREE.BoxGeometry(0.2, 0.2, 0.5);
+          const toolMaterial = new THREE.MeshPhongMaterial({ color: pos.color });
+          const tool = new THREE.Mesh(toolGeometry, toolMaterial);
+          tool.position.set(pos.x - 0.5, -0.2, pos.z);
+          tool.rotation.z = Math.PI/4;
+          
+          this.model.add(handle, tool);
+        });
+      }
+      
+      onWindowResize() {
+        this.camera.aspect = this.container.clientWidth / this.container.clientHeight;
+        this.camera.updateProjectionMatrix();
+        this.renderer.setSize(
+          this.container.clientWidth,
+          this.container.clientHeight
+        );
+      }
+      
+      animate() {
+        requestAnimationFrame(() => this.animate());
+        
+        if (this.model) {
+          // Add subtle rotation
+          this.model.rotation.y += 0.005;
+        }
+        
+        this.controls.update();
+        this.renderer.render(this.scene, this.camera);
+      }
+    }
+    
+    // Model selector
+    const modelButtons = document.querySelectorAll('.model-btn');
+    const modelViewer = new ModelViewer('modelContainer');
+    
+    modelButtons.forEach(button => {
+      button.addEventListener('click', () => {
+        modelButtons.forEach(btn => btn.classList.remove('active'));
+        button.classList.add('active');
+        modelViewer.currentModel = button.dataset.model;
+        modelViewer.loadModel(modelViewer.currentModel);
+      });
+    });
+  </script>
+</body>
+</html>

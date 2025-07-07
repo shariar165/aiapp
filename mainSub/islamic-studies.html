@@ -1,0 +1,1086 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ইসলামিক শিক্ষা | বাংলাদেশ</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Bengali:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary-color: #2e7d32;
+      --secondary-color: #d4e157;
+      --accent-color: #ffc107;
+      --text-color: #333;
+      --bg-color: #f8f9fa;
+      --card-bg: #ffffff;
+      --border-radius: 12px;
+      --box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      --transition: all 0.3s ease;
+    }
+
+    [data-theme="dark"] {
+      --primary-color: #4caf50;
+      --secondary-color: #ffeb3b;
+      --accent-color: #ff9800;
+      --text-color: #f0f0f0;
+      --bg-color: #121212;
+      --card-bg: #1e1e1e;
+      --box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Noto Sans Bengali', sans-serif;
+      background-color: var(--bg-color);
+      color: var(--text-color);
+      line-height: 1.6;
+      position: relative;
+      min-height: 100vh;
+      overflow-x: hidden;
+      background-image: url('https://images.unsplash.com/photo-1604871000636-074fa5117945?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1920&q=80');
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
+      transition: var(--transition);
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.5);
+      z-index: -1;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    /* Navigation */
+    nav {
+      background: rgba(46, 125, 50, 0.95);
+      backdrop-filter: blur(10px);
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .nav-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      height: 70px;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 1.4rem;
+      font-weight: bold;
+      color: white;
+    }
+
+    .logo-icon {
+      width: 40px;
+      height: 40px;
+      background: white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--primary-color);
+      animation: rotate 10s linear infinite;
+    }
+
+    @keyframes rotate {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 25px;
+      align-items: center;
+    }
+
+    .nav-links a {
+      color: white;
+      text-decoration: none;
+      font-weight: 500;
+      transition: var(--transition);
+      position: relative;
+      padding: 5px 0;
+    }
+
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: var(--accent-color);
+      transition: var(--transition);
+    }
+
+    .nav-links a:hover::after {
+      width: 100%;
+    }
+
+    .theme-toggle {
+      background: rgba(255, 255, 255, 0.2);
+      color: white;
+      border: none;
+      border-radius: 30px;
+      width: 50px;
+      height: 50px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+
+    .theme-toggle:hover {
+      background: rgba(255, 255, 255, 0.3);
+      transform: scale(1.1);
+    }
+
+    /* Hero Section */
+    .hero {
+      padding: 100px 0 60px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(135deg, rgba(46, 125, 50, 0.7) 0%, rgba(0, 77, 64, 0.8) 100%);
+      z-index: -1;
+      clip-path: polygon(0 0, 100% 0, 100% 85%, 0 100%);
+    }
+
+    .hero-content {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 40px 20px;
+    }
+
+    .hero h1 {
+      font-size: 3rem;
+      font-weight: 800;
+      margin-bottom: 20px;
+      color: white;
+      text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+      opacity: 0;
+      transform: translateY(40px);
+      animation: heroTitleFadeIn 1s cubic-bezier(.23,1.02,.32,1) 0.2s forwards;
+    }
+
+    @keyframes heroTitleFadeIn {
+      from { opacity: 0; transform: translateY(40px);}
+      to { opacity: 1; transform: translateY(0);}
+    }
+
+    .hero p {
+      font-size: 1.3rem;
+      color: rgba(255, 255, 255, 0.9);
+      margin: 0 auto 40px;
+      line-height: 1.8;
+      opacity: 0;
+      transform: translateY(40px);
+      animation: heroTextFadeIn 1s cubic-bezier(.23,1.02,.32,1) 0.7s forwards;
+    }
+
+    @keyframes heroTextFadeIn {
+      from { opacity: 0; transform: translateY(40px);}
+      to { opacity: 1; transform: translateY(0);}
+    }
+
+    .btn {
+      padding: 14px 32px;
+      border-radius: 30px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: var(--transition);
+      border: none;
+      font-size: 1.1rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .btn-primary {
+      background: var(--accent-color);
+      color: #333;
+      box-shadow: 0 4px 15px rgba(255, 193, 7, 0.3);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 20px rgba(255, 193, 7, 0.4);
+    }
+
+    .btn-secondary {
+      background: transparent;
+      border: 2px solid white;
+      color: white;
+    }
+
+    .btn-secondary:hover {
+      background: rgba(255, 255, 255, 0.1);
+    }
+
+    .btn-group {
+      display: flex;
+      gap: 15px;
+      justify-content: center;
+      margin-top: 30px;
+    }
+
+    /* Features */
+    .features {
+      padding: 80px 0;
+      position: relative;
+    }
+
+    .section-title {
+      text-align: center;
+      margin-bottom: 50px;
+    }
+
+    .section-title h2 {
+      font-size: 2.5rem;
+      font-weight: 700;
+      margin-bottom: 20px;
+      color: var(--text-color);
+      position: relative;
+      display: inline-block;
+    }
+
+    .section-title h2::after {
+      content: '';
+      position: absolute;
+      bottom: -10px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 80px;
+      height: 4px;
+      background: var(--primary-color);
+      border-radius: 2px;
+    }
+
+    .section-title p {
+      color: var(--text-color);
+      max-width: 700px;
+      margin: 0 auto;
+      font-size: 1.2rem;
+      opacity: 0.9;
+    }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 30px;
+    }
+
+    .feature-card {
+      background: var(--card-bg);
+      border-radius: var(--border-radius);
+      padding: 35px 30px;
+      text-align: center;
+      box-shadow: var(--box-shadow);
+      transition: var(--transition);
+      border: 1px solid rgba(0, 0, 0, 0.05);
+      position: relative;
+      overflow: hidden;
+      z-index: 1;
+    }
+
+    .feature-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 5px;
+      background: var(--primary-color);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.5s ease;
+      z-index: -1;
+    }
+
+    .feature-card:hover::before {
+      transform: scaleX(1);
+    }
+
+    .feature-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+    }
+
+    .feature-icon {
+      width: 80px;
+      height: 80px;
+      background: rgba(46, 125, 50, 0.1);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 25px;
+      color: var(--primary-color);
+      font-size: 2rem;
+      transition: var(--transition);
+    }
+
+    .feature-card:hover .feature-icon {
+      background: var(--primary-color);
+      color: white;
+      transform: scale(1.1);
+    }
+
+    .feature-title {
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin-bottom: 15px;
+      color: var(--text-color);
+    }
+
+    .feature-desc {
+      color: var(--text-color);
+      opacity: 0.8;
+      line-height: 1.7;
+    }
+
+    /* Subjects */
+    .subjects {
+      padding: 80px 0;
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(10px);
+      position: relative;
+    }
+
+    .subjects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 25px;
+    }
+
+    .subject-card {
+      background: var(--card-bg);
+      border-radius: var(--border-radius);
+      padding: 30px;
+      text-align: center;
+      box-shadow: var(--box-shadow);
+      transition: var(--transition);
+      position: relative;
+      overflow: hidden;
+      cursor: pointer;
+      border: 1px solid rgba(0, 0, 0, 0.05);
+    }
+
+    .subject-card:hover {
+      transform: translateY(-10px) scale(1.03);
+      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+    }
+
+    .subject-icon {
+      width: 70px;
+      height: 70px;
+      background: rgba(46, 125, 50, 0.1);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 20px;
+      color: var(--primary-color);
+      font-size: 1.8rem;
+      transition: var(--transition);
+    }
+
+    .subject-card:hover .subject-icon {
+      background: var(--primary-color);
+      color: white;
+      transform: rotateY(360deg);
+    }
+
+    .subject-title {
+      font-size: 1.4rem;
+      font-weight: 700;
+      margin-bottom: 15px;
+      color: var(--text-color);
+    }
+
+    .subject-desc {
+      color: var(--text-color);
+      opacity: 0.8;
+      font-size: 0.95rem;
+    }
+
+    /* Resources */
+    .resources {
+      padding: 80px 0;
+      position: relative;
+    }
+
+    .resources-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 30px;
+    }
+
+    .resource-card {
+      background: var(--card-bg);
+      border-radius: var(--border-radius);
+      overflow: hidden;
+      box-shadow: var(--box-shadow);
+      transition: var(--transition);
+    }
+
+    .resource-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+    }
+
+    .resource-img {
+      height: 200px;
+      overflow: hidden;
+    }
+
+    .resource-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: var(--transition);
+    }
+
+    .resource-card:hover .resource-img img {
+      transform: scale(1.1);
+    }
+
+    .resource-content {
+      padding: 25px;
+    }
+
+    .resource-title {
+      font-size: 1.4rem;
+      font-weight: 700;
+      margin-bottom: 15px;
+      color: var(--text-color);
+    }
+
+    .resource-desc {
+      color: var(--text-color);
+      opacity: 0.8;
+      margin-bottom: 20px;
+      line-height: 1.7;
+    }
+
+    .resource-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--primary-color);
+      text-decoration: none;
+      font-weight: 600;
+      transition: var(--transition);
+    }
+
+    .resource-link:hover {
+      gap: 12px;
+    }
+
+    /* Footer */
+    footer {
+      background: linear-gradient(to right, #1b5e20, #004d40);
+      color: white;
+      padding: 60px 0 20px;
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 40px;
+      margin-bottom: 40px;
+    }
+
+    .footer-logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+
+    .footer-logo-icon {
+      width: 40px;
+      height: 40px;
+      background: white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--primary-color);
+    }
+
+    .footer-logo-text {
+      font-weight: bold;
+      font-size: 1.4rem;
+    }
+
+    .footer-about {
+      color: rgba(255, 255, 255, 0.8);
+      margin-bottom: 20px;
+      line-height: 1.8;
+    }
+
+    .footer-social {
+      display: flex;
+      gap: 15px;
+    }
+
+    .footer-social-icon {
+      width: 40px;
+      height: 40px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+
+    .footer-social-icon:hover {
+      background: rgba(255, 255, 255, 0.2);
+      transform: translateY(-5px);
+    }
+
+    .footer-heading {
+      font-weight: 600;
+      margin-bottom: 25px;
+      font-size: 1.3rem;
+      position: relative;
+      padding-bottom: 10px;
+    }
+
+    .footer-heading::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 50px;
+      height: 3px;
+      background: var(--accent-color);
+    }
+
+    .footer-links {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+
+    .footer-link {
+      color: rgba(255, 255, 255, 0.8);
+      text-decoration: none;
+      transition: var(--transition);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .footer-link:hover {
+      color: white;
+      gap: 15px;
+    }
+
+    .footer-link i {
+      color: var(--accent-color);
+    }
+
+    .footer-bottom {
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      padding-top: 20px;
+      text-align: center;
+      color: rgba(255, 255, 255, 0.7);
+      font-size: 0.95rem;
+    }
+
+    /* Animation Classes */
+    .fade-in {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.8s ease, transform 0.8s ease;
+    }
+
+    .fade-in.appear {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Responsive */
+    @media (max-width: 992px) {
+      .hero h1 {
+        font-size: 2.5rem;
+      }
+      
+      .hero p {
+        font-size: 1.2rem;
+      }
+      
+      .btn {
+        padding: 12px 25px;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .nav-container {
+        height: 60px;
+      }
+      
+      .hero {
+        padding: 80px 0 40px;
+      }
+      
+      .hero h1 {
+        font-size: 2rem;
+      }
+      
+      .hero p {
+        font-size: 1.1rem;
+      }
+      
+      .btn-group {
+        flex-direction: column;
+        gap: 15px;
+      }
+      
+      .btn {
+        width: 100%;
+        justify-content: center;
+      }
+      
+      .section-title h2 {
+        font-size: 2rem;
+      }
+    }
+
+    @media (max-width: 576px) {
+      .nav-links {
+        display: none;
+      }
+      
+      .hero-content {
+        padding: 30px 15px;
+      }
+      
+      .hero h1 {
+        font-size: 1.8rem;
+      }
+      
+      .section-title h2 {
+        font-size: 1.8rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Navigation -->
+  <nav>
+    <div class="container nav-container">
+      <div class="logo">
+        <div class="logo-icon">
+          <i class="fas fa-mosque"></i>
+        </div>
+        <span>ইসলামিক শিক্ষা</span>
+      </div>
+      <div class="nav-links">
+        <a href="#"><i class="fas fa-home"></i> হোম</a>
+        <a href="#"><i class="fas fa-book-open"></i> বিষয়সমূহ</a>
+        <a href="#"><i class="fas fa-video"></i> ভিডিও লেকচার</a>
+        <a href="#"><i class="fas fa-question-circle"></i> প্রশ্নোত্তর</a>
+        <a href="#"><i class="fas fa-info-circle"></i> সম্পর্কে</a>
+      </div>
+      <button class="theme-toggle" id="themeToggle">
+        <i class="fas fa-moon"></i>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="container hero-content">
+      <h1>ইসলামিক শিক্ষা প্ল্যাটফর্ম</h1>
+      <p>বাংলাদেশের ৬ষ্ঠ থেকে ১২শ শ্রেণির শিক্ষার্থীদের জন্য সম্পূর্ণ ইসলামিক শিক্ষার একটি অনন্য প্ল্যাটফর্ম। কুরআন, হাদিস, ফিকহ, ইসলামিক ইতিহাস এবং আরও অনেক কিছু শিখুন সহজ ও আকর্ষণীয় পদ্ধতিতে।</p>
+      <div class="btn-group">
+        <button class="btn btn-primary">
+          <i class="fas fa-book-reader"></i> এখনই শিখুন
+        </button>
+        <button class="btn btn-secondary">
+          <i class="fas fa-play-circle"></i> ভিডিও দেখুন
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Features Section -->
+  <section class="features">
+    <div class="container">
+      <div class="section-title">
+        <h2>আমাদের বিশেষ বৈশিষ্ট্য</h2>
+        <p>আমাদের প্ল্যাটফর্মে আপনি যা যা পাবেন</p>
+      </div>
+      
+      <div class="features-grid">
+        <div class="feature-card fade-in">
+          <div class="feature-icon">
+            <i class="fas fa-quran"></i>
+          </div>
+          <h3 class="feature-title">কুরআন শিক্ষা</h3>
+          <p class="feature-desc">তাজবিদ সহ কুরআন শুদ্ধভাবে পড়া ও বুঝার সম্পূর্ণ কোর্স। তিলাওয়াত, তাফসীর ও হিফজ প্রোগ্রাম।</p>
+        </div>
+        
+        <div class="feature-card fade-in">
+          <div class="feature-icon">
+            <i class="fas fa-book"></i>
+          </div>
+          <h3 class="feature-title">হাদিস শিক্ষা</h3>
+          <p class="feature-desc">প্রধান হাদিস গ্রন্থসমূহ থেকে নির্বাচিত হাদিস সহজ বাংলায় ব্যাখ্যা সহ শিখুন। বুখারী, মুসলিম ও অন্যান্য গ্রন্থ।</p>
+        </div>
+        
+        <div class="feature-card fade-in">
+          <div class="feature-icon">
+            <i class="fas fa-balance-scale"></i>
+          </div>
+          <h3 class="feature-title">ফিকহ শিক্ষা</h3>
+          <p class="feature-desc">ইসলামিক আইনশাস্ত্র (ফিকহ) এর মৌলিক বিষয়াদি শিখুন। নামাজ, রোজা, হজ্জ, জাকাতসহ দৈনন্দিন জীবনের প্রয়োজনীয় মাসআলা-মাসায়েল।</p>
+        </div>
+        
+        <div class="feature-card fade-in">
+          <div class="feature-icon">
+            <i class="fas fa-history"></i>
+          </div>
+          <h3 class="feature-title">ইসলামিক ইতিহাস</h3>
+          <p class="feature-desc">নবী-রাসূলগণের জীবনী, ইসলামের স্বর্ণযুগ, মুসলিম বিজ্ঞানী ও দার্শনিকদের অবদান সম্পর্কে জানুন।</p>
+        </div>
+        
+        <div class="feature-card fade-in">
+          <div class="feature-icon">
+            <i class="fas fa-user-graduate"></i>
+          </div>
+          <h3 class="feature-title">শ্রেণিভিত্তিক শিক্ষা</h3>
+          <p class="feature-desc">৬ষ্ঠ থেকে ১২শ শ্রেণির জন্য উপযোগী আলাদা আলাদা ইসলাম শিক্ষা কারিকুলাম। পাঠ্য বইয়ের সম্পূরক শিক্ষা।</p>
+        </div>
+        
+        <div class="feature-card fade-in">
+          <div class="feature-icon">
+            <i class="fas fa-chalkboard-teacher"></i>
+          </div>
+          <h3 class="feature-title">অভিজ্ঞ শিক্ষক</h3>
+          <p class="feature-desc">দেশের খ্যাতনামা ইসলামিক স্কলার ও অভিজ্ঞ শিক্ষকদের দ্বারা ক্লাস নেওয়া হয়। সরাসরি প্রশ্ন করার সুযোগ।</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Subjects Section -->
+  <section class="subjects">
+    <div class="container">
+      <div class="section-title">
+        <h2>আমাদের বিষয়সমূহ</h2>
+        <p>ইসলামিক শিক্ষার সকল শাখা-প্রশাখা নিয়ে আমাদের কোর্সসমূহ</p>
+      </div>
+      
+      <div class="subjects-grid">
+        <div class="subject-card fade-in">
+          <div class="subject-icon">
+            <i class="fas fa-quran"></i>
+          </div>
+          <h3 class="subject-title">কুরআন মাজিদ</h3>
+          <p class="subject-desc">কুরআন তিলাওয়াত, তাফসীর ও হিফজ প্রোগ্রাম</p>
+        </div>
+        
+        <div class="subject-card fade-in">
+          <div class="subject-icon">
+            <i class="fas fa-book"></i>
+          </div>
+          <h3 class="subject-title">হাদিস শিক্ষা</h3>
+          <p class="subject-desc">বুখারী, মুসলিম ও অন্যান্য হাদিস গ্রন্থ</p>
+        </div>
+        
+        <div class="subject-card fade-in">
+          <div class="subject-icon">
+            <i class="fas fa-pray"></i>
+          </div>
+          <h3 class="subject-title">ফিকহ ও ইবাদত</h3>
+          <p class="subject-desc">নামাজ, রোজা, হজ্জ, জাকাত ও অন্যান্য ইবাদত</p>
+        </div>
+        
+        <div class="subject-card fade-in">
+          <div class="subject-icon">
+            <i class="fas fa-history"></i>
+          </div>
+          <h3 class="subject-title">সীরাত ও ইতিহাস</h3>
+          <p class="subject-desc">নবী-রাসূলগণের জীবনী ও ইসলামের ইতিহাস</p>
+        </div>
+        
+        <div class="subject-card fade-in">
+          <div class="subject-icon">
+            <i class="fas fa-star-and-crescent"></i>
+          </div>
+          <h3 class="subject-title">আকিদা</h3>
+          <p class="subject-desc">ইসলামের মৌলিক বিশ্বাস ও আকিদা শিক্ষা</p>
+        </div>
+        
+        <div class="subject-card fade-in">
+          <div class="subject-icon">
+            <i class="fas fa-hands"></i>
+          </div>
+          <h3 class="subject-title">আখলাক ও আদব</h3>
+          <p class="subject-desc">ইসলামিক আদব-কায়দা ও চরিত্র গঠন</p>
+        </div>
+        
+        <div class="subject-card fade-in">
+          <div class="subject-icon">
+            <i class="fas fa-globe-asia"></i>
+          </div>
+          <h3 class="subject-title">ইসলামী সংস্কৃতি</h3>
+          <p class="subject-desc">বিশ্বব্যাপী মুসলিম সংস্কৃতি ও ঐতিহ্য</p>
+        </div>
+        
+        <div class="subject-card fade-in">
+          <div class="subject-icon">
+            <i class="fas fa-brain"></i>
+          </div>
+          <h3 class="subject-title">ইসলামী দর্শন</h3>
+          <p class="subject-desc">ইসলামের দার্শনিক দিক ও জ্ঞানচর্চা</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Resources Section -->
+  <section class="resources">
+    <div class="container">
+      <div class="section-title">
+        <h2>শিক্ষা উপকরণ</h2>
+        <p>ইসলামিক জ্ঞান বৃদ্ধির জন্য আমাদের বিশেষ রিসোর্স</p>
+      </div>
+      
+      <div class="resources-grid">
+        <div class="resource-card fade-in">
+          <div class="resource-img">
+            <img src="https://images.unsplash.com/photo-1560421683-2587f1591d30?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Quran Resources">
+          </div>
+          <div class="resource-content">
+            <h3 class="resource-title">কুরআনিক রিসোর্স</h3>
+            <p class="resource-desc">কুরআন তেলাওয়াত, তাফসীর, তর্জমা এবং বিষয়ভিত্তিক কুরআনিক রেফারেন্সের বিশাল সংগ্রহ।</p>
+            <a href="#" class="resource-link">
+              এক্সপ্লোর করুন <i class="fas fa-arrow-right"></i>
+            </a>
+          </div>
+        </div>
+        
+        <div class="resource-card fade-in">
+          <div class="resource-img">
+            <img src="https://images.unsplash.com/photo-1589998059171-988d887df646?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Hadith Resources">
+          </div>
+          <div class="resource-content">
+            <h3 class="resource-title">হাদিস লাইব্রেরি</h3>
+            <p class="resource-desc">বিখ্যাত হাদিস গ্রন্থসমূহের বাংলা অনুবাদ ও ব্যাখ্যা সহ হাদিসের বিশাল ডাটাবেজ।</p>
+            <a href="#" class="resource-link">
+              এক্সপ্লোর করুন <i class="fas fa-arrow-right"></i>
+            </a>
+          </div>
+        </div>
+        
+        <div class="resource-card fade-in">
+          <div class="resource-img">
+            <img src="https://images.unsplash.com/photo-1516550893923-42d28e5677af?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Islamic History">
+          </div>
+          <div class="resource-content">
+            <h3 class="resource-title">ইতিহাস আর্কাইভ</h3>
+            <p class="resource-desc">ইসলামের গৌরবময় ইতিহাস, মুসলিম সভ্যতার উন্নতি, বিজ্ঞান ও সংস্কৃতির স্বর্ণযুগ সম্পর্কে জানুন।</p>
+            <a href="#" class="resource-link">
+              এক্সপ্লোর করুন <i class="fas fa-arrow-right"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <div class="footer-grid">
+        <div>
+          <div class="footer-logo">
+            <div class="footer-logo-icon">
+              <i class="fas fa-mosque"></i>
+            </div>
+            <span class="footer-logo-text">ইসলামিক শিক্ষা</span>
+          </div>
+          <p class="footer-about">বাংলাদেশের শিক্ষার্থীদের জন্য একটি আধুনিক ইসলামিক শিক্ষা প্ল্যাটফর্ম। কুরআন, হাদিস, ফিকহ এবং ইসলামিক ইতিহাস সহ সকল বিষয়ে সহজ ও বোধগম্য শিক্ষা প্রদান করা হয়।</p>
+          <div class="footer-social">
+            <div class="footer-social-icon">
+              <i class="fab fa-facebook-f"></i>
+            </div>
+            <div class="footer-social-icon">
+              <i class="fab fa-youtube"></i>
+            </div>
+            <div class="footer-social-icon">
+              <i class="fab fa-instagram"></i>
+            </div>
+            <div class="footer-social-icon">
+              <i class="fab fa-twitter"></i>
+            </div>
+          </div>
+        </div>
+        
+        <div>
+          <h4 class="footer-heading">কুইক লিংক</h4>
+          <div class="footer-links">
+            <a href="#" class="footer-link"><i class="fas fa-arrow-right"></i> হোম</a>
+            <a href="#" class="footer-link"><i class="fas fa-arrow-right"></i> বিষয়সমূহ</a>
+            <a href="#" class="footer-link"><i class="fas fa-arrow-right"></i> ভিডিও লেকচার</a>
+            <a href="#" class="footer-link"><i class="fas fa-arrow-right"></i> প্রশ্নোত্তর</a>
+            <a href="#" class="footer-link"><i class="fas fa-arrow-right"></i> আমাদের সম্পর্কে</a>
+          </div>
+        </div>
+        
+        <div>
+          <h4 class="footer-heading">গুরুত্বপূর্ণ লিংক</h4>
+          <div class="footer-links">
+            <a href="#" class="footer-link"><i class="fas fa-arrow-right"></i> কুরআন অনলাইন</a>
+            <a href="#" class="footer-link"><i class="fas fa-arrow-right"></i> হাদিস ডাটাবেজ</a>
+            <a href="#" class="footer-link"><i class="fas fa-arrow-right"></i> ইসলামিক ইতিহাস</a>
+            <a href="#" class="footer-link"><i class="fas fa-arrow-right"></i> ফিকহ ও মাসায়েল</a>
+            <a href="#" class="footer-link"><i class="fas fa-arrow-right"></i> শিক্ষক নিয়োগ</a>
+          </div>
+        </div>
+        
+        <div>
+          <h4 class="footer-heading">যোগাযোগ</h4>
+          <div class="footer-links">
+            <a href="#" class="footer-link"><i class="fas fa-map-marker-alt"></i> ঢাকা, বাংলাদেশ</a>
+            <a href="mailto:info@islamicedu.com" class="footer-link"><i class="fas fa-envelope"></i> info@islamicedu.com</a>
+            <a href="tel:+8801234567890" class="footer-link"><i class="fas fa-phone"></i> +880 1234 567890</a>
+            <a href="#" class="footer-link"><i class="fas fa-clock"></i> শনি-বৃহঃ: সকাল ৯টা - রাত ১০টা</a>
+          </div>
+        </div>
+      </div>
+      
+      <div class="footer-bottom">
+        <p>© ২০২৫ ইসলামিক শিক্ষা প্ল্যাটফর্ম। সকল অধিকার সংরক্ষিত।</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Theme Toggle
+    const themeToggle = document.getElementById('themeToggle');
+    const body = document.body;
+    
+    // Check for saved theme preference or respect OS preference
+    const savedTheme = localStorage.getItem('theme');
+    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    
+    if (savedTheme === 'dark' || (!savedTheme && prefersDark)) {
+      body.setAttribute('data-theme', 'dark');
+      themeToggle.innerHTML = '<i class="fas fa-sun"></i>';
+    }
+    
+    themeToggle.addEventListener('click', () => {
+      if (body.getAttribute('data-theme') === 'dark') {
+        body.removeAttribute('data-theme');
+        localStorage.setItem('theme', 'light');
+        themeToggle.innerHTML = '<i class="fas fa-moon"></i>';
+      } else {
+        body.setAttribute('data-theme', 'dark');
+        localStorage.setItem('theme', 'dark');
+        themeToggle.innerHTML = '<i class="fas fa-sun"></i>';
+      }
+    });
+    
+    // Scroll animations
+    const fadeElements = document.querySelectorAll('.fade-in');
+    
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('appear');
+        }
+      });
+    }, {
+      threshold: 0.1,
+      rootMargin: '0px 0px -50px 0px'
+    });
+    
+    fadeElements.forEach(element => {
+      observer.observe(element);
+    });
+    
+    // Mobile menu toggle
+    const hamburger = document.createElement('button');
+    hamburger.classList.add('hamburger');
+    hamburger.setAttribute('aria-label', 'Toggle menu');
+    hamburger.innerHTML = '<div class="stack"><div class="bar"></div><div class="bar2"></div><div class="bar"></div><div class="bar2"></div></div>';
+    
+    const navContainer = document.querySelector('.nav-container');
+    const navLinks = document.querySelector('.nav-links');
+    
+    hamburger.addEventListener('click', () => {
+      navLinks.classList.toggle('show');
+    });
+    
+    // Add hamburger only on mobile
+    function checkMobile() {
+      if (window.innerWidth <= 768) {
+        if (!document.querySelector('.hamburger')) {
+          navContainer.appendChild(hamburger);
+        }
+      } else {
+        if (document.querySelector('.hamburger')) {
+          navContainer.removeChild(hamburger);
+          navLinks.classList.remove('show');
+        }
+      }
+    }
+    
+    window.addEventListener('resize', checkMobile);
+    checkMobile();
+    
+    // Subject card click effect
+    const subjectCards = document.querySelectorAll('.subject-card');
+    subjectCards.forEach(card => {
+      card.addEventListener('click', function() {
+        this.classList.add('clicked');
+        setTimeout(() => {
+          this.classList.remove('clicked');
+        }, 300);
+      });
+    });
+  </script>
+</body>
+</html>

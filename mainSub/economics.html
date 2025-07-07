@@ -1,0 +1,1298 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Economics Learning Hub | বাংলাদেশের অর্থনীতি</title>
+  <!-- Bangla font support -->
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Bengali:wght@400;700&display=swap" rel="stylesheet">
+  <!-- Font Awesome for icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    :root {
+      --primary-color: #43b581; /* Green for economics */
+      --secondary-color: #fbbf24; /* Amber for highlights */
+      --accent-color: #9d4edd; /* Purple for accents */
+      --bg-color: #f8f9fa;
+      --card-bg: #ffffff;
+      --text-color: #333333;
+      --border-radius: 16px;
+      --box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      --gradient-green: linear-gradient(to right, #43b581, #2e8b57);
+      --gradient-amber: linear-gradient(to right, #fbbf24, #f59e0b);
+      --glow-intensity: 8px;
+    }
+
+    [data-theme="dark"] {
+      --primary-color: #50c78e;
+      --secondary-color: #fcd34d;
+      --accent-color: #b07af5;
+      --bg-color: #1a1a1a;
+      --card-bg: #2d2d2d;
+      --text-color: #f0f0f0;
+      --box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+      --glow-intensity: 12px;
+    }
+
+    body {
+      font-family: 'Noto Sans Bengali', sans-serif;
+      background-color: var(--bg-color);
+      color: var(--text-color);
+      line-height: 1.6;
+      margin: 0;
+      padding: 0;
+      transition: background-color 0.3s, color 0.3s;
+      position: relative;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+    
+    /* Background image with overlay */
+    .background-container {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+      background-image: url('https://businessinspection.com.bd/wp-content/uploads/2023/09/Sustainable-Lending-by-Banks-in-Bangladesh-Jumps-Amid-Climate-Focus.jpg');
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
+      opacity: 0.2;
+      filter: blur(2px);
+    }
+    
+    [data-theme="dark"] .background-container {
+      opacity: 0.15;
+      filter: blur(2px) brightness(0.7);
+    }
+
+    /* Navigation */
+    nav {
+      background: rgba(255, 255, 255, 0.85);
+      backdrop-filter: blur(10px);
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    }
+    
+    [data-theme="dark"] nav {
+      background: rgba(30, 30, 33, 0.85);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .nav-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      height: 60px;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 1.2rem;
+      font-weight: bold;
+      background: linear-gradient(to right, #43b581, #2e8b57);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .logo-icon {
+      width: 30px;
+      height: 30px;
+      background: linear-gradient(to right, #43b581, #2e8b57);
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 20px;
+      align-items: center;
+    }
+
+    .nav-links a {
+      color: var(--text-color);
+      text-decoration: none;
+      font-weight: 500;
+      transition: color 0.3s;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      left: 0; bottom: 0;
+      width: 100%;
+      height: 2px;
+      background: var(--primary-color);
+      transform: scaleX(0);
+      transition: transform 0.3s;
+      transform-origin: right;
+    }
+    .nav-links a:hover::after {
+      transform: scaleX(1);
+      transform-origin: left;
+    }
+
+    .btn {
+      padding: 8px 16px;
+      border-radius: 6px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.3s;
+      border: none;
+    }
+
+    .btn-outline {
+      background: transparent;
+      border: 1px solid rgba(0, 123, 255, 0.2);
+      color: var(--primary-color);
+    }
+
+    .btn-outline:hover {
+      background: rgba(0, 123, 255, 0.05);
+    }
+
+    .btn-primary {
+      background: linear-gradient(to right, #43b581, #2e8b57);
+      color: white;
+    }
+
+    .btn-primary:hover {
+      opacity: 0.9;
+    }
+
+    /* Hero Section */
+    .hero {
+      background: rgba(248, 249, 250, 0.8);
+      padding: 100px 20px 60px;
+      text-align: center;
+      backdrop-filter: blur(4px);
+      border-radius: 0 0 30px 30px;
+      margin-bottom: 40px;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    [data-theme="dark"] .hero {
+      background: rgba(26, 26, 26, 0.8);
+    }
+
+    .hero::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(45deg, 
+        rgba(67, 181, 129, 0.1) 0%, 
+        rgba(67, 181, 129, 0.05) 20%,
+        rgba(67, 181, 129, 0) 40%,
+        rgba(251, 191, 36, 0) 60%,
+        rgba(251, 191, 36, 0.05) 80%,
+        rgba(251, 191, 36, 0.1) 100%);
+      z-index: -1;
+    }
+
+    .hero h1 {
+      font-size: 2.8rem;
+      font-weight: 800;
+      margin-bottom: 20px;
+      color: var(--text-color);
+      background: linear-gradient(to right, #43b581, #fbbf24);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      max-width: 800px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .hero p {
+      font-size: 1.2rem;
+      color: var(--text-color);
+      max-width: 700px;
+      margin: 0 auto 40px;
+      line-height: 1.6;
+    }
+    
+    .subject-badge {
+      display: inline-block;
+      background: linear-gradient(to right, #43b581, #2e8b57);
+      color: white;
+      padding: 8px 20px;
+      border-radius: 30px;
+      font-weight: 600;
+      margin-top: 20px;
+      box-shadow: 0 4px 12px rgba(67, 181, 129, 0.3);
+      animation: pulseGlow 2s infinite alternate;
+    }
+    
+    /* Currency Exchange Widget */
+    .currency-widget {
+      background: var(--card-bg);
+      border-radius: var(--border-radius);
+      box-shadow: var(--box-shadow);
+      max-width: 800px;
+      margin: 40px auto;
+      padding: 20px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      justify-content: center;
+      border: 1px solid rgba(67, 181, 129, 0.2);
+    }
+    
+    .currency-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 15px;
+      border-radius: 10px;
+      background: rgba(67, 181, 129, 0.1);
+      min-width: 150px;
+      transition: all 0.3s;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .currency-item:hover {
+      transform: translateY(-5px);
+      animation: glowPulse 1.5s infinite alternate;
+    }
+    
+    .currency-item::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: linear-gradient(45deg, transparent, rgba(67, 181, 129, 0.2), transparent);
+      transform: rotate(45deg);
+      z-index: 0;
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+    
+    .currency-item:hover::before {
+      opacity: 1;
+    }
+    
+    .currency-flag {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      background: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+      margin-bottom: 10px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      position: relative;
+      z-index: 1;
+    }
+    
+    .currency-name {
+      font-weight: 600;
+      margin-bottom: 5px;
+      position: relative;
+      z-index: 1;
+    }
+    
+    .currency-rate {
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: var(--primary-color);
+      position: relative;
+      z-index: 1;
+      text-shadow: 0 0 5px rgba(67, 181, 129, 0.3);
+    }
+    
+    /* Topic Cards */
+    .topics-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px 40px;
+    }
+    
+    .section-title {
+      text-align: center;
+      margin-bottom: 40px;
+      position: relative;
+    }
+    
+    .section-title h2 {
+      font-size: 2rem;
+      font-weight: 700;
+      margin-bottom: 16px;
+      color: var(--text-color);
+      display: inline-block;
+      padding: 0 20px;
+      background: var(--card-bg);
+      position: relative;
+      z-index: 2;
+    }
+    
+    .section-title::after {
+      content: "";
+      position: absolute;
+      top: 50%;
+      left: 0;
+      width: 100%;
+      height: 2px;
+      background: linear-gradient(to right, transparent, var(--primary-color), transparent);
+      z-index: 1;
+    }
+    
+    .topics-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 25px;
+    }
+    
+    .topic-card {
+      background: var(--card-bg);
+      border-radius: var(--border-radius);
+      box-shadow: var(--box-shadow);
+      padding: 25px;
+      position: relative;
+      overflow: hidden;
+      transition: all 0.3s;
+      border: 1px solid rgba(67, 181, 129, 0.1);
+      cursor: pointer;
+      transform-style: preserve-3d;
+      perspective: 1000px;
+    }
+    
+    .topic-card:hover {
+      transform: translateY(-8px) scale(1.02);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+      animation: cardGlow 1.5s infinite alternate;
+    }
+    
+    .topic-card::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(45deg, 
+        transparent 0%, 
+        rgba(67, 181, 129, 0.1) 50%,
+        transparent 100%);
+      z-index: 0;
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+    
+    .topic-card:hover::before {
+      opacity: 1;
+    }
+    
+    .topic-card::after {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(45deg, 
+        rgba(67, 181, 129, 0.05) 0%, 
+        transparent 50%,
+        rgba(251, 191, 36, 0.05) 100%);
+      z-index: 0;
+      opacity: 0.5;
+    }
+    
+    .topic-card::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 5px;
+      height: 100%;
+      background: var(--primary-color);
+    }
+    
+    .topic-icon {
+      width: 60px;
+      height: 60px;
+      background: linear-gradient(to right, #43b581, #2e8b57);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 24px;
+      margin-bottom: 20px;
+      position: relative;
+      z-index: 1;
+      box-shadow: 0 0 15px rgba(67, 181, 129, 0.3);
+      animation: floatIcon 3s ease-in-out infinite;
+    }
+    
+    .topic-title {
+      font-size: 1.4rem;
+      font-weight: 700;
+      margin-bottom: 15px;
+      color: var(--text-color);
+      position: relative;
+      z-index: 1;
+    }
+    
+    .topic-desc {
+      color: var(--text-color);
+      margin-bottom: 20px;
+      line-height: 1.6;
+      position: relative;
+      z-index: 1;
+    }
+    
+    .topic-level {
+      display: inline-block;
+      padding: 5px 15px;
+      border-radius: 20px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      background: rgba(251, 191, 36, 0.2);
+      color: #d97706;
+      position: relative;
+      z-index: 1;
+    }
+    
+    /* Interactive Quiz */
+    .quiz-container {
+      max-width: 800px;
+      margin: 0 auto 60px;
+      padding: 0 20px;
+    }
+    
+    .quiz-card {
+      background: var(--card-bg);
+      border-radius: var(--border-radius);
+      box-shadow: var(--box-shadow);
+      padding: 30px;
+      position: relative;
+      border: 1px solid rgba(67, 181, 129, 0.2);
+      overflow: hidden;
+    }
+    
+    .quiz-card::before {
+      content: "";
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: linear-gradient(45deg, transparent, rgba(67, 181, 129, 0.1), transparent);
+      transform: rotate(45deg);
+      z-index: 0;
+      opacity: 0.3;
+    }
+    
+    .quiz-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 25px;
+      padding-bottom: 15px;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+      position: relative;
+      z-index: 1;
+    }
+    
+    [data-theme="dark"] .quiz-header {
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    
+    .quiz-question {
+      font-size: 1.3rem;
+      font-weight: 600;
+      margin-bottom: 25px;
+      color: var(--text-color);
+      position: relative;
+      z-index: 1;
+    }
+    
+    .quiz-options {
+      display: grid;
+      gap: 15px;
+      margin-bottom: 30px;
+      position: relative;
+      z-index: 1;
+    }
+    
+    .quiz-option {
+      padding: 15px;
+      border-radius: 8px;
+      background: rgba(67, 181, 129, 0.08);
+      cursor: pointer;
+      transition: all 0.2s;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      border: 1px solid transparent;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .quiz-option:hover {
+      background: rgba(67, 181, 129, 0.15);
+      box-shadow: 0 0 10px rgba(67, 181, 129, 0.2);
+    }
+    
+    .quiz-option.selected {
+      background: rgba(67, 181, 129, 0.2);
+      border: 1px solid var(--primary-color);
+      box-shadow: 0 0 15px rgba(67, 181, 129, 0.3);
+    }
+    
+    .quiz-actions {
+      display: flex;
+      justify-content: space-between;
+      position: relative;
+      z-index: 1;
+    }
+    
+    .quiz-btn {
+      padding: 10px 20px;
+      border-radius: 6px;
+      font-weight: 500;
+      cursor: pointer;
+      border: none;
+      transition: all 0.3s;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .quiz-btn::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+      transform: translateX(-100%);
+      transition: transform 0.5s;
+    }
+    
+    .quiz-btn:hover::before {
+      transform: translateX(100%);
+    }
+    
+    .quiz-btn:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+    
+    .quiz-prev {
+      background: rgba(107, 114, 128, 0.1);
+      color: var(--text-color);
+    }
+    
+    .quiz-next {
+      background: linear-gradient(to right, #43b581, #2e8b57);
+      color: white;
+      box-shadow: 0 0 15px rgba(67, 181, 129, 0.3);
+    }
+    
+    .quiz-result {
+      text-align: center;
+      padding: 30px;
+      position: relative;
+      z-index: 1;
+    }
+    
+    .quiz-score {
+      font-size: 3rem;
+      font-weight: 800;
+      margin: 20px 0;
+      background: linear-gradient(to right, #43b581, #fbbf24);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      text-shadow: 0 0 10px rgba(67, 181, 129, 0.3);
+    }
+    
+    /* Footer */
+    footer {
+      background: linear-gradient(to right, #1a1a1a, #0d2e1a);
+      color: white;
+      padding: 60px 20px 30px;
+      margin-top: 60px;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    footer::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(45deg, 
+        transparent 0%, 
+        rgba(67, 181, 129, 0.05) 50%,
+        transparent 100%);
+      z-index: 0;
+      opacity: 0.3;
+    }
+
+    .footer-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      position: relative;
+      z-index: 1;
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 40px;
+      margin-bottom: 40px;
+    }
+
+    .footer-logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+
+    .footer-logo-icon {
+      width: 30px;
+      height: 30px;
+      background: linear-gradient(to right, #43b581, #2e8b57);
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      box-shadow: 0 0 10px rgba(67, 181, 129, 0.3);
+    }
+
+    .footer-logo-text {
+      font-weight: bold;
+      font-size: 1.2rem;
+    }
+
+    .footer-about {
+      color: #aaa;
+      margin-bottom: 20px;
+      line-height: 1.6;
+    }
+
+    .footer-social {
+      display: flex;
+      gap: 12px;
+    }
+
+    .footer-social-icon {
+      width: 36px;
+      height: 36px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+
+    .footer-social-icon:hover {
+      background: rgba(255, 255, 255, 0.2);
+      box-shadow: 0 0 10px rgba(67, 181, 129, 0.3);
+    }
+
+    .footer-heading {
+      font-weight: 600;
+      margin-bottom: 20px;
+      font-size: 1.1rem;
+    }
+
+    .footer-links {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .footer-link {
+      color: #aaa;
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+
+    .footer-link:hover {
+      color: white;
+      text-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
+    }
+
+    .footer-bottom {
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      padding-top: 20px;
+      text-align: center;
+      color: #aaa;
+    }
+    
+    /* Theme Toggle */
+    .theme-toggle {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      background: linear-gradient(to right, #43b581, #2e8b57);
+      color: #fff;
+      border: none;
+      border-radius: 50%;
+      width: 50px;
+      height: 50px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 600;
+      font-size: 1.2rem;
+      cursor: pointer;
+      box-shadow: 0 0 15px rgba(67, 181, 129, 0.5);
+      z-index: 9999;
+      transition: all 0.3s;
+      animation: pulseGlow 2s infinite alternate;
+    }
+
+    .theme-toggle:hover {
+      transform: scale(1.1);
+      box-shadow: 0 0 20px rgba(67, 181, 129, 0.8);
+    }
+
+    @media (max-width: 768px) {
+      .hero h1 {
+        font-size: 2.2rem;
+      }
+      
+      .topics-grid {
+        grid-template-columns: 1fr;
+      }
+      
+      .currency-widget {
+        flex-direction: column;
+        align-items: center;
+      }
+      
+      .currency-item {
+        width: 100%;
+        max-width: 250px;
+      }
+      
+      .theme-toggle {
+        top: 15px;
+        right: 15px;
+        width: 40px;
+        height: 40px;
+        font-size: 1rem;
+      }
+    }
+    
+    /* Glow Animations */
+    @keyframes pulseGlow {
+      0% {
+        box-shadow: 0 0 10px rgba(67, 181, 129, 0.5);
+      }
+      100% {
+        box-shadow: 0 0 20px rgba(67, 181, 129, 0.8);
+      }
+    }
+    
+    @keyframes glowPulse {
+      0% {
+        box-shadow: 0 0 5px rgba(67, 181, 129, 0.3);
+      }
+      100% {
+        box-shadow: 0 0 15px rgba(67, 181, 129, 0.6);
+      }
+    }
+    
+    @keyframes cardGlow {
+      0% {
+        box-shadow: 0 0 15px rgba(67, 181, 129, 0.3);
+      }
+      100% {
+        box-shadow: 0 0 25px rgba(67, 181, 129, 0.6);
+      }
+    }
+    
+    @keyframes floatIcon {
+      0%, 100% {
+        transform: translateY(0);
+      }
+      50% {
+        transform: translateY(-10px);
+      }
+    }
+    
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    
+    /* Entrance animations */
+    .topic-card, .quiz-card, .currency-item {
+      animation: fadeIn 0.6s ease-out forwards;
+    }
+    
+    .topic-card:nth-child(1) { animation-delay: 0.1s; }
+    .topic-card:nth-child(2) { animation-delay: 0.2s; }
+    .topic-card:nth-child(3) { animation-delay: 0.3s; }
+    .topic-card:nth-child(4) { animation-delay: 0.4s; }
+    .topic-card:nth-child(5) { animation-delay: 0.5s; }
+    .topic-card:nth-child(6) { animation-delay: 0.6s; }
+    
+    .currency-item:nth-child(1) { animation-delay: 0.1s; }
+    .currency-item:nth-child(2) { animation-delay: 0.2s; }
+    .currency-item:nth-child(3) { animation-delay: 0.3s; }
+    .currency-item:nth-child(4) { animation-delay: 0.4s; }
+    .currency-item:nth-child(5) { animation-delay: 0.5s; }
+  </style>
+</head>
+<body>
+  <!-- Background image -->
+  <div class="background-container"></div>
+  
+  <!-- Theme Toggle -->
+  <button class="theme-toggle" id="themeToggle">
+    <i class="fas fa-moon"></i>
+  </button>
+
+  <!-- Navigation -->
+  <nav>
+    <div class="nav-container">
+      <div class="logo">
+        <div class="logo-icon">
+          <i class="fas fa-chart-line"></i>
+        </div>
+        <span>অর্থনীতি শেখা</span>
+      </div>
+      <div class="nav-links">
+        <a href="#">হোম</a>
+        <a href="#">বিষয়সমূহ</a>
+        <a href="#">প্রশ্নব্যাংক</a>
+        <a href="#">কুইজ</a>
+        <a href="login.html" class="btn btn-outline">লগইন</a>
+        <a href="login.html" class="btn btn-primary">নিবন্ধন</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <h1>বাংলাদেশের অর্থনীতি শিখুন</h1>
+    <p>৬ষ্ঠ থেকে ১২শ শ্রেণির শিক্ষার্থীদের জন্য বিশেষায়িত অর্থনীতি শিক্ষা প্ল্যাটফর্ম। বাংলাদেশের অর্থনৈতিক ব্যবস্থা, ব্যাংকিং, মুদ্রাব্যবস্থা ও বাজেট সম্পর্কে জানুন সহজভাবে।</p>
+    <div class="subject-badge">ক্লাস ৬-১২ | এসএসসি ও এইচএসসি প্রস্তুতি</div>
+    
+    <!-- Currency Exchange Widget -->
+    <div class="currency-widget">
+      <div class="currency-item">
+        <div class="currency-flag">🇧🇩</div>
+        <div class="currency-name">বাংলাদেশী টাকা</div>
+        <div class="currency-rate">১ টাকা</div>
+      </div>
+      <div class="currency-item">
+        <div class="currency-flag">🇺🇸</div>
+        <div class="currency-name">মার্কিন ডলার</div>
+        <div class="currency-rate">১১৩.৫০ টাকা</div>
+      </div>
+      <div class="currency-item">
+        <div class="currency-flag">🇪🇺</div>
+        <div class="currency-name">ইউরো</div>
+        <div class="currency-rate">১২৩.৭৫ টাকা</div>
+      </div>
+      <div class="currency-item">
+        <div class="currency-flag">🇬🇧</div>
+        <div class="currency-name">পাউন্ড</div>
+        <div class="currency-rate">১৪৫.২০ টাকা</div>
+      </div>
+      <div class="currency-item">
+        <div class="currency-flag">🇮🇳</div>
+        <div class="currency-name">ভারতীয় রুপি</div>
+        <div class="currency-rate">১.৩৬ টাকা</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Topics Section -->
+  <div class="topics-container">
+    <div class="section-title">
+      <h2>অর্থনীতির গুরুত্বপূর্ণ বিষয়সমূহ</h2>
+    </div>
+    
+    <div class="topics-grid">
+      <div class="topic-card">
+        <div class="topic-icon">
+          <i class="fas fa-money-bill-wave"></i>
+        </div>
+        <h3 class="topic-title">অর্থের উদ্ভব ও কার্যাবলী</h3>
+        <p class="topic-desc">অর্থের ইতিহাস, বিভিন্ন প্রকার অর্থ, এবং অর্থের প্রধান কার্যাবলী সম্পর্কে বিস্তারিত জানুন।</p>
+        <span class="topic-level">ক্লাস ৯-১০</span>
+      </div>
+      
+      <div class="topic-card">
+        <div class="topic-icon">
+          <i class="fas fa-landmark"></i>
+        </div>
+        <h3 class="topic-title">বাংলাদেশ ব্যাংক</h3>
+        <p class="topic-desc">বাংলাদেশের কেন্দ্রীয় ব্যাংকের ভূমিকা, কার্যাবলী এবং নীতিসমূহ সম্পর্কে জানুন।</p>
+        <span class="topic-level">ক্লাস ১১-১২</span>
+      </div>
+      
+      <div class="topic-card">
+        <div class="topic-icon">
+          <i class="fas fa-chart-pie"></i>
+        </div>
+        <h3 class="topic-title">জাতীয় বাজেট</h3>
+        <p class="topic-desc">বাংলাদেশের জাতীয় বাজেট প্রণয়ন প্রক্রিয়া, আয়-ব্যয়ের খাতসমূহ বিশ্লেষণ করুন।</p>
+        <span class="topic-level">ক্লাস ১০-১২</span>
+      </div>
+      
+      <div class="topic-card">
+        <div class="topic-icon">
+          <i class="fas fa-industry"></i>
+        </div>
+        <h3 class="topic-title">শিল্পখাত</h3>
+        <p class="topic-desc">বাংলাদেশের প্রধান শিল্পখাত, তাদের অবদান এবং ভবিষ্যৎ সম্ভাবনা সম্পর্কে জানুন।</p>
+        <span class="topic-level">ক্লাস ৮-১০</span>
+      </div>
+      
+      <div class="topic-card">
+        <div class="topic-icon">
+          <i class="fas fa-seedling"></i>
+        </div>
+        <h3 class="topic-title">কৃষিখাত</h3>
+        <p class="topic-desc">বাংলাদেশের কৃষি অর্থনীতি, সমস্যা ও সম্ভাবনা এবং আধুনিক কৃষি প্রযুক্তি সম্পর্কে জানুন।</p>
+        <span class="topic-level">ক্লাস ৭-৯</span>
+      </div>
+      
+      <div class="topic-card">
+        <div class="topic-icon">
+          <i class="fas fa-globe-asia"></i>
+        </div>
+        <h3 class="topic-title">আন্তর্জাতিক বাণিজ্য</h3>
+        <p class="topic-desc">বাংলাদেশের রপ্তানি-আমদানি, বাণিজ্য ভারসাম্য এবং প্রধান বাণিজ্যিক অংশীদার দেশসমূহ।</p>
+        <span class="topic-level">ক্লাস ১১-১২</span>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Interactive Quiz -->
+  <div class="quiz-container">
+    <div class="section-title">
+      <h2>অর্থনীতি কুইজ</h2>
+    </div>
+    
+    <div class="quiz-card">
+      <div class="quiz-header">
+        <h3>অর্থনীতি জ্ঞান পরীক্ষা</h3>
+        <div>প্রশ্ন: <span id="currentQuestion">1</span>/5</div>
+      </div>
+      
+      <div class="quiz-question" id="quizQuestion">
+        বাংলাদেশের কেন্দ্রীয় ব্যাংকের নাম কী?
+      </div>
+      
+      <div class="quiz-options" id="quizOptions">
+        <div class="quiz-option" data-value="1">
+          <i class="far fa-circle"></i>
+          সোনালী ব্যাংক
+        </div>
+        <div class="quiz-option" data-value="2">
+          <i class="far fa-circle"></i>
+          বাংলাদেশ ব্যাংক
+        </div>
+        <div class="quiz-option" data-value="3">
+          <i class="far fa-circle"></i>
+          জনতা ব্যাংক
+        </div>
+        <div class="quiz-option" data-value="4">
+          <i class="far fa-circle"></i>
+          রূপালী ব্যাংক
+        </div>
+      </div>
+      
+      <div class="quiz-actions">
+        <button class="quiz-btn quiz-prev" id="prevBtn" disabled>
+          <i class="fas fa-arrow-left"></i> পূর্ববর্তী
+        </button>
+        <button class="quiz-btn quiz-next" id="nextBtn">
+          পরবর্তী <i class="fas fa-arrow-right"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-container">
+      <div class="footer-grid">
+        <div>
+          <div class="footer-logo">
+            <div class="footer-logo-icon">
+              <i class="fas fa-chart-line"></i>
+            </div>
+            <span class="footer-logo-text">অর্থনীতি শেখা</span>
+          </div>
+          <p class="footer-about">বাংলাদেশের শিক্ষার্থীদের জন্য অর্থনীতি বিষয়ক একটি বিশেষায়িত শিক্ষা প্ল্যাটফর্ম</p>
+          <div class="footer-social">
+            <div class="footer-social-icon">
+              <i class="fab fa-facebook-f"></i>
+            </div>
+            <div class="footer-social-icon">
+              <i class="fab fa-youtube"></i>
+            </div>
+            <div class="footer-social-icon">
+              <i class="fab fa-instagram"></i>
+            </div>
+          </div>
+        </div>
+        
+        <div>
+          <h4 class="footer-heading">গুরুত্বপূর্ণ লিংক</h4>
+          <div class="footer-links">
+            <a href="#" class="footer-link">এসএসসি প্রস্তুতি</a>
+            <a href="#" class="footer-link">এইচএসসি প্রস্তুতি</a>
+            <a href="#" class="footer-link">বাংলাদেশ ব্যাংক</a>
+            <a href="#" class="footer-link">অর্থনীতি সংবাদ</a>
+          </div>
+        </div>
+        
+        <div>
+          <h4 class="footer-heading">সহায়তা</h4>
+          <div class="footer-links">
+            <a href="#" class="footer-link">যোগাযোগ</a>
+            <a href="#" class="footer-link">প্রায়শ জিজ্ঞাসিত প্রশ্ন</a>
+            <a href="#" class="footer-link">গোপনীয়তা নীতি</a>
+            <a href="#" class="footer-link">শর্তাবলী</a>
+          </div>
+        </div>
+        
+        <div>
+          <h4 class="footer-heading">ডাউনলোড</h4>
+          <div class="footer-links">
+            <a href="#" class="footer-link">মোবাইল অ্যাপ</a>
+            <a href="#" class="footer-link">পিডিএফ নোট</a>
+            <a href="#" class="footer-link">কুইজ সংগ্রহ</a>
+            <a href="#" class="footer-link">ভর্তি গাইড</a>
+          </div>
+        </div>
+      </div>
+      
+      <div class="footer-bottom">
+        <p>© ২০২৫ অর্থনীতি শেখা। সকল অধিকার সংরক্ষিত। বাংলাদেশের শিক্ষার্থীদের জন্য তৈরি।</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      // Theme toggle functionality
+      const themeToggle = document.getElementById('themeToggle');
+      const body = document.body;
+      const savedTheme = localStorage.getItem('theme');
+      
+      // Apply saved theme or default
+      if (savedTheme === 'dark') {
+        body.setAttribute('data-theme', 'dark');
+        themeToggle.innerHTML = '<i class="fas fa-sun"></i>';
+      }
+      
+      themeToggle.addEventListener('click', () => {
+        if (body.getAttribute('data-theme') === 'dark') {
+          body.removeAttribute('data-theme');
+          localStorage.setItem('theme', 'light');
+          themeToggle.innerHTML = '<i class="fas fa-moon"></i>';
+        } else {
+          body.setAttribute('data-theme', 'dark');
+          localStorage.setItem('theme', 'dark');
+          themeToggle.innerHTML = '<i class="fas fa-sun"></i>';
+        }
+      });
+      
+      // Quiz functionality
+      const quizOptions = document.querySelectorAll('.quiz-option');
+      const nextBtn = document.getElementById('nextBtn');
+      const prevBtn = document.getElementById('prevBtn');
+      const currentQuestionEl = document.getElementById('currentQuestion');
+      const quizQuestionEl = document.getElementById('quizQuestion');
+      const quizOptionsContainer = document.getElementById('quizOptions');
+      
+      let currentQuestion = 1;
+      let selectedOption = null;
+      let score = 0;
+      
+      const questions = [
+        {
+          question: "বাংলাদেশের কেন্দ্রীয় ব্যাংকের নাম কী?",
+          options: ["সোনালী ব্যাংক", "বাংলাদেশ ব্যাংক", "জনতা ব্যাংক", "রূপালী ব্যাংক"],
+          answer: 2
+        },
+        {
+          question: "বাংলাদেশের জাতীয় বাজেট ঘোষণা করা হয় কোন মাসে?",
+          options: ["জানুয়ারি", "জুন", "সেপ্টেম্বর", "ডিসেম্বর"],
+          answer: 2
+        },
+        {
+          question: "মুদ্রাস্ফীতি কী?",
+          options: [
+            "মূল্যস্তরের ক্রমাগত বৃদ্ধি", 
+            "মূল্যস্তরের ক্রমাগত হ্রাস", 
+            "মুদ্রার মান বৃদ্ধি", 
+            "দেশের সম্পদ বৃদ্ধি"
+          ],
+          answer: 1
+        },
+        {
+          question: "বাংলাদেশের সবচেয়ে বেশি রপ্তানি আয় হয় কোন খাত থেকে?",
+          options: ["কৃষি", "পাট", "পোশাক শিল্প", "চামড়া"],
+          answer: 3
+        },
+        {
+          question: "বাংলাদেশের অর্থনীতিতে সবচেয়ে বেশি অবদান রাখে কোন খাত?",
+          options: ["শিল্পখাত", "কৃষিখাত", "সেবাখাত", "আইসিটি খাত"],
+          answer: 3
+        }
+      ];
+      
+      // Initialize quiz
+      updateQuiz();
+      
+      // Option selection
+      quizOptions.forEach(option => {
+        option.addEventListener('click', function() {
+          if (this.classList.contains('selected')) {
+            this.classList.remove('selected');
+            selectedOption = null;
+          } else {
+            quizOptions.forEach(opt => opt.classList.remove('selected'));
+            this.classList.add('selected');
+            selectedOption = parseInt(this.dataset.value);
+          }
+        });
+      });
+      
+      // Next button
+      nextBtn.addEventListener('click', function() {
+        if (selectedOption === null && currentQuestion <= questions.length) return;
+        
+        // Check answer
+        if (selectedOption === questions[currentQuestion-1].answer) {
+          score++;
+        }
+        
+        if (currentQuestion < questions.length) {
+          currentQuestion++;
+          updateQuiz();
+        } else {
+          // Show results
+          showResults();
+        }
+      });
+      
+      // Previous button
+      prevBtn.addEventListener('click', function() {
+        if (currentQuestion > 1) {
+          currentQuestion--;
+          updateQuiz();
+        }
+      });
+      
+      function updateQuiz() {
+        const q = questions[currentQuestion-1];
+        quizQuestionEl.textContent = q.question;
+        currentQuestionEl.textContent = currentQuestion;
+        
+        // Update options
+        quizOptionsContainer.innerHTML = '';
+        q.options.forEach((option, index) => {
+          const optionEl = document.createElement('div');
+          optionEl.className = 'quiz-option';
+          optionEl.dataset.value = index + 1;
+          optionEl.innerHTML = `
+            <i class="far fa-circle"></i>
+            ${option}
+          `;
+          optionEl.addEventListener('click', function() {
+            quizOptionsContainer.querySelectorAll('.quiz-option').forEach(opt => {
+              opt.classList.remove('selected');
+            });
+            this.classList.add('selected');
+            selectedOption = index + 1;
+          });
+          quizOptionsContainer.appendChild(optionEl);
+        });
+        
+        // Update button states
+        prevBtn.disabled = currentQuestion === 1;
+        nextBtn.textContent = currentQuestion === questions.length ? 'ফলাফল দেখুন' : 'পরবর্তী <i class="fas fa-arrow-right"></i>';
+      }
+      
+      function showResults() {
+        quizOptionsContainer.innerHTML = '';
+        quizQuestionEl.textContent = 'আপনার কুইজ সম্পন্ন হয়েছে!';
+        
+        const resultHTML = `
+          <div class="quiz-result">
+            <h3>আপনার স্কোর</h3>
+            <div class="quiz-score">${score}/${questions.length}</div>
+            <p>${score >= 3 ? 'অসাধারণ! আপনি অর্থনীতিতে দক্ষ।' : 'চেষ্টা চালিয়ে যান, আরও পড়াশোনা প্রয়োজন।'}</p>
+            <button class="quiz-btn quiz-next" id="restartBtn" style="margin-top: 20px;">
+              আবার চেষ্টা করুন
+            </button>
+          </div>
+        `;
+        
+        quizOptionsContainer.innerHTML = resultHTML;
+        prevBtn.style.display = 'none';
+        nextBtn.style.display = 'none';
+        
+        document.getElementById('restartBtn').addEventListener('click', function() {
+          currentQuestion = 1;
+          score = 0;
+          selectedOption = null;
+          prevBtn.style.display = 'block';
+          nextBtn.style.display = 'block';
+          updateQuiz();
+        });
+      }
+      
+      // Add hover effects to topic cards
+      const topicCards = document.querySelectorAll('.topic-card');
+      topicCards.forEach(card => {
+        card.addEventListener('mouseenter', () => {
+          card.style.transform = 'translateY(-8px) scale(1.02)';
+          card.style.boxShadow = '0 0 25px rgba(67, 181, 129, 0.6)';
+        });
+        
+        card.addEventListener('mouseleave', () => {
+          card.style.transform = '';
+          card.style.boxShadow = '';
+        });
+      });
+    });
+  </script>
+</body>
+</html>

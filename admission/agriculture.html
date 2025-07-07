@@ -1,0 +1,1121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AgroFuture University Admissions</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Montserrat:wght@700;800&display=swap" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <style>
+    :root {
+      --primary: #2E7D32;
+      --secondary: #4CAF50;
+      --accent: #FFC107;
+      --dark: #1B5E20;
+      --light: #F1F8E9;
+      --card-bg: rgba(255, 255, 255, 0.92);
+      --text: #2E7D32;
+      --shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+      --transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      --glass: rgba(255, 255, 255, 0.2);
+      --glass-border: rgba(255, 255, 255, 0.3);
+    }
+
+    .dark-mode {
+      --primary: #388E3C;
+      --secondary: #689F38;
+      --accent: #FFA000;
+      --dark: #0D2E10;
+      --light: #E8F5E9;
+      --card-bg: rgba(30, 40, 20, 0.95);
+      --text: #C8E6C9;
+      --shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    body {
+      background: linear-gradient(135deg, #1B5E20 0%, #33691E 100%);
+      color: var(--text);
+      min-height: 100vh;
+      overflow-x: hidden;
+      position: relative;
+      transition: background 0.5s ease;
+    }
+
+    .dark-mode body {
+      background: linear-gradient(135deg, #0D2E10 0%, #1B3C16 100%);
+    }
+
+    /* Nature Background */
+    .nature-bg {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: 
+        radial-gradient(circle at 10% 20%, rgba(139, 195, 74, 0.1) 0%, transparent 20%),
+        radial-gradient(circle at 90% 80%, rgba(255, 193, 7, 0.1) 0%, transparent 20%);
+      z-index: -2;
+      opacity: 0.5;
+    }
+
+    /* Leaf Grid Overlay */
+    .leaf-grid {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-image: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z' fill='%234CAF50' fill-opacity='0.1' fill-rule='evenodd'/%3E%3C/svg%3E");
+      z-index: -1;
+      opacity: 0.3;
+    }
+
+    /* Floating Elements */
+    .floating {
+      position: fixed;
+      z-index: -1;
+      opacity: 0.7;
+      animation: float 15s infinite ease-in-out;
+    }
+    
+    .floating.leaf1 {
+      top: 10%;
+      left: 5%;
+      width: 80px;
+      filter: blur(1px);
+    }
+    
+    .floating.leaf2 {
+      bottom: 15%;
+      right: 8%;
+      width: 100px;
+      animation-duration: 18s;
+      animation-delay: 2s;
+    }
+    
+    .floating.leaf3 {
+      top: 25%;
+      right: 15%;
+      width: 60px;
+      animation-duration: 12s;
+      animation-delay: 1s;
+    }
+
+    /* Header & Navigation */
+    header {
+      padding: 1.5rem 5%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      backdrop-filter: blur(10px);
+      background: var(--glass);
+      border-bottom: 1px solid var(--glass-border);
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .logo-icon {
+      width: 50px;
+      height: 50px;
+      background: var(--primary);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 1.8rem;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+      animation: pulse 2s infinite;
+    }
+
+    .logo-text {
+      font-size: 1.8rem;
+      font-weight: 700;
+      background: linear-gradient(45deg, var(--primary), var(--accent));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      display: inline-block;
+      line-height: 1;
+      font-family: 'Montserrat', sans-serif;
+    }
+
+    /* Mobile Menu Button */
+    .menu-toggle {
+      display: none;
+      background: transparent;
+      border: none;
+      font-size: 1.5rem;
+      color: var(--light);
+      cursor: pointer;
+      z-index: 101;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      transition: transform 0.3s ease;
+    }
+
+    .nav-links a {
+      color: var(--light);
+      text-decoration: none;
+      font-weight: 500;
+      position: relative;
+      padding: 0.5rem 0;
+      transition: var(--transition);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .nav-links a:hover {
+      color: var(--accent);
+    }
+
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: var(--accent);
+      transition: var(--transition);
+    }
+
+    .nav-links a:hover::after {
+      width: 100%;
+    }
+
+    .theme-toggle {
+      background: var(--card-bg);
+      border: none;
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      box-shadow: var(--shadow);
+      transition: var(--transition);
+      color: var(--primary);
+      margin-left: 1rem;
+    }
+
+    .theme-toggle:hover {
+      transform: scale(1.1) rotate(15deg);
+      background: var(--primary);
+      color: white;
+    }
+
+    /* Hero Section */
+    .hero {
+      padding: 5rem 5% 3rem;
+      text-align: center;
+      max-width: 1200px;
+      margin: 0 auto;
+      position: relative;
+      z-index: 10;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .hero-content {
+      max-width: 800px;
+      position: relative;
+      z-index: 2;
+    }
+
+    .hero h1 {
+      font-size: 3.5rem;
+      margin-bottom: 1.5rem;
+      line-height: 1.2;
+      color: white;
+      text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+      animation: fadeInUp 1s ease;
+      font-family: 'Montserrat', sans-serif;
+    }
+
+    .hero h1 span {
+      background: linear-gradient(45deg, var(--secondary), var(--accent));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      display: inline-block;
+    }
+
+    .hero p {
+      font-size: 1.3rem;
+      margin-bottom: 2rem;
+      color: var(--light);
+      max-width: 700px;
+      margin-left: auto;
+      margin-right: auto;
+      animation: fadeInUp 1s ease 0.2s forwards;
+      opacity: 0;
+    }
+
+    /* Stats Section */
+    .stats-container {
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      margin: 3rem 0;
+      flex-wrap: wrap;
+    }
+
+    .stat-card {
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(10px);
+      border-radius: 15px;
+      padding: 1.5rem;
+      min-width: 200px;
+      text-align: center;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      transition: var(--transition);
+    }
+
+    .stat-card:hover {
+      transform: translateY(-5px);
+      background: rgba(255, 255, 255, 0.2);
+    }
+
+    .stat-number {
+      font-size: 2.5rem;
+      font-weight: 700;
+      background: linear-gradient(45deg, var(--secondary), var(--accent));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      margin-bottom: 0.5rem;
+    }
+
+    .stat-label {
+      font-size: 1rem;
+      color: var(--light);
+      opacity: 0.9;
+    }
+
+    /* CTA Button */
+    .cta-button {
+      display: inline-block;
+      padding: 1rem 2.5rem;
+      background: linear-gradient(45deg, var(--primary), var(--accent));
+      color: white;
+      font-weight: 600;
+      border-radius: 50px;
+      text-decoration: none;
+      font-size: 1.1rem;
+      margin-top: 1rem;
+      transition: var(--transition);
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+      border: none;
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+      z-index: 1;
+    }
+
+    .cta-button::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(45deg, var(--accent), var(--primary));
+      z-index: -1;
+      opacity: 0;
+      transition: var(--transition);
+    }
+
+    .cta-button:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+    }
+
+    .cta-button:hover::before {
+      opacity: 1;
+    }
+
+    /* Agriculture University Section */
+    .agriculture-section {
+      padding: 2rem 5%;
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+    
+    .section-title {
+      font-size: 2.5rem;
+      text-align: center;
+      margin-bottom: 3rem;
+      color: white;
+      position: relative;
+      display: inline-block;
+      left: 50%;
+      transform: translateX(-50%);
+      font-family: 'Montserrat', sans-serif;
+    }
+    
+    .section-title::after {
+      content: '';
+      position: absolute;
+      bottom: -10px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 150px;
+      height: 4px;
+      background: linear-gradient(to right, var(--primary), var(--accent));
+      border-radius: 2px;
+    }
+    
+    .agriculture-cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+      gap: 3rem;
+    }
+    
+    .agriculture-card {
+      background: var(--card-bg);
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: var(--shadow);
+      transition: var(--transition);
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+    }
+    
+    .agriculture-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+    }
+    
+    .card-header {
+      padding: 2rem;
+      text-align: center;
+      background: linear-gradient(135deg, var(--primary), var(--dark));
+      color: white;
+    }
+    
+    .card-header h3 {
+      font-size: 2.2rem;
+      margin-bottom: 1rem;
+    }
+    
+    .card-body {
+      padding: 2rem;
+      flex-grow: 1;
+      display: flex;
+      flex-direction: column;
+    }
+    
+    .university-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1.5rem;
+      margin-bottom: 2rem;
+    }
+    
+    .uni-card {
+      background: rgba(139, 195, 74, 0.1);
+      border-radius: 15px;
+      padding: 1.5rem;
+      transition: var(--transition);
+      border: 1px solid rgba(139, 195, 74, 0.2);
+      position: relative;
+      overflow: hidden;
+      cursor: pointer;
+    }
+    
+    .uni-card:hover {
+      background: rgba(139, 195, 74, 0.2);
+      transform: translateY(-5px);
+    }
+    
+    .uni-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+      transition: 0.5s;
+    }
+    
+    .uni-card:hover::before {
+      left: 100%;
+    }
+    
+    .uni-header {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 1rem;
+    }
+    
+    .uni-logo {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 2px solid var(--primary);
+      background: white;
+      padding: 5px;
+    }
+    
+    .uni-name {
+      font-size: 1.3rem;
+      font-weight: 600;
+      color: var(--dark);
+    }
+    
+    .dark-mode .uni-name {
+      color: var(--light);
+    }
+    
+    .uni-stats {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+    }
+    
+    .uni-stat {
+      background: rgba(255, 193, 7, 0.1);
+      border-radius: 10px;
+      padding: 0.8rem;
+      text-align: center;
+    }
+    
+    .uni-stat-value {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--primary);
+    }
+    
+    .uni-stat-label {
+      font-size: 0.9rem;
+      color: var(--text);
+      opacity: 0.8;
+    }
+    
+    .uni-info {
+      margin-top: 1rem;
+      padding-top: 1rem;
+      border-top: 1px dashed rgba(76, 175, 80, 0.3);
+    }
+    
+    .uni-info p {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-bottom: 0.5rem;
+      font-size: 0.95rem;
+    }
+    
+    .uni-info i {
+      color: var(--primary);
+      min-width: 20px;
+    }
+
+    /* Accordion for Admission Info */
+    .accordion {
+      background: rgba(139, 195, 74, 0.1);
+      border-radius: 15px;
+      overflow: hidden;
+      margin-top: auto;
+    }
+
+    .accordion-header {
+      padding: 1.2rem;
+      background: rgba(76, 175, 80, 0.2);
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      transition: var(--transition);
+    }
+
+    .accordion-header:hover {
+      background: rgba(76, 175, 80, 0.3);
+    }
+
+    .accordion-header h4 {
+      font-size: 1.2rem;
+      color: var(--dark);
+      margin: 0;
+    }
+
+    .dark-mode .accordion-header h4 {
+      color: var(--light);
+    }
+
+    .accordion-icon {
+      transition: transform 0.3s ease;
+    }
+
+    .accordion-content {
+      padding: 0 1.2rem;
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease, padding 0.3s ease;
+    }
+
+    .accordion-content.active {
+      padding: 1.2rem;
+      max-height: 1000px;
+    }
+
+    .accordion-content ul {
+      list-style: none;
+      padding-left: 0;
+    }
+
+    .accordion-content li {
+      margin-bottom: 0.8rem;
+      display: flex;
+      align-items: flex-start;
+    }
+
+    .accordion-content i {
+      color: var(--primary);
+      margin-right: 0.8rem;
+      margin-top: 0.3rem;
+    }
+
+    /* Footer */
+    footer {
+      padding: 2rem 5%;
+      text-align: center;
+      margin-top: 3rem;
+      color: var(--light);
+      position: relative;
+      z-index: 10;
+      background: rgba(27, 94, 32, 0.5);
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(5px);
+    }
+    
+    footer p {
+      opacity: 0.8;
+      font-size: 0.9rem;
+    }
+
+    /* Animations */
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+      100% { transform: scale(1); }
+    }
+    
+    @keyframes float {
+      0% { transform: translateY(0) rotate(0deg); }
+      50% { transform: translateY(-20px) rotate(10deg); }
+      100% { transform: translateY(0) rotate(0deg); }
+    }
+
+    /* Responsive Design */
+    @media (max-width: 992px) {
+      .hero h1 {
+        font-size: 2.8rem;
+      }
+      
+      .agriculture-cards {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .menu-toggle {
+        display: block;
+      }
+      
+      .nav-links {
+        position: fixed;
+        top: 0;
+        right: -300px;
+        height: 100vh;
+        width: 280px;
+        background: var(--card-bg);
+        flex-direction: column;
+        padding: 6rem 2rem 2rem;
+        gap: 1.5rem;
+        box-shadow: -5px 0 15px rgba(0, 0, 0, 0.1);
+      }
+      
+      .nav-links.active {
+        transform: translateX(-300px);
+      }
+      
+      .hero h1 {
+        font-size: 2.3rem;
+      }
+      
+      .section-title {
+        font-size: 2rem;
+      }
+      
+      .card-header h3 {
+        font-size: 1.8rem;
+      }
+      
+      .stats-container {
+        flex-direction: column;
+        align-items: center;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .hero {
+        padding: 3rem 5%;
+      }
+      
+      .hero h1 {
+        font-size: 1.8rem;
+      }
+      
+      .hero p {
+        font-size: 1.1rem;
+      }
+      
+      .section-title {
+        font-size: 1.6rem;
+        margin-bottom: 2rem;
+      }
+      
+      .section-title::after {
+        width: 100px;
+      }
+      
+      .university-grid {
+        grid-template-columns: 1fr;
+      }
+      
+      .floating {
+        display: none;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Nature Background Elements -->
+  <div class="nature-bg"></div>
+  <div class="leaf-grid"></div>
+  
+  <!-- Floating Leaves -->
+  <div class="floating leaf1">
+    <svg viewBox="0 0 100 100" fill="#4CAF50">
+      <path d="M50,15 C70,5 90,25 85,50 C80,75 50,85 30,70 C10,55 15,25 50,15 Z" />
+    </svg>
+  </div>
+  
+  <div class="floating leaf2">
+    <svg viewBox="0 0 100 100" fill="#8BC34A">
+      <path d="M50,10 C65,0 85,15 80,40 C75,65 50,80 35,70 C20,60 25,30 50,10 Z" />
+    </svg>
+  </div>
+  
+  <div class="floating leaf3">
+    <svg viewBox="0 0 100 100" fill="#388E3C">
+      <path d="M50,20 C60,10 80,20 75,45 C70,70 50,75 40,65 C30,55 35,35 50,20 Z" />
+    </svg>
+  </div>
+
+  <!-- Header -->
+  <header>
+    <div class="logo">
+      <div class="logo-icon">
+        <i class="fas fa-seedling"></i>
+      </div>
+      <div class="logo-text">AgroFuture</div>
+    </div>
+    
+    <button class="menu-toggle" id="menuToggle">
+      <i class="fas fa-bars"></i>
+    </button>
+    
+    <nav class="nav-links" id="navLinks">
+      <a href="#"><i class="fas fa-home"></i> Home</a>
+      <a href="#"><i class="fas fa-book"></i> Programs</a>
+      <a href="#"><i class="fas fa-leaf"></i> Research</a>
+      <a href="#"><i class="fas fa-graduation-cap"></i> Admissions</a>
+      <a href="#"><i class="fas fa-phone-alt"></i> Contact</a>
+    </nav>
+    
+    <button class="theme-toggle" id="themeToggle">
+      <i class="fas fa-moon"></i>
+    </button>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="hero-content">
+      <h1>Cultivating the <span>Future</span> of Agriculture</h1>
+      <p>Pioneering sustainable farming through innovation and technology</p>
+      
+      <div class="stats-container">
+        <div class="stat-card">
+          <div class="stat-number">95%</div>
+          <div class="stat-label">Placement Rate</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number">15+</div>
+          <div class="stat-label">Research Centers</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number">50+</div>
+          <div class="stat-label">Specialized Programs</div>
+        </div>
+      </div>
+      
+      <button class="cta-button">Explore Programs</button>
+    </div>
+  </section>
+
+  <!-- Agriculture University Section -->
+  <section class="agriculture-section">
+    <h2 class="section-title">Leading Agriculture Universities</h2>
+    
+    <div class="agriculture-cards">
+      <!-- University Card 1 -->
+      <div class="agriculture-card">
+        <div class="card-header">
+          <h3>Bangladesh Agricultural University</h3>
+          <p>Excellence in agricultural education since 1961</p>
+        </div>
+        <div class="card-body">
+          <div class="university-grid">
+            <div class="uni-card">
+              <div class="uni-header">
+                <img src="https://upload.wikimedia.org/wikipedia/en/thumb/3/32/Bangladesh_Agricultural_University_logo.png/220px-Bangladesh_Agricultural_University_logo.png" alt="BAU" class="uni-logo">
+                <div class="uni-name">BAU Mymensingh</div>
+              </div>
+              <div class="uni-stats">
+                <div class="uni-stat">
+                  <div class="uni-stat-value">1,850</div>
+                  <div class="uni-stat-label">Total Seats</div>
+                </div>
+                <div class="uni-stat">
+                  <div class="uni-stat-value">1961</div>
+                  <div class="uni-stat-label">Established</div>
+                </div>
+                <div class="uni-stat">
+                  <div class="uni-stat-value">8:1</div>
+                  <div class="uni-stat-label">Applicant Ratio</div>
+                </div>
+                <div class="uni-stat">
+                  <div class="uni-stat-value">6</div>
+                  <div class="uni-stat-label">Faculties</div>
+                </div>
+              </div>
+              <div class="uni-info">
+                <p><i class="fas fa-map-marker-alt"></i> Mymensingh, Bangladesh</p>
+                <p><i class="fas fa-calendar-check"></i> Admission: May-June</p>
+                <p><i class="fas fa-globe"></i> www.bau.edu.bd</p>
+                <p><i class="fas fa-star"></i> Ranked #1 in Agriculture</p>
+              </div>
+            </div>
+          </div>
+          
+          <div class="accordion">
+            <div class="accordion-header" id="bauAccordion">
+              <h4>Admission Information</h4>
+              <span class="accordion-icon"><i class="fas fa-chevron-down"></i></span>
+            </div>
+            <div class="accordion-content" id="bauContent">
+              <ul>
+                <li>
+                  <i class="fas fa-check-circle"></i>
+                  <span>Admission Test: Biology, Chemistry, Physics & English</span>
+                </li>
+                <li>
+                  <i class="fas fa-check-circle"></i>
+                  <span>Total Time: 3 hours</span>
+                </li>
+                <li>
+                  <i class="fas fa-check-circle"></i>
+                  <span>Marks: Biology (200), Chemistry (200), Physics (200), English (100)</span>
+                </li>
+                <li>
+                  <i class="fas fa-check-circle"></i>
+                  <span>Minimum Qualification: SSC & HSC GPA 7.00 combined</span>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- University Card 2 -->
+      <div class="agriculture-card">
+        <div class="card-header">
+          <h3>Other Premier Institutions</h3>
+          <p>Centers of excellence in agricultural sciences</p>
+        </div>
+        <div class="card-body">
+          <div class="university-grid">
+            <!-- SAU -->
+            <div class="uni-card">
+              <div class="uni-header">
+                <img src="https://upload.wikimedia.org/wikipedia/en/thumb/c/c5/SAU_logo.png/200px-SAU_logo.png" alt="SAU" class="uni-logo">
+                <div class="uni-name">SAU Dhaka</div>
+              </div>
+              <div class="uni-stats">
+                <div class="uni-stat">
+                  <div class="uni-stat-value">1,200</div>
+                  <div class="uni-stat-label">Total Seats</div>
+                </div>
+                <div class="uni-stat">
+                  <div class="uni-stat-value">1938</div>
+                  <div class="uni-stat-label">Established</div>
+                </div>
+                <div class="uni-stat">
+                  <div class="uni-stat-value">7:1</div>
+                  <div class="uni-stat-label">Applicant Ratio</div>
+                </div>
+              </div>
+              <div class="uni-info">
+                <p><i class="fas fa-map-marker-alt"></i> Dhaka, Bangladesh</p>
+                <p><i class="fas fa-calendar-check"></i> Admission: June-July</p>
+                <p><i class="fas fa-globe"></i> www.sau.edu.bd</p>
+              </div>
+            </div>
+            
+            <!-- PSTU -->
+            <div class="uni-card">
+              <div class="uni-header">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c5/PSTU_logo.png/200px-PSTU_logo.png" alt="PSTU" class="uni-logo">
+                <div class="uni-name">PSTU Patuakhali</div>
+              </div>
+              <div class="uni-stats">
+                <div class="uni-stat">
+                  <div class="uni-stat-value">900</div>
+                  <div class="uni-stat-label">Total Seats</div>
+                </div>
+                <div class="uni-stat">
+                  <div class="uni-stat-value">2000</div>
+                  <div class="uni-stat-label">Established</div>
+                </div>
+                <div class="uni-stat">
+                  <div class="uni-stat-value">6:1</div>
+                  <div class="uni-stat-label">Applicant Ratio</div>
+                </div>
+              </div>
+              <div class="uni-info">
+                <p><i class="fas fa-map-marker-alt"></i> Patuakhali</p>
+                <p><i class="fas fa-calendar-check"></i> Admission: July-August</p>
+                <p><i class="fas fa-globe"></i> www.pstu.ac.bd</p>
+              </div>
+            </div>
+            
+            <!-- HSTU -->
+            <div class="uni-card">
+              <div class="uni-header">
+                <img src="https://upload.wikimedia.org/wikipedia/en/thumb/4/4c/Hajee_Mohammad_Danesh_Science_and_Technology_University_logo.png/200px-Hajee_Mohammad_Danesh_Science_and_Technology_University_logo.png" alt="HSTU" class="uni-logo">
+                <div class="uni-name">HSTU Dinajpur</div>
+              </div>
+              <div class="uni-stats">
+                <div class="uni-stat">
+                  <div class="uni-stat-value">1,100</div>
+                  <div class="uni-stat-label">Total Seats</div>
+                </div>
+                <div class="uni-stat">
+                  <div class="uni-stat-value">1999</div>
+                  <div class="uni-stat-label">Established</div>
+                </div>
+                <div class="uni-stat">
+                  <div class="uni-stat-value">5:1</div>
+                  <div class="uni-stat-label">Applicant Ratio</div>
+                </div>
+              </div>
+              <div class="uni-info">
+                <p><i class="fas fa-map-marker-alt"></i> Dinajpur</p>
+                <p><i class="fas fa-calendar-check"></i> Admission: August-September</p>
+                <p><i class="fas fa-globe"></i> www.hstu.ac.bd</p>
+              </div>
+            </div>
+            
+            <!-- CVASU -->
+            <div class="uni-card">
+              <div class="uni-header">
+                <img src="https://upload.wikimedia.org/wikipedia/en/thumb/1/1f/Cvasu_logo.png/200px-Cvasu_logo.png" alt="CVASU" class="uni-logo">
+                <div class="uni-name">CVASU Chittagong</div>
+              </div>
+              <div class="uni-stats">
+                <div class="uni-stat">
+                  <div class="uni-stat-value">800</div>
+                  <div class="uni-stat-label">Total Seats</div>
+                </div>
+                <div class="uni-stat">
+                  <div class="uni-stat-value">2006</div>
+                  <div class="uni-stat-label">Established</div>
+                </div>
+                <div class="uni-stat">
+                  <div class="uni-stat-value">4:1</div>
+                  <div class="uni-stat-label">Applicant Ratio</div>
+                </div>
+              </div>
+              <div class="uni-info">
+                <p><i class="fas fa-map-marker-alt"></i> Chittagong</p>
+                <p><i class="fas fa-calendar-check"></i> Admission: September-October</p>
+                <p><i class="fas fa-globe"></i> www.cvasu.ac.bd</p>
+              </div>
+            </div>
+          </div>
+          
+          <div class="accordion">
+            <div class="accordion-header" id="programsAccordion">
+              <h4>Program Highlights</h4>
+              <span class="accordion-icon"><i class="fas fa-chevron-down"></i></span>
+            </div>
+            <div class="accordion-content" id="programsContent">
+              <ul>
+                <li>
+                  <i class="fas fa-check-circle"></i>
+                  <span>Cutting-edge programs in Agrotechnology and Biotechnology</span>
+                </li>
+                <li>
+                  <i class="fas fa-check-circle"></i>
+                  <span>Research in sustainable farming and food security</span>
+                </li>
+                <li>
+                  <i class="fas fa-check-circle"></i>
+                  <span>Industry partnerships for practical experience</span>
+                </li>
+                <li>
+                  <i class="fas fa-check-circle"></i>
+                  <span>Modern laboratories and experimental farms</span>
+                </li>
+                <li>
+                  <i class="fas fa-check-circle"></i>
+                  <span>Scholarships for meritorious students</span>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <p>© 2023 AgroFuture University Admissions | Cultivating Tomorrow's Agricultural Leaders</p>
+  </footer>
+
+  <script>
+    // Dark mode toggle
+    function setupDarkModeToggle() {
+      const toggleBtn = document.getElementById('themeToggle');
+      const body = document.body;
+      
+      // Check for saved theme preference
+      const savedTheme = localStorage.getItem('theme');
+      if (savedTheme === 'dark') {
+        body.classList.add('dark-mode');
+        toggleBtn.innerHTML = '<i class="fas fa-sun"></i>';
+      }
+      
+      toggleBtn.addEventListener('click', () => {
+        body.classList.toggle('dark-mode');
+        
+        if (body.classList.contains('dark-mode')) {
+          localStorage.setItem('theme', 'dark');
+          toggleBtn.innerHTML = '<i class="fas fa-sun"></i>';
+        } else {
+          localStorage.setItem('theme', 'light');
+          toggleBtn.innerHTML = '<i class="fas fa-moon"></i>';
+        }
+      });
+    }
+
+    // Mobile menu toggle
+    function setupMobileMenu() {
+      const menuBtn = document.getElementById('menuToggle');
+      const navLinks = document.getElementById('navLinks');
+      
+      menuBtn.addEventListener('click', () => {
+        navLinks.classList.toggle('active');
+        menuBtn.innerHTML = navLinks.classList.contains('active') ? 
+          '<i class="fas fa-times"></i>' : '<i class="fas fa-bars"></i>';
+      });
+    }
+
+    // Accordion functionality
+    function setupAccordions() {
+      const accordions = document.querySelectorAll('.accordion-header');
+      
+      accordions.forEach(accordion => {
+        accordion.addEventListener('click', () => {
+          const content = accordion.parentElement.querySelector('.accordion-content');
+          const icon = accordion.querySelector('.accordion-icon');
+          
+          content.classList.toggle('active');
+          icon.innerHTML = content.classList.contains('active') ? 
+            '<i class="fas fa-chevron-up"></i>' : '<i class="fas fa-chevron-down"></i>';
+        });
+      });
+    }
+
+    // Initialize page
+    document.addEventListener('DOMContentLoaded', () => {
+      setupDarkModeToggle();
+      setupMobileMenu();
+      setupAccordions();
+      
+      // Add animation to cards
+      const cards = document.querySelectorAll('.agriculture-card');
+      cards.forEach((card, index) => {
+        card.style.animation = `fadeInUp 1s ease ${index * 0.2}s forwards`;
+        card.style.opacity = '0';
+      });
+      
+      // Add hover effect to CTA button
+      const ctaBtn = document.querySelector('.cta-button');
+      if (ctaBtn) {
+        ctaBtn.addEventListener('mouseenter', () => {
+          ctaBtn.style.transform = 'translateY(-5px)';
+          ctaBtn.style.boxShadow = '0 10px 25px rgba(0, 0, 0, 0.3)';
+        });
+        
+        ctaBtn.addEventListener('mouseleave', () => {
+          ctaBtn.style.transform = 'translateY(0)';
+          ctaBtn.style.boxShadow = '0 5px 15px rgba(0, 0, 0, 0.2)';
+        });
+      }
+    });
+  </script>
+</body>
+</html>

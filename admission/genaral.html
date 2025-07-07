@@ -1,0 +1,996 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Science University Admissions - Bangladesh</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Bengali:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #3498db;
+      --secondary: #2ecc71;
+      --accent: #e74c3c;
+      --dark: #2c3e50;
+      --light: #ecf0f1;
+      --card-bg: rgba(255, 255, 255, 0.92);
+      --text: #333;
+      --shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+      --transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+
+    .dark-mode {
+      --primary: #3498db;
+      --secondary: #2ecc71;
+      --accent: #e74c3c;
+      --dark: #121212;
+      --light: #f5f5f5;
+      --card-bg: rgba(30, 30, 35, 0.95);
+      --text: #f0f0f0;
+      --shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Noto Sans Bengali', 'Segoe UI', sans-serif;
+    }
+
+    body {
+      background: linear-gradient(135deg, #1a2a6c, #b21f1f, #1a2a6c);
+      background-size: 400% 400%;
+      animation: gradientBG 15s ease infinite;
+      color: var(--text);
+      min-height: 100vh;
+      overflow-x: hidden;
+      position: relative;
+      transition: background 0.5s ease;
+    }
+
+    .dark-mode body {
+      background: linear-gradient(135deg, #0f1a3d, #4a0f1d, #0f1a3d);
+    }
+
+    @keyframes gradientBG {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    /* Background University Image */
+    .university-bg {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background-image: url("/image/diu picture.jpg"); /* Use your local image path */
+      background-size: cover;
+      background-position: center;
+      opacity: 0.15;
+      z-index: -1;
+      filter: grayscale(50%);
+    }
+
+    .dark-mode .university-bg {
+      opacity: 0.1;
+      filter: grayscale(100%) brightness(70%);
+    }
+
+    /* Header & Navigation */
+    header {
+      padding: 1.5rem 5%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      backdrop-filter: blur(10px);
+      background: rgba(0, 0, 0, 0.2);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .logo-icon {
+      width: 50px;
+      height: 50px;
+      background: var(--primary, #3498db);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      font-size: 2rem;           /* Increased for better visibility */
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+      animation: pulse 2s infinite;
+      overflow: hidden;          /* Ensures icon stays inside the circle */
+    }
+
+    .logo-icon i {
+      display: block;
+      width: 100%;
+      height: 100%;
+      text-align: center;
+      line-height: 50px;         /* Vertically center the icon */
+    }
+
+    .logo-text {
+      font-size: 1.8rem;
+      font-weight: 700;
+      background: linear-gradient(45deg, var(--primary, #3498db), var(--secondary, #2ecc71));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      display: inline-block;
+      line-height: 1;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+    }
+
+    .nav-links a {
+      color: var(--light);
+      text-decoration: none;
+      font-weight: 500;
+      position: relative;
+      padding: 0.5rem 0;
+      transition: var(--transition);
+    }
+
+    .nav-links a:hover {
+      color: var(--secondary);
+    }
+
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: var(--secondary);
+      transition: var(--transition);
+    }
+
+    .nav-links a:hover::after {
+      width: 100%;
+    }
+
+    .theme-toggle {
+      background: var(--card-bg);
+      border: none;
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      box-shadow: var(--shadow);
+      transition: var(--transition);
+    }
+
+    .theme-toggle:hover {
+      transform: scale(1.1) rotate(15deg);
+      background: var(--primary);
+      color: white;
+    }
+
+    /* Hero Section */
+    .hero {
+      padding: 4rem 5%;
+      text-align: center;
+      max-width: 900px;
+      margin: 0 auto;
+      position: relative;
+      z-index: 10;
+    }
+
+    .hero h1 {
+      font-size: 3.5rem;
+      margin-bottom: 1.5rem;
+      line-height: 1.2;
+      color: white;
+      text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+      animation: fadeInUp 1s ease;
+    }
+
+    .hero h1 span {
+      background: linear-gradient(45deg, var(--secondary), var(--primary));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .hero p {
+      font-size: 1.3rem;
+      margin-bottom: 2rem;
+      color: var(--light);
+      max-width: 700px;
+      margin-left: auto;
+      margin-right: auto;
+      animation: fadeInUp 1s ease 0.2s forwards;
+      opacity: 0;
+    }
+
+    /* Cards Section */
+    .cards-section {
+      padding: 2rem 5%;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 3rem;
+      max-width: 1400px;
+      margin: 0 auto;
+      position: relative;
+      z-index: 10;
+    }
+
+    .card-container {
+      perspective: 1500px;
+      width: 100%;
+      max-width: 550px;
+      height: 650px;
+    }
+
+    .card {
+      width: 100%;
+      height: 100%;
+      position: relative;
+      transform-style: preserve-3d;
+      transition: transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      border-radius: 20px;
+      box-shadow: var(--shadow);
+      cursor: pointer;
+    }
+
+    .card:hover {
+      transform: rotateY(180deg);
+    }
+
+    .card-face {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      backface-visibility: hidden;
+      border-radius: 20px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .card-front {
+      background: var(--card-bg);
+      padding: 2rem;
+      text-align: center;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .card-back {
+      background: linear-gradient(135deg, var(--primary), var(--dark));
+      transform: rotateY(180deg);
+      padding: 2rem;
+      overflow-y: auto;
+    }
+
+    .card-icon {
+      width: 100px;
+      height: 100px;
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 2rem;
+      color: white;
+      font-size: 3rem;
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+    }
+
+    .card-title {
+      font-size: 2.2rem;
+      margin-bottom: 1rem;
+      color: var(--dark);
+    }
+
+    .dark-mode .card-title {
+      color: var(--light);
+    }
+
+    .card-stats {
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      margin: 1.5rem 0;
+    }
+
+    .stat {
+      text-align: center;
+    }
+
+    .stat-value {
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: var(--primary);
+    }
+
+    .stat-label {
+      font-size: 1rem;
+      color: var(--text);
+      opacity: 0.8;
+    }
+
+    .card-front p {
+      font-size: 1.1rem;
+      line-height: 1.6;
+      max-width: 400px;
+      margin: 0 auto;
+      color: var(--text);
+    }
+
+    .university-list {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1.2rem;
+      margin-top: 1.5rem;
+    }
+
+    .university-item {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      padding: 1rem;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 12px;
+      transition: var(--transition);
+      cursor: pointer;
+      backdrop-filter: blur(5px);
+    }
+
+    .university-item:hover {
+      background: rgba(255, 255, 255, 0.2);
+      transform: translateX(10px);
+    }
+
+    .university-logo {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 2px solid white;
+      flex-shrink: 0;
+    }
+
+    .university-info {
+      flex: 1;
+    }
+
+    .university-name {
+      font-size: 1.2rem;
+      font-weight: 600;
+      margin-bottom: 0.3rem;
+      color: white;
+    }
+
+    .university-details {
+      display: flex;
+      gap: 1rem;
+      font-size: 0.9rem;
+      color: rgba(255, 255, 255, 0.8);
+    }
+
+    .detail {
+      display: flex;
+      align-items: center;
+      gap: 0.3rem;
+    }
+
+    /* 3D Globe */
+    .globe-container {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      width: 200px;
+      height: 200px;
+      z-index: 5;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .globe {
+      width: 150px;
+      height: 150px;
+      background: radial-gradient(circle at 30% 30%, #3498db, #1a5276);
+      border-radius: 50%;
+      position: relative;
+      box-shadow: inset -10px -10px 30px rgba(0, 0, 0, 0.5),
+                  inset 5px 5px 15px rgba(255, 255, 255, 0.3),
+                  0 0 30px rgba(52, 152, 219, 0.7);
+      animation: rotateGlobe 20s linear infinite;
+    }
+
+    .globe::before {
+      content: '';
+      position: absolute;
+      top: 10%;
+      left: 30%;
+      width: 40%;
+      height: 15%;
+      background: rgba(46, 204, 113, 0.4);
+      border-radius: 50%;
+      filter: blur(5px);
+    }
+
+    .globe::after {
+      content: '';
+      position: absolute;
+      bottom: 20%;
+      right: 25%;
+      width: 30%;
+      height: 10%;
+      background: rgba(231, 76, 60, 0.4);
+      border-radius: 50%;
+      filter: blur(5px);
+    }
+
+    @keyframes rotateGlobe {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+
+    /* Footer */
+    footer {
+      padding: 2rem 5%;
+      text-align: center;
+      margin-top: 3rem;
+      color: var(--light);
+      position: relative;
+      z-index: 10;
+    }
+
+    footer p {
+      opacity: 0.8;
+      font-size: 0.9rem;
+    }
+
+    /* Animations */
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+      100% { transform: scale(1); }
+    }
+
+    /* Responsive Design */
+    @media (max-width: 992px) {
+      .cards-section {
+        flex-direction: column;
+        align-items: center;
+      }
+      
+      .card-container {
+        height: 600px;
+      }
+      
+      .hero h1 {
+        font-size: 2.8rem;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .nav-links {
+        display: none;
+      }
+      
+      .hero h1 {
+        font-size: 2.3rem;
+      }
+      
+      .card-container {
+        height: 550px;
+      }
+      
+      .card-title {
+        font-size: 1.8rem;
+      }
+      
+      .stat-value {
+        font-size: 2rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .hero {
+        padding: 2rem 5%;
+      }
+      
+      .hero h1 {
+        font-size: 2rem;
+      }
+      
+      .card-container {
+        height: 500px;
+      }
+      
+      .card-icon {
+        width: 80px;
+        height: 80px;
+        font-size: 2rem;
+      }
+      
+      .card-stats {
+        flex-direction: column;
+        gap: 1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Background Elements -->
+  <div class="university-bg"></div>
+  <div class="globe-container">
+    <div class="globe"></div>
+  </div>
+
+  <!-- Header -->
+  <header>
+    <div class="logo">
+      <div class="logo-icon">
+        <i class="fas fa-graduation-cap"></i>
+      </div>
+      <div class="logo-text">বিজ্ঞান ভর্তি</div>
+    </div>
+    
+    <nav class="nav-links">
+      <a href="#"><i class="fas fa-home"></i> হোম</a>
+      <a href="#"><i class="fas fa-book"></i> প্রস্তুতি</a>
+      <a href="#"><i class="fas fa-university"></i> বিশ্ববিদ্যালয়</a>
+      <a href="#"><i class="fas fa-question-circle"></i> সহায়তা</a>
+    </nav>
+    
+    <button class="theme-toggle" id="themeToggle">
+      <i class="fas fa-moon"></i>
+    </button>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <h1>বাংলাদেশের <span>বিজ্ঞান</span> বিশ্ববিদ্যালয়ে ভর্তি প্রস্তুতি</h1>
+    <p>সার্বিক তথ্য, সিট সংখ্যা, ভর্তি প্রক্রিয়া এবং প্রস্তুতি নির্দেশিকা - সবকিছু এক জায়গায়</p>
+  </section>
+
+  <!-- Cards Section -->
+  <section class="cards-section">
+    <!-- Public Universities Card -->
+    <div class="card-container">
+      <div class="card">
+        <div class="card-face card-front">
+          <div class="card-icon">
+            <i class="fas fa-landmark"></i>
+          </div>
+          <h2 class="card-title">সরকারি বিশ্ববিদ্যালয়</h2>
+          <div class="card-stats">
+            <div class="stat">
+              <div class="stat-value">46</div>
+              <div class="stat-label">বিশ্ববিদ্যালয়</div>
+            </div>
+            <div class="stat">
+              <div class="stat-value">15,000+</div>
+              <div class="stat-label">সিট সংখ্যা</div>
+            </div>
+          </div>
+          <p>বাংলাদেশের শীর্ষস্থানীয় সরকারি বিশ্ববিদ্যালয়গুলোর বিজ্ঞান বিভাগে ভর্তি সংক্রান্ত সম্পূর্ণ তথ্য। সিট বণ্টন, ভর্তি পরীক্ষার প্যাটার্ন এবং প্রস্তুতি নির্দেশিকা</p>
+          <div class="university-logos" style="display: flex; gap: 15px; margin-top: 30px;">
+            <img src="/image/dhaka-university-logo-01.jpg" alt="DU" style="width: 50px; height: 50px; object-fit: contain; border-radius: 50%; background: white; padding: 5px;">
+            <img src="https://upload.wikimedia.org/wikipedia/en/thumb/2/2f/University_of_Rajshahi_logo.svg/1200px-University_of_Rajshahi_logo.svg.png" alt="RU" style="width: 50px; height: 50px; object-fit: contain; border-radius: 50%; background: white; padding: 5px;">
+            <img src="https://upload.wikimedia.org/wikipedia/en/thumb/9/98/Jahangirnagar_University_Logo.svg/1200px-Jahangirnagar_University_Logo.svg.png" alt="JU" style="width: 50px; height: 50px; object-fit: contain; border-radius: 50%; background: white; padding: 5px;">
+          </div>
+        </div>
+        <div class="card-face card-back">
+          <h2 style="color: white; text-align: center; margin-bottom: 1.5rem;">সরকারি বিশ্ববিদ্যালয়সমূহ</h2>
+          <div class="university-list" id="publicUniversitiesList">
+            <!-- Public universities will be populated by JavaScript -->
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Private Universities Card -->
+    <div class="card-container">
+      <div class="card">
+        <div class="card-face card-front">
+          <div class="card-icon">
+            <i class="fas fa-building"></i>
+          </div>
+          <h2 class="card-title">বেসরকারি বিশ্ববিদ্যালয়</h2>
+          <div class="card-stats">
+            <div class="stat">
+              <div class="stat-value">108</div>
+              <div class="stat-label">বিশ্ববিদ্যালয়</div>
+            </div>
+            <div class="stat">
+              <div class="stat-value">25,000+</div>
+              <div class="stat-label">সিট সংখ্যা</div>
+            </div>
+          </div>
+          <p>বাংলাদেশের স্বনামধন্য বেসরকারি বিশ্ববিদ্যালয়গুলোর বিজ্ঞান বিভাগে ভর্তি তথ্য। টিউশন ফি, স্কলারশিপ সুযোগ এবং ভর্তি প্রক্রিয়া সম্পর্কে বিস্তারিত জানুন</p>
+          <div class="university-logos" style="display: flex; gap: 15px; margin-top: 30px;">
+            <img src="https://upload.wikimedia.org/wikipedia/en/thumb/d/dd/North_South_University_logo.png/200px-North_South_University_logo.png" alt="NSU" style="width: 50px; height: 50px; object-fit: contain; border-radius: 50%; background: white; padding: 5px;">
+            <img src="https://upload.wikimedia.org/wikipedia/en/thumb/5/51/BRAC_University_logo.svg/1200px-BRAC_University_logo.svg.png" alt="BRAC" style="width: 50px; height: 50px; object-fit: contain; border-radius: 50%; background: white; padding: 5px;">
+            <img src="https://upload.wikimedia.org/wikipedia/en/thumb/0/0c/Iub_logo.png/220px-Iub_logo.png" alt="DIU" style="width: 50px; height: 50px; object-fit: contain; border-radius: 50%; background: white; padding: 5px;">
+          </div>
+        </div>
+        <div class="card-face card-back">
+          <h2 style="color: white; text-align: center; margin-bottom: 1.5rem;">বেসরকারি বিশ্ববিদ্যালয়সমূহ</h2>
+          <div class="university-list" id="privateUniversitiesList">
+            <!-- Private universities will be populated by JavaScript -->
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- International Universities Card -->
+    <div class="card-container">
+      <div class="card">
+        <div class="card-face card-front">
+          <div class="card-icon">
+            <i class="fas fa-globe"></i>
+          </div>
+          <h2 class="card-title">আন্তর্জাতিক বিশ্ববিদ্যালয়</h2>
+          <div class="card-stats">
+            <div class="stat">
+              <div class="stat-value">12</div>
+              <div class="stat-label">বিশ্ববিদ্যালয়</div>
+            </div>
+            <div class="stat">
+              <div class="stat-value">2,000+</div>
+              <div class="stat-label">সিট সংখ্যা</div>
+            </div>
+          </div>
+          <p>বাংলাদেশে অবস্থিত আন্তর্জাতিক বিশ্ববিদ্যালয়গুলোর বিজ্ঞান বিভাগে ভর্তি, সিট সংখ্যা, এবং ভর্তি প্রক্রিয়া সংক্রান্ত তথ্য।</p>
+          <div class="university-logos" style="display: flex; gap: 15px; margin-top: 30px;">
+            <img src="https://upload.wikimedia.org/wikipedia/en/thumb/4/44/Logo_of_International_University_of_Business_Agriculture_and_Technology.png/220px-Logo_of_International_University_of_Business_Agriculture_and_Technology.png" alt="IUBAT" style="width: 50px; height: 50px; object-fit: contain; border-radius: 50%; background: white; padding: 5px;">
+            <img src="https://upload.wikimedia.org/wikipedia/en/thumb/0/0c/Asian_University_for_Business_and_Technology_logo.png/220px-Asian_University_for_Business_and_Technology_logo.png" alt="AUB" style="width: 50px; height: 50px; object-fit: contain; border-radius: 50%; background: white; padding: 5px;">
+            <img src="https://upload.wikimedia.org/wikipedia/en/thumb/0/0c/Iub_logo.png/220px-Iub_logo.png" alt="IUB" style="width: 50px; height: 50px; object-fit: contain; border-radius: 50%; background: white; padding: 5px;">
+          </div>
+        </div>
+        <div class="card-face card-back">
+          <h2 style="color: white; text-align: center; margin-bottom: 1.5rem;">আন্তর্জাতিক বিশ্ববিদ্যালয়সমূহ</h2>
+          <div class="university-list" id="internationalUniversitiesList">
+            <!-- International universities can be populated here if needed -->
+            <div class="university-item">
+              <img src="https://upload.wikimedia.org/wikipedia/en/thumb/4/44/Logo_of_International_University_of_Business_Agriculture_and_Technology.png/220px-Logo_of_International_University_of_Business_Agriculture_and_Technology.png" alt="IUBAT" class="university-logo">
+              <div class="university-info">
+                <div class="university-name">আইইউবিএটি</div>
+                <div class="university-details">
+                  <div class="detail"><i class="fas fa-users"></i> সিট: 680</div>
+                  <div class="detail"><i class="fas fa-map-marker-alt"></i> ঢাকা</div>
+                  <div class="detail"><i class="fas fa-calendar"></i> 1991</div>
+                </div>
+                <div class="university-details">
+                  <div class="detail"><i class="fas fa-calendar-check"></i> ভর্তি: জানুয়ারি, জুন, সেপ্টেম্বর</div>
+                  <div class="detail"><i class="fas fa-globe"></i> www.iubat.edu</div>
+                </div>
+              </div>
+            </div>
+            <div class="university-item">
+              <img src="https://upload.wikimedia.org/wikipedia/en/thumb/0/0c/Asian_University_for_Business_and_Technology_logo.png/220px-Asian_University_for_Business_and_Technology_logo.png" alt="AUB" class="university-logo">
+              <div class="university-info">
+                <div class="university-name">এশিয়া প্যাসিফিক বিশ্ববিদ্যালয়</div>
+                <div class="university-details">
+                  <div class="detail"><i class="fas fa-users"></i> সিট: 600</div>
+                  <div class="detail"><i class="fas fa-map-marker-alt"></i> ঢাকা</div>
+                  <div class="detail"><i class="fas fa-calendar"></i> 2003</div>
+                </div>
+                <div class="university-details">
+                  <div class="detail"><i class="fas fa-calendar-check"></i> ভর্তি: জানুয়ারি, জুন, সেপ্টেম্বর</div>
+                  <div class="detail"><i class="fas fa-globe"></i> www.aub.edu.bd</div>
+                </div>
+              </div>
+            </div>
+            <div class="university-item">
+              <img src="https://upload.wikimedia.org/wikipedia/en/thumb/0/0c/Iub_logo.png/220px-Iub_logo.png" alt="IUB" class="university-logo">
+              <div class="university-info">
+                <div class="university-name">ইন্ডিপেন্ডেন্ট ইউনিভার্সিটি</div>
+                <div class="university-details">
+                  <div class="detail"><i class="fas fa-users"></i> সিট: 750</div>
+                  <div class="detail"><i class="fas fa-map-marker-alt"></i> ঢাকা</div>
+                  <div class="detail"><i class="fas fa-calendar"></i> 1993</div>
+                </div>
+                <div class="university-details">
+                  <div class="detail"><i class="fas fa-calendar-check"></i> ভর্তি: সারা বছর</div>
+                  <div class="detail"><i class="fas fa-globe"></i> www.iub.edu.bd</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <p>© ২০২৩ বাংলাদেশ বিজ্ঞান বিশ্ববিদ্যালয় ভর্তি তথ্যকেন্দ্র | সকল অধিকার সংরক্ষিত</p>
+  </footer>
+
+  <script>
+    // University data
+    const publicUniversities = [
+      { 
+        name: "ঢাকা বিশ্ববিদ্যালয়", 
+        logo: "/image/diu picture.jpg",
+        seats: 1200,
+        established: 1921,
+        location: "ঢাকা",
+        admission: "মে-জুন",
+        website: "www.du.ac.bd"
+      },
+      { 
+        name: "রাজশাহী বিশ্ববিদ্যালয়", 
+        logo: "https://upload.wikimedia.org/wikipedia/en/2/2f/University_of_Rajshahi_logo.svg",
+        seats: 850,
+        established: 1953,
+        location: "রাজশাহী",
+        admission: "জুলাই-আগস্ট",
+        website: "www.ru.ac.bd"
+      },
+      { 
+        name: "জাহাঙ্গীরনগর বিশ্ববিদ্যালয়", 
+        logo: "https://upload.wikimedia.org/wikipedia/en/9/98/Jahangirnagar_University_Logo.svg",
+        seats: 780,
+        established: 1970,
+        location: "সাভার, ঢাকা",
+        admission: "এপ্রিল-মে",
+        website: "www.juniv.edu"
+      },
+      { 
+        name: "চট্টগ্রাম বিশ্ববিদ্যালয়", 
+        logo: "https://upload.wikimedia.org/wikipedia/en/thumb/9/9b/University_of_Chittagong_logo.svg/1200px-University_of_Chittagong_logo.svg.png",
+        seats: 920,
+        established: 1966,
+        location: "চট্টগ্রাম",
+        admission: "জুন-জুলাই",
+        website: "www.cu.ac.bd"
+      },
+      { 
+        name: "জগন্নাথ বিশ্ববিদ্যালয়", 
+        logo: "https://upload.wikimedia.org/wikipedia/en/thumb/1/1b/Jagannath_University_Logo.png/220px-Jagannath_University_Logo.png",
+        seats: 650,
+        established: 2005,
+        location: "ঢাকা",
+        admission: "মে-জুন",
+        website: "www.jnu.ac.bd"
+      },
+      { 
+        name: "খুলনা বিশ্ববিদ্যালয়", 
+        logo: "https://upload.wikimedia.org/wikipedia/en/thumb/6/6e/Khulna_University_logo.png/200px-Khulna_University_logo.png",
+        seats: 580,
+        established: 1991,
+        location: "খুলনা",
+        admission: "জুন-জুলাই",
+        website: "www.ku.ac.bd"
+      },
+      {
+        name: "ইসলামিক বিশ্ববিদ্যালয়, কুষ্টিয়া",
+        logo: "https://upload.wikimedia.org/wikipedia/en/thumb/0/0c/Islamic_University_Kushtia_logo.png/220px-Islamic_University_Kushtia_logo.png",
+        seats: 	1420,
+        established: 1979,
+        location: "কুষ্টিয়া",
+        admission: "মে-জুন",
+        website: "www.iu.ac.bd"
+      },
+      {
+        name: "কুমিল্লা বিশ্ববিদ্যালয়",
+        logo: "https://upload.wikimedia.org/wikipedia/en/thumb/0/0c/Comilla_University_logo.png/220px-Comilla_University_logo.png",
+        seats: 600,
+        established: 2006,
+        location: "কুমিল্লা",
+        admission: "জুলাই-আগস্ট",
+        website: "www.cou.ac.bd"
+      },
+      {
+        name: "শাহজালাল বিজ্ঞান ও প্রযুক্তি বিশ্ববিদ্যালয়",
+        logo: "https://upload.wikimedia.org/wikipedia/en/thumb/0/0c/Shahjalal_University_of_Science_and_Technology_logo.png/220px-Shahjalal_University_of_Science_and_Technology_logo.png",
+        seats: 1100,
+        established: 1991,
+        location: "সিলেট",
+        admission: "মে-জুন",
+        website: "www.sust.edu"
+      }
+    ];
+
+    const privateUniversities = [
+      { 
+        name: "নর্থ সাউথ বিশ্ববিদ্যালয়", 
+        logo: "https://upload.wikimedia.org/wikipedia/en/thumb/d/dd/North_South_University_logo.png/200px-North_South_University_logo.png",
+        seats: 950,
+        established: 1992,
+        location: "ঢাকা",
+        admission: "সারা বছর",
+        website: "www.northsouth.edu"
+      },
+      { 
+        name: "ব্র্যাক বিশ্ববিদ্যালয়", 
+        logo: "https://upload.wikimedia.org/wikipedia/en/thumb/5/51/BRAC_University_logo.svg/1200px-BRAC_University_logo.svg.png",
+        seats: 820,
+        established: 2001,
+        location: "ঢাকা",
+        admission: "জানুয়ারি, জুন, সেপ্টেম্বর",
+        website: "www.bracu.ac.bd"
+      },
+      { 
+        name: "ড্যাফোডিল বিশ্ববিদ্যালয়", 
+        logo: "https://upload.wikimedia.org/wikipedia/en/thumb/6/6f/Logo_of_Daffodil_International_University.png/220px-Logo_of_Daffodil_International_University.png",
+        seats: 890,
+        established: 2002,
+        location: "ঢাকা",
+        admission: "জানুয়ারি, জুন, সেপ্টেম্বর",
+        website: "www.daffodilvarsity.edu.bd"
+      },
+      {
+        name: "আমেরিকান ইন্টারন্যাশনাল ইউনিভার্সিটি বাংলাদেশ",
+        logo: "https://upload.wikimedia.org/wikipedia/en/thumb/0/0c/American_International_University_Bangladesh_logo.png/220px-American_International_University_Bangladesh_logo.png",
+        seats: 800,
+        established: 1994,
+        location: "ঢাকা",
+        admission: "সারা বছর",
+        website: "www.aiub.edu"
+      },
+      {
+        name: "আহসানউল্লাহ বিজ্ঞান ও প্রযুক্তি বিশ্ববিদ্যালয়",
+        logo: "https://upload.wikimedia.org/wikipedia/en/thumb/0/0c/Ahsanullah_University_of_Science_and_Technology_logo.png/220px-Ahsanullah_University_of_Science_and_Technology_logo.png",
+        seats: 700,
+        established: 1995,
+        location: "ঢাকা",
+        admission: "জানুয়ারি, জুন, সেপ্টেম্বর",
+        website: "www.aust.edu"
+      },
+      { 
+        name: "ইন্ডিপেন্ডেন্ট ইউনিভার্সিটি", 
+        logo: "https://upload.wikimedia.org/wikipedia/en/thumb/0/0c/Iub_logo.png/220px-Iub_logo.png",
+        seats: 750,
+        established: 1993,
+        location: "ঢাকা",
+        admission: "সারা বছর",
+        website: "www.iub.edu.bd"
+      },
+      { 
+        name: "আইইউবিএটি", 
+        logo: "https://upload.wikimedia.org/wikipedia/en/thumb/4/44/Logo_of_International_University_of_Business_Agriculture_and_Technology.png/220px-Logo_of_International_University_of_Business_Agriculture_and_Technology.png",
+        seats: 680,
+        established: 1991,
+        location: "ঢাকা",
+        admission: "জানুয়ারি, জুন, সেপ্টেম্বর",
+        website: "www.iubat.edu"
+      },
+      { 
+        name: "ইস্ট ওয়েস্ট বিশ্ববিদ্যালয়", 
+        logo: "https://upload.wikimedia.org/wikipedia/en/thumb/6/6c/East_West_University_logo.png/220px-East_West_University_logo.png",
+        seats: 720,
+        established: 1996,
+        location: "ঢাকা",
+        admission: "সারা বছর",
+        website: "www.ewubd.edu"
+      },
+      { 
+        name: "ইউনিভার্সিটি অফ এশিয়া প্যাসিফিক", 
+        logo: "https://upload.wikimedia.org/wikipedia/en/thumb/0/0c/Asian_University_for_Business_and_Technology_logo.png/220px-Asian_University_for_Business_and_Technology_logo.png",
+        seats: 600,
+        established: 2003,
+        location: "ঢাকা",
+        admission: "জানুয়ারি, জুন, সেপ্টেম্বর",
+        website: "www.aub.edu.bd"
+      },
+      
+
+      
+    ];
+
+    // Populate university lists
+    function populateUniversityLists() {
+      const publicList = document.getElementById('publicUniversitiesList');
+      const privateList = document.getElementById('privateUniversitiesList');
+      
+      publicUniversities.forEach(uni => {
+        publicList.innerHTML += `
+          <div class="university-item">
+            <img src="${uni.logo}" alt="${uni.name}" class="university-logo">
+            <div class="university-info">
+              <div class="university-name">${uni.name}</div>
+              <div class="university-details">
+                <div class="detail"><i class="fas fa-users"></i> সিট: ${uni.seats}</div>
+                <div class="detail"><i class="fas fa-map-marker-alt"></i> ${uni.location}</div>
+                <div class="detail"><i class="fas fa-calendar"></i> ${uni.established}</div>
+              </div>
+              <div class="university-details">
+                <div class="detail"><i class="fas fa-calendar-check"></i> ভর্তি: ${uni.admission}</div>
+                <div class="detail"><i class="fas fa-globe"></i> ${uni.website}</div>
+              </div>
+            </div>
+          </div>
+        `;
+      });
+      
+      privateUniversities.forEach(uni => {
+        privateList.innerHTML += `
+          <div class="university-item">
+            <img src="${uni.logo}" alt="${uni.name}" class="university-logo">
+            <div class="university-info">
+              <div class="university-name">${uni.name}</div>
+              <div class="university-details">
+                <div class="detail"><i class="fas fa-users"></i> সিট: ${uni.seats}</div>
+                <div class="detail"><i class="fas fa-map-marker-alt"></i> ${uni.location}</div>
+                <div class="detail"><i class="fas fa-calendar"></i> ${uni.established}</div>
+              </div>
+              <div class="university-details">
+                <div class="detail"><i class="fas fa-calendar-check"></i> ভর্তি: ${uni.admission}</div>
+                <div class="detail"><i class="fas fa-globe"></i> ${uni.website}</div>
+              </div>
+            </div>
+          </div>
+        `;
+      });
+    }
+
+    // Dark mode toggle
+    function setupDarkModeToggle() {
+      const toggleBtn = document.getElementById('themeToggle');
+      const body = document.body;
+      
+      // Check for saved theme preference
+      const savedTheme = localStorage.getItem('theme');
+      if (savedTheme === 'dark') {
+        body.classList.add('dark-mode');
+        toggleBtn.innerHTML = '<i class="fas fa-sun"></i>';
+      }
+      
+      toggleBtn.addEventListener('click', () => {
+        body.classList.toggle('dark-mode');
+        
+        if (body.classList.contains('dark-mode')) {
+          localStorage.setItem('theme', 'dark');
+          toggleBtn.innerHTML = '<i class="fas fa-sun"></i>';
+        } else {
+          localStorage.setItem('theme', 'light');
+          toggleBtn.innerHTML = '<i class="fas fa-moon"></i>';
+        }
+      });
+    }
+
+    // Initialize page
+    document.addEventListener('DOMContentLoaded', () => {
+      populateUniversityLists();
+      setupDarkModeToggle();
+      
+      // Add animation to cards
+      const cards = document.querySelectorAll('.card-container');
+      cards.forEach((card, index) => {
+        card.style.animation = `fadeInUp 1s ease ${index * 0.2}s forwards`;
+        card.style.opacity = '0';
+      });
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,870 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chemistry Learning Platform | শিক্ষা গাইড বিডি</title>
+    <link href="https://fonts.googleapis.com/css2?family=Jost:wght@500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #0f0c29;
+            --secondary: #302b63;
+            --accent: #ff6b6b;
+            --light: #f0f0f0;
+            --success: #4caf50;
+            --warning: #ff9800;
+            --dark: #24243e;
+            --blue: #2196f3;
+            --purple: #9c27b0;
+            --green: #8bc34a;
+        }
+
+        body {
+            font-family: 'Hind Siliguri', sans-serif;
+            background: linear-gradient(135deg, var(--primary), var(--secondary), var(--dark));
+            color: var(--light);
+            min-height: 100vh;
+            padding: 20px;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        body::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 10% 20%, rgba(156, 39, 176, 0.1) 0%, transparent 20%),
+                radial-gradient(circle at 90% 80%, rgba(33, 150, 243, 0.1) 0%, transparent 20%),
+                radial-gradient(circle at 50% 30%, rgba(255, 107, 107, 0.1) 0%, transparent 30%);
+            z-index: -1;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* Header Styles */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+            margin-bottom: 30px;
+            border-bottom: 2px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            font-size: 1.8rem;
+            font-weight: bold;
+            background: linear-gradient(to right, #4a6bff, #00b4d8);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            font-family: 'Jost', sans-serif;
+        }
+
+        .logo-icon {
+            width: 45px;
+            height: 45px;
+            background: linear-gradient(to right, #4a6bff, #00b4d8);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5rem;
+            box-shadow: 0 4px 15px rgba(74, 107, 255, 0.4);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 25px;
+        }
+
+        .nav-link {
+            font-size: 1.1rem;
+            color: var(--light);
+            text-decoration: none;
+            padding: 8px 15px;
+            border-radius: 30px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .nav-link::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--accent);
+            transition: width 0.3s ease;
+        }
+
+        .nav-link:hover::before {
+            width: 100%;
+        }
+
+        .nav-link.active {
+            background: rgba(255, 255, 255, 0.1);
+            box-shadow: 0 0 15px rgba(255, 107, 107, 0.3);
+        }
+
+        /* Dashboard Styles */
+        .dashboard {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 25px;
+            margin-bottom: 30px;
+        }
+
+        .dashboard-card {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            padding: 25px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            cursor: pointer;
+        }
+
+        .dashboard-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+            background: rgba(255, 255, 255, 0.08);
+        }
+
+        .card-title {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: var(--accent);
+        }
+
+        .card-icon {
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 107, 107, 0.2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+        }
+
+        .card-content {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        /* Main Content Area */
+        .content-container {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        .main-card {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            padding: 30px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+        }
+
+        .section-title {
+            font-size: 1.8rem;
+            background: linear-gradient(to right, #4a6bff, #00b4d8);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            font-family: 'Jost', sans-serif;
+        }
+
+        .section-subtitle {
+            font-size: 1.2rem;
+            margin: 15px 0;
+            color: var(--accent);
+        }
+
+        .tabs {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 20px;
+            border-bottom: 2px solid rgba(255, 255, 255, 0.1);
+            padding-bottom: 15px;
+        }
+
+        .tab {
+            padding: 10px 20px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 30px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .tab.active {
+            background: var(--accent);
+            box-shadow: 0 0 15px rgba(255, 107, 107, 0.5);
+        }
+
+        /* Periodic Table */
+        .periodic-table {
+            display: grid;
+            grid-template-columns: repeat(18, 1fr);
+            gap: 3px;
+            max-width: 100%;
+            overflow-x: auto;
+            padding: 15px;
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 10px;
+        }
+
+        .element {
+            width: 50px;
+            height: 60px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+
+        .element:hover {
+            transform: scale(1.1);
+            z-index: 10;
+            box-shadow: 0 0 15px currentColor;
+        }
+
+        .element .symbol {
+            font-weight: bold;
+            font-size: 1.2rem;
+            margin-bottom: 3px;
+        }
+
+        .element .number {
+            font-size: 0.7rem;
+            position: absolute;
+            top: 3px;
+            left: 5px;
+        }
+
+        .element .name {
+            font-size: 0.6rem;
+            text-align: center;
+        }
+
+        /* Atom Builder */
+        .atom-builder {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .atom-canvas {
+            width: 300px;
+            height: 300px;
+            position: relative;
+            margin: 20px auto;
+        }
+
+        .nucleus {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #ff6b6b, #c0392b);
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            font-weight: bold;
+            box-shadow: 0 0 20px rgba(255, 107, 107, 0.7);
+        }
+
+        .orbit {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            border: 2px dashed rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+        }
+
+        .electron {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background: linear-gradient(135deg, #4a6bff, #2196f3);
+            border-radius: 50%;
+            box-shadow: 0 0 10px #2196f3;
+        }
+
+        .atom-controls {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .control-group {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 15px;
+            border-radius: 10px;
+            min-width: 200px;
+        }
+
+        .control-label {
+            display: block;
+            margin-bottom: 8px;
+            color: var(--accent);
+        }
+
+        .slider-container {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .slider {
+            flex: 1;
+            height: 8px;
+            -webkit-appearance: none;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 4px;
+            outline: none;
+        }
+
+        .slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 20px;
+            height: 20px;
+            background: var(--accent);
+            border-radius: 50%;
+            cursor: pointer;
+            box-shadow: 0 0 10px rgba(255, 107, 107, 0.7);
+        }
+
+        .slider-value {
+            width: 30px;
+            text-align: center;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 3px;
+            border-radius: 4px;
+        }
+
+        /* Quiz Section */
+        .quiz-container {
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 15px;
+            padding: 25px;
+            margin-top: 20px;
+        }
+
+        .question {
+            font-size: 1.3rem;
+            margin-bottom: 20px;
+            line-height: 1.5;
+        }
+
+        .options {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+
+        .option {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 15px;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .option:hover {
+            background: rgba(255, 255, 255, 0.1);
+            transform: translateX(5px);
+        }
+
+        .option.selected {
+            background: rgba(156, 39, 176, 0.3);
+            box-shadow: 0 0 10px rgba(156, 39, 176, 0.5);
+        }
+
+        .option.correct {
+            background: rgba(76, 175, 80, 0.3);
+            box-shadow: 0 0 10px rgba(76, 175, 80, 0.5);
+        }
+
+        .option.incorrect {
+            background: rgba(244, 67, 54, 0.3);
+            box-shadow: 0 0 10px rgba(244, 67, 54, 0.5);
+        }
+
+        .option-letter {
+            width: 30px;
+            height: 30px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-weight: bold;
+        }
+
+        .quiz-controls {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .btn {
+            padding: 12px 25px;
+            border-radius: 30px;
+            border: none;
+            background: linear-gradient(to right, #4a6bff, #00b4d8);
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(74, 107, 255, 0.4);
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 2px solid #4a6bff;
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 20px;
+            margin-top: 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 0.9rem;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .dashboard {
+                grid-template-columns: 1fr;
+            }
+            
+            .options {
+                grid-template-columns: 1fr;
+            }
+            
+            .nav-links {
+                display: none;
+            }
+            
+            .periodic-table {
+                transform: scale(0.9);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <div class="logo">
+                <div class="logo-icon">
+                    <i class="fas fa-atom"></i>
+                </div>
+                <span>শিক্ষা গাইড বিডি</span>
+            </div>
+            <div class="nav-links">
+                <a href="#" class="nav-link active"><i class="fas fa-home"></i> হোম</a>
+                <a href="#" class="nav-link"><i class="fas fa-book"></i> পাঠ্যসূচি</a>
+                <a href="#" class="nav-link"><i class="fas fa-vial"></i> পরীক্ষা</a>
+                <a href="#" class="nav-link"><i class="fas fa-chart-bar"></i> অগ্রগতি</a>
+                <a href="#" class="nav-link"><i class="fas fa-user"></i> প্রোফাইল</a>
+            </div>
+        </div>
+
+        <!-- Dashboard -->
+        <div class="dashboard">
+            <div class="dashboard-card">
+                <div class="card-title">
+                    <div class="card-icon">
+                        <i class="fas fa-flask"></i>
+                    </div>
+                    <span>রসায়নের ভিত্তি</span>
+                </div>
+                <div class="card-content">
+                    পদার্থের গঠন, পরমাণুর মডেল, পর্যায় সারণি, এবং রাসায়নিক বন্ধন সম্পর্কে জানুন। ক্লাস ৬-৮ এর জন্য উপযোগী মৌলিক ধারণা।
+                </div>
+            </div>
+            <div class="dashboard-card">
+                <div class="card-title">
+                    <div class="card-icon">
+                        <i class="fas fa-bolt"></i>
+                    </div>
+                    <span>রাসায়নিক বিক্রিয়া</span>
+                </div>
+                <div class="card-content">
+                    রাসায়নিক বিক্রিয়ার প্রকারভেদ, সংযোজন, বিয়োজন, প্রতিস্থাপন বিক্রিয়া, অম্ল-ক্ষারক এবং রেডক্স বিক্রিয়া সম্পর্কে বিস্তারিত শিখুন।
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="content-container">
+            <div class="main-card">
+                <div class="card-header">
+                    <h2 class="section-title">পর্যায় সারণী</h2>
+                    <div class="tabs">
+                        <div class="tab active">মৌলিক</div>
+                        <div class="tab">ধাতু</div>
+                        <div class="tab">অধাতু</div>
+                        <div class="tab">উপধাতু</div>
+                    </div>
+                </div>
+                
+                <h3 class="section-subtitle"><i class="fas fa-star"></i> মৌলিক পদার্থের শ্রেণিবিন্যাস</h3>
+                <p>পর্যায় সারণী হল রাসায়নিক মৌলসমূহের একটি সারণীবদ্ধ প্রদর্শন। মৌলসমূহ তাদের পারমাণবিক সংখ্যার উর্ধ্বক্রমে সাজানো এবং মৌলিক ধর্মের পুনরাবৃত্তির উপর ভিত্তি করে পর্যায় অনুসারে বিন্যস্ত।</p>
+                
+                <div class="periodic-table" id="periodic-table">
+                    <!-- Periodic table will be generated by JavaScript -->
+                </div>
+            </div>
+
+            <div class="main-card">
+                <div class="card-header">
+                    <h2 class="section-title">পরমাণু নির্মাতা</h2>
+                </div>
+                
+                <h3 class="section-subtitle"><i class="fas fa-cogs"></i> পরমাণুর গঠন অন্বেষণ করুন</h3>
+                <p>পরমাণু পদার্থের মৌলিক কণিকা। এটি তিনটি উপকণা দ্বারা গঠিত: প্রোটন, নিউট্রন এবং ইলেকট্রন। নিউক্লিয়াসে প্রোটন ও নিউট্রন থাকে, আর ইলেকট্রনগুলি নিউক্লিয়াসের চারদিকে ঘোরে।</p>
+                
+                <div class="atom-builder">
+                    <div class="atom-canvas" id="atom-canvas">
+                        <div class="nucleus" id="nucleus">P+N</div>
+                        <!-- Orbits and electrons will be added by JavaScript -->
+                    </div>
+                    
+                    <div class="atom-controls">
+                        <div class="control-group">
+                            <label class="control-label">প্রোটন সংখ্যা (পারমাণবিক সংখ্যা)</label>
+                            <div class="slider-container">
+                                <input type="range" min="1" max="10" value="3" class="slider" id="proton-slider">
+                                <span class="slider-value" id="proton-value">3</span>
+                            </div>
+                        </div>
+                        
+                        <div class="control-group">
+                            <label class="control-label">নিউট্রন সংখ্যা</label>
+                            <div class="slider-container">
+                                <input type="range" min="0" max="10" value="4" class="slider" id="neutron-slider">
+                                <span class="slider-value" id="neutron-value">4</span>
+                            </div>
+                        </div>
+                        
+                        <div class="control-group">
+                            <label class="control-label">ইলেকট্রন সংখ্যা</label>
+                            <div class="slider-container">
+                                <input type="range" min="1" max="20" value="3" class="slider" id="electron-slider">
+                                <span class="slider-value" id="electron-value">3</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="atom-info">
+                        <p>পরমাণু: <span id="atom-name">লিথিয়াম</span></p>
+                        <p>পারমাণবিক সংখ্যা: <span id="atomic-number">3</span></p>
+                        <p>ভর সংখ্যা: <span id="mass-number">7</span></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Quiz Section -->
+        <div class="main-card">
+            <div class="card-header">
+                <h2 class="section-title">কুইজ: রসায়ন মৌলিক ধারণা</h2>
+            </div>
+            
+            <div class="quiz-container">
+                <div class="question" id="question">পরমাণুর নিউক্লিয়াসে কী কী থাকে?</div>
+                
+                <div class="options" id="options">
+                    <div class="option" data-option="A">
+                        <div class="option-letter">A</div>
+                        <div class="option-text">প্রোটন ও ইলেকট্রন</div>
+                    </div>
+                    <div class="option" data-option="B">
+                        <div class="option-letter">B</div>
+                        <div class="option-text">নিউট্রন ও ইলেকট্রন</div>
+                    </div>
+                    <div class="option" data-option="C">
+                        <div class="option-letter">C</div>
+                        <div class="option-text">প্রোটন ও নিউট্রন</div>
+                    </div>
+                    <div class="option" data-option="D">
+                        <div class="option-letter">D</div>
+                        <div class="option-text">ইলেকট্রন ও পজিট্রন</div>
+                    </div>
+                </div>
+                
+                <div class="quiz-controls">
+                    <button class="btn"><i class="fas fa-arrow-left"></i> আগের প্রশ্ন</button>
+                    <button class="btn">পরবর্তী প্রশ্ন <i class="fas fa-arrow-right"></i></button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Footer -->
+    <div class="footer">
+        <p>© ২০২৩ শিক্ষা গাইড বিডি | বাংলাদেশের শিক্ষার্থীদের জন্য রসায়ন শিক্ষা প্ল্যাটফর্ম</p>
+        <p>ক্লাস ৬-১২ পদার্থবিদ্যা ও রসায়ন শিক্ষার জন্য</p>
+    </div>
+
+    <script>
+        // Element data for periodic table
+        const elements = [
+            { symbol: "H", name: "হাইড্রোজেন", number: 1, mass: 1.008, category: "nonmetal" },
+            { symbol: "He", name: "হিলিয়াম", number: 2, mass: 4.0026, category: "noble" },
+            { symbol: "Li", name: "লিথিয়াম", number: 3, mass: 6.94, category: "alkali" },
+            { symbol: "Be", name: "বেরিলিয়াম", number: 4, mass: 9.0122, category: "alkaline" },
+            { symbol: "B", name: "বোরন", number: 5, mass: 10.81, category: "metalloid" },
+            { symbol: "C", name: "কার্বন", number: 6, mass: 12.011, category: "nonmetal" },
+            { symbol: "N", name: "নাইট্রোজেন", number: 7, mass: 14.007, category: "nonmetal" },
+            { symbol: "O", name: "অক্সিজেন", number: 8, mass: 15.999, category: "nonmetal" },
+            { symbol: "F", name: "ফ্লোরিন", number: 9, mass: 18.998, category: "halogen" },
+            { symbol: "Ne", name: "নিয়ন", number: 10, mass: 20.180, category: "noble" },
+            { symbol: "Na", name: "সোডিয়াম", number: 11, mass: 22.990, category: "alkali" },
+            { symbol: "Mg", name: "ম্যাগনেসিয়াম", number: 12, mass: 24.305, category: "alkaline" },
+            { symbol: "Al", name: "অ্যালুমিনিয়াম", number: 13, mass: 26.982, category: "metal" },
+            { symbol: "Si", name: "সিলিকন", number: 14, mass: 28.085, category: "metalloid" },
+            { symbol: "P", name: "ফসফরাস", number: 15, mass: 30.974, category: "nonmetal" },
+            { symbol: "S", name: "সালফার", number: 16, mass: 32.06, category: "nonmetal" },
+            { symbol: "Cl", name: "ক্লোরিন", number: 17, mass: 35.45, category: "halogen" },
+            { symbol: "K", name: "পটাশিয়াম", number: 19, mass: 39.098, category: "alkali" },
+            { symbol: "Ca", name: "ক্যালসিয়াম", number: 20, mass: 40.078, category: "alkaline" },
+            { symbol: "Fe", name: "লোহা", number: 26, mass: 55.845, category: "transition" },
+            { symbol: "Cu", name: "তামা", number: 29, mass: 63.546, category: "transition" },
+            { symbol: "Zn", name: "দস্তা", number: 30, mass: 65.38, category: "transition" },
+            { symbol: "Ag", name: "রূপা", number: 47, mass: 107.87, category: "transition" },
+            { symbol: "Sn", name: "টিন", number: 50, mass: 118.71, category: "metal" },
+            { symbol: "I", name: "আয়োডিন", number: 53, mass: 126.90, category: "halogen" },
+            { symbol: "Au", name: "স্বর্ণ", number: 79, mass: 196.97, category: "transition" },
+            { symbol: "Hg", name: "পারদ", number: 80, mass: 200.59, category: "transition" },
+            { symbol: "Pb", name: "সীসা", number: 82, mass: 207.2, category: "metal" }
+        ];
+
+        // Category colors
+        const categoryColors = {
+            alkali: "#FF6B6B",
+            alkaline: "#FFC107",
+            transition: "#4CAF50",
+            metal: "#9C27B0",
+            metalloid: "#2196F3",
+            nonmetal: "#00BCD4",
+            halogen: "#8BC34A",
+            noble: "#FF9800"
+        };
+
+        // Initialize Periodic Table
+        function initPeriodicTable() {
+            const table = document.getElementById('periodic-table');
+            table.innerHTML = '';
+            
+            elements.forEach(element => {
+                const el = document.createElement('div');
+                el.className = `element ${element.category}`;
+                el.innerHTML = `
+                    <div class="number">${element.number}</div>
+                    <div class="symbol">${element.symbol}</div>
+                    <div class="name">${element.name}</div>
+                `;
+                
+                // Set background color based on category
+                el.style.background = categoryColors[element.category];
+                el.style.color = element.category === 'alkali' ? 'white' : '#333';
+                
+                // Add hover effect
+                el.addEventListener('mouseenter', () => {
+                    el.style.boxShadow = `0 0 15px ${categoryColors[element.category]}`;
+                });
+                
+                el.addEventListener('mouseleave', () => {
+                    el.style.boxShadow = '0 2px 5px rgba(0, 0, 0, 0.2)';
+                });
+                
+                // Add click event for details
+                el.addEventListener('click', () => {
+                    alert(`${element.name} (${element.symbol})\nপারমাণবিক সংখ্যা: ${element.number}\nপারমাণবিক ভর: ${element.mass}`);
+                });
+                
+                table.appendChild(el);
+            });
+        }
+
+        // Atom Builder Functions
+        function updateAtom() {
+            const protons = parseInt(document.getElementById('proton-slider').value);
+            const neutrons = parseInt(document.getElementById('neutron-slider').value);
+            const electrons = parseInt(document.getElementById('electron-slider').value);
+            
+            // Update display values
+            document.getElementById('proton-value').textContent = protons;
+            document.getElementById('neutron-value').textContent = neutrons;
+            document.getElementById('electron-value').textContent = electrons;
+            
+            // Update nucleus
+            const nucleus = document.getElementById('nucleus');
+            nucleus.textContent = `${protons}p ${neutrons}n`;
+            
+            // Remove existing orbits and electrons
+            const orbits = document.querySelectorAll('.orbit');
+            orbits.forEach(orbit => orbit.remove());
+            
+            const existingElectrons = document.querySelectorAll('.electron');
+            existingElectrons.forEach(electron => electron.remove());
+            
+            // Create orbits and electrons
+            const atomCanvas = document.getElementById('atom-canvas');
+            
+            // Calculate orbits needed
+            const orbitCount = Math.ceil(electrons / 8);
+            
+            for (let i = 0; i < orbitCount; i++) {
+                const orbit = document.createElement('div');
+                orbit.className = 'orbit';
+                orbit.style.width = `${150 + i * 70}px`;
+                orbit.style.height = `${150 + i * 70}px`;
+                atomCanvas.appendChild(orbit);
+                
+                // Calculate electrons for this orbit (max 8 per orbit)
+                const electronsInOrbit = Math.min(8, electrons - i * 8);
+                
+                for (let j = 0; j < electronsInOrbit; j++) {
+                    const electron = document.createElement('div');
+                    electron.className = 'electron';
+                    
+                    // Position electron on orbit
+                    const angle = (j / electronsInOrbit) * Math.PI * 2;
+                    const radius = 75 + i * 35;
+                    const centerX = 150;
+                    const centerY = 150;
+                    
+                    electron.style.left = `${centerX + Math.cos(angle) * radius}px`;
+                    electron.style.top = `${centerY + Math.sin(angle) * radius}px`;
+                    
+                    atomCanvas.appendChild(electron);
+                }
+            }
+            
+            // Update atom info
+            document.getElementById('atomic-number').textContent = protons;
+            document.getElementById('mass-number').textContent = protons + neutrons;
+            
+            // Set atom name based on protons
+            const atomNames = {
+                1: "হাইড্রোজেন",
+                2: "হিলিয়াম",
+                3: "লিথিয়াম",
+                4: "বেরিলিয়াম",
+                5: "বোরন",
+                6: "কার্বন",
+                7: "নাইট্রোজেন",
+                8: "অক্সিজেন",
+                9: "ফ্লোরিন",
+                10: "নিয়ন"
+            };
+            
+            document.getElementById('atom-name').textContent = atomNames[protons] || `মৌল #${protons}`;
+        }
+
+        // Quiz Functions
+        function initQuiz() {
+            const options = document.querySelectorAll('.option');
+            
+            options.forEach(option => {
+                option.addEventListener('click', () => {
+                    // Remove selected class from all options
+                    options.forEach(opt => opt.classList.remove('selected'));
+                    
+                    // Add selected class to clicked option
+                    option.classList.add('selected');
+                    
+                    // Check answer
+                    if (option.dataset.option === 'C') {
+                        option.classList.add('correct');
+                    } else {
+                        option.classList.add('incorrect');
+                        // Also show correct answer
+                        document.querySelector('.option[data-option="C"]').classList.add('correct');
+                    }
+                });
+            });
+        }
+
+        // Initialize sliders
+        document.getElementById('proton-slider').addEventListener('input', updateAtom);
+        document.getElementById('neutron-slider').addEventListener('input', updateAtom);
+        document.getElementById('electron-slider').addEventListener('input', updateAtom);
+
+        // Initialize page
+        window.onload = function() {
+            initPeriodicTable();
+            updateAtom();
+            initQuiz();
+        };
+    </script>
+</body>
+</html>

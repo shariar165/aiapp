@@ -1,0 +1,981 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>রাষ্ট্রবিজ্ঞান শিক্ষা | বাংলাদেশ</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Bengali:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #2c3e50;
+            --secondary: #3498db;
+            --accent: #e74c3c;
+            --light: #ecf0f1;
+            --dark: #1a252f;
+            --card-bg: rgba(255, 255, 255, 0.9);
+            --text: #2c3e50;
+            --transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            --shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        [data-theme="dark"] {
+            --primary: #3498db;
+            --secondary: #2c3e50;
+            --accent: #e74c3c;
+            --light: #1a252f;
+            --dark: #ecf0f1;
+            --card-bg: rgba(26, 37, 47, 0.9);
+            --text: #ecf0f1;
+            --shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        body {
+            font-family: 'Noto Sans Bengali', sans-serif;
+            background: linear-gradient(135deg, #1a252f 0%, #2c3e50 100%);
+            color: var(--text);
+            min-height: 100vh;
+            position: relative;
+            overflow-x: hidden;
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="400" height="400" viewBox="0 0 200 200"><path d="M20,100 Q100,20 180,100 Q100,180 20,100 Z" fill="none" stroke="rgba(52,152,219,0.1)" stroke-width="2"/><circle cx="100" cy="100" r="40" fill="none" stroke="rgba(52,152,219,0.1)" stroke-width="1"/></svg>');
+            background-size: 300px;
+            background-attachment: fixed;
+            transition: var(--transition);
+        }
+
+        body::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(26, 37, 47, 0.9);
+            z-index: -1;
+            transition: var(--transition);
+        }
+
+        [data-theme="dark"] body::before {
+            background: rgba(26, 37, 47, 0.95);
+        }
+
+        /* Header & Navigation */
+        header {
+            background: var(--light);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+            padding: 1rem 2rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            transition: var(--transition);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .logo-icon {
+            width: 45px;
+            height: 45px;
+            background: linear-gradient(135deg, var(--accent), var(--primary));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.4rem;
+            box-shadow: var(--shadow);
+            animation: pulse 3s infinite;
+        }
+
+        .logo-text {
+            font-weight: 700;
+            font-size: 1.4rem;
+            background: linear-gradient(135deg, var(--accent), var(--primary));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 1.5rem;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: var(--text);
+            text-decoration: none;
+            font-weight: 600;
+            position: relative;
+            transition: var(--transition);
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 3px;
+            background: var(--accent);
+            transition: var(--transition);
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .nav-links a:hover {
+            color: var(--accent);
+        }
+
+        .theme-toggle {
+            background: var(--primary);
+            color: white;
+            border: none;
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            transition: var(--transition);
+            box-shadow: var(--shadow);
+        }
+
+        .theme-toggle:hover {
+            transform: rotate(30deg) scale(1.1);
+            background: var(--accent);
+        }
+
+        /* Hero Section */
+        .hero {
+            max-width: 1200px;
+            margin: 4rem auto;
+            padding: 0 2rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            gap: 3rem;
+            position: relative;
+        }
+
+        .hero-content {
+            max-width: 800px;
+            z-index: 2;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1.5rem;
+            line-height: 1.2;
+            background: linear-gradient(135deg, var(--accent), var(--primary));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            animation: fadeInUp 1s ease-out;
+        }
+
+        .hero p {
+            font-size: 1.4rem;
+            margin-bottom: 2rem;
+            color: var(--light);
+            animation: fadeInUp 1s ease-out 0.2s forwards;
+            opacity: 0;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--accent), var(--primary));
+            color: white;
+            padding: 1rem 2.5rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 1.2rem;
+            transition: var(--transition);
+            box-shadow: var(--shadow);
+            animation: fadeInUp 1s ease-out 0.4s forwards;
+            opacity: 0;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Animated Capitol */
+        .capitol-container {
+            position: relative;
+            width: 300px;
+            height: 200px;
+            margin: 2rem auto;
+        }
+
+        .capitol-animation {
+            width: 100%;
+            height: 100%;
+            position: relative;
+        }
+
+        .capitol-svg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .flag {
+            position: absolute;
+            width: 20px;
+            height: 30px;
+            background: var(--accent);
+            border-radius: 2px;
+            animation: wave 3s infinite;
+            transform-origin: bottom;
+        }
+
+        /* Features Section */
+        .features {
+            max-width: 1200px;
+            margin: 5rem auto;
+            padding: 0 2rem;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .section-title h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            position: relative;
+            display: inline-block;
+        }
+
+        .section-title h2::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 4px;
+            background: var(--accent);
+            border-radius: 2px;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .feature-card {
+            background: var(--card-bg);
+            border-radius: 20px;
+            padding: 2rem;
+            text-align: center;
+            transition: var(--transition);
+            box-shadow: var(--shadow);
+            backdrop-filter: blur(5px);
+            animation: fadeInUp 0.8s ease-out;
+            animation-fill-mode: both;
+            border: 1px solid rgba(231, 76, 60, 0.1);
+        }
+
+        .feature-card:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+
+        .feature-card:nth-child(3) {
+            animation-delay: 0.4s;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-15px) rotate(1deg);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+            border-color: var(--accent);
+        }
+
+        .feature-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, var(--accent), var(--primary));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.5rem;
+            color: white;
+            font-size: 2rem;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+        }
+
+        .feature-card:hover .feature-icon {
+            transform: scale(1.1);
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+        }
+
+        .feature-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--text);
+        }
+
+        .feature-card p {
+            color: var(--text);
+            line-height: 1.6;
+        }
+
+        /* Topics Section */
+        .topics {
+            max-width: 1200px;
+            margin: 5rem auto;
+            padding: 0 2rem;
+        }
+
+        .topics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .topic-card {
+            background: var(--card-bg);
+            border-radius: 15px;
+            padding: 1.5rem;
+            transition: var(--transition);
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            box-shadow: var(--shadow);
+            backdrop-filter: blur(5px);
+            animation: fadeIn 0.8s ease-out;
+            animation-fill-mode: both;
+            border: 1px solid rgba(231, 76, 60, 0.1);
+        }
+
+        .topic-card:nth-child(2) {
+            animation-delay: 0.1s;
+        }
+
+        .topic-card:nth-child(3) {
+            animation-delay: 0.2s;
+        }
+
+        .topic-card:nth-child(4) {
+            animation-delay: 0.3s;
+        }
+
+        .topic-card:nth-child(5) {
+            animation-delay: 0.4s;
+        }
+
+        .topic-card:nth-child(6) {
+            animation-delay: 0.5s;
+        }
+
+        .topic-card:hover {
+            transform: translateY(-10px) rotate(-1deg);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+            border-color: var(--accent);
+        }
+
+        .topic-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, var(--accent), var(--primary));
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            transition: var(--transition);
+        }
+
+        .topic-card:hover .topic-icon {
+            transform: rotate(10deg);
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+        }
+
+        .topic-content h3 {
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+            color: var(--text);
+        }
+
+        .topic-content p {
+            font-size: 1rem;
+            color: var(--text);
+            opacity: 0.9;
+        }
+
+        /* Timeline Section */
+        .timeline {
+            max-width: 1200px;
+            margin: 5rem auto;
+            padding: 0 2rem;
+        }
+
+        .timeline-container {
+            position: relative;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .timeline-line {
+            position: absolute;
+            left: 50%;
+            top: 0;
+            bottom: 0;
+            width: 4px;
+            background: var(--accent);
+            transform: translateX(-50%);
+            z-index: 1;
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: 4rem;
+            width: 45%;
+            padding: 1.5rem;
+            background: var(--card-bg);
+            border-radius: 10px;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            z-index: 2;
+        }
+
+        .timeline-item:nth-child(odd) {
+            left: 0;
+        }
+
+        .timeline-item:nth-child(even) {
+            left: 55%;
+        }
+
+        .timeline-item:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+        }
+
+        .timeline-item h3 {
+            color: var(--accent);
+            margin-bottom: 0.5rem;
+        }
+
+        .timeline-item p {
+            color: var(--text);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--dark);
+            color: var(--light);
+            padding: 3rem 2rem;
+            margin-top: 5rem;
+            text-align: center;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .footer-logo {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 1.5rem;
+        }
+
+        .footer-logo-icon {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, var(--accent), var(--primary));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.2rem;
+        }
+
+        .footer-logo-text {
+            font-weight: 700;
+            font-size: 1.5rem;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin: 2rem 0;
+            flex-wrap: wrap;
+        }
+
+        .footer-links a {
+            color: var(--secondary);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .footer-links a:hover {
+            color: var(--accent);
+        }
+
+        .social-icons {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .social-icon {
+            width: 45px;
+            height: 45px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--secondary);
+            font-size: 1.2rem;
+            transition: var(--transition);
+        }
+
+        .social-icon:hover {
+            background: var(--accent);
+            color: white;
+            transform: translateY(-5px);
+        }
+
+        .copyright {
+            margin-top: 2rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: var(--secondary);
+        }
+
+        /* Animations */
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0) rotate(0deg);
+            }
+            25% {
+                transform: translateY(-15px) rotate(2deg);
+            }
+            50% {
+                transform: translateY(0px) rotate(-2deg);
+            }
+            75% {
+                transform: translateY(-10px) rotate(3deg);
+            }
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+                opacity: 1;
+            }
+            50% {
+                transform: scale(1.1);
+                opacity: 0.7;
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes wave {
+            0%, 100% {
+                transform: rotate(0deg);
+            }
+            50% {
+                transform: rotate(5deg);
+            }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero p {
+                font-size: 1.2rem;
+            }
+
+            .timeline-item {
+                width: 100%;
+                left: 0 !important;
+                margin-bottom: 2rem;
+            }
+
+            .timeline-line {
+                left: 20px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .section-title h2 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header with Navigation -->
+    <header>
+        <div class="nav-container">
+            <div class="logo">
+                <div class="logo-icon">
+                    <i class="fas fa-landmark"></i>
+                </div>
+                <div class="logo-text">রাষ্ট্রবিজ্ঞান শিক্ষা</div>
+            </div>
+            <nav class="nav-links">
+                <a href="#">হোম</a>
+                <a href="#">বিষয়সমূহ</a>
+                <a href="#">শিখন উপকরণ</a>
+                <a href="#">পরীক্ষা</a>
+                <a href="#">শিক্ষক</a>
+            </nav>
+            <button class="theme-toggle" id="themeToggle">
+                <i class="fas fa-moon"></i>
+            </button>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>রাষ্ট্রবিজ্ঞানের জগতে স্বাগতম</h1>
+            <p>৬ষ্ঠ থেকে ১২শ শ্রেণীর বাংলাদেশী শিক্ষার্থীদের জন্য রাষ্ট্রবিজ্ঞানের সহজবোধ্য পাঠ</p>
+            <a href="#" class="cta-button">
+                <i class="fas fa-book-open"></i> শেখা শুরু করুন
+            </a>
+        </div>
+        
+        <div class="capitol-container">
+            <div class="capitol-animation">
+                <svg class="capitol-svg" viewBox="0 0 200 120">
+                    <rect x="70" y="40" width="60" height="40" fill="var(--primary)" opacity="0.8"/>
+                    <polygon points="70,40 100,10 130,40" fill="var(--accent)" opacity="0.9"/>
+                    <rect x="80" y="50" width="10" height="30" fill="var(--light)" opacity="0.7"/>
+                    <rect x="110" y="50" width="10" height="30" fill="var(--light)" opacity="0.7"/>
+                </svg>
+                <div class="flag" style="top: 10px; left: 135px; animation-delay: 0s;"></div>
+                <div class="flag" style="top: 40px; left: 65px; animation-delay: 0.5s;"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features">
+        <div class="section-title">
+            <h2>আমাদের বিশেষ সুবিধাসমূহ</h2>
+            <p>রাষ্ট্রবিজ্ঞান শেখার জন্য অনন্য অভিজ্ঞতা</p>
+        </div>
+        
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-book"></i>
+                </div>
+                <h3>সহজ পাঠ্যক্রম</h3>
+                <p>ক্লাস অনুযায়ী রাষ্ট্রবিজ্ঞানের জটিল বিষয়গুলো সহজ বাংলায় ব্যাখ্যা করা হয়েছে</p>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-video"></i>
+                </div>
+                <h3>ইতিহাসের দৃশ্যায়ন</h3>
+                <p>বাংলাদেশের রাজনৈতিক ইতিহাসের গুরুত্বপূর্ণ ঘটনাবলীর অ্যানিমেটেড উপস্থাপনা</p>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-globe-asia"></i>
+                </div>
+                <h3>আন্তর্জাতিক সম্পর্ক</h3>
+                <p>বিশ্ব রাজনীতি ও বাংলাদেশের বৈদেশিক নীতির ইন্টারেক্টিভ বিশ্লেষণ</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Topics Section -->
+    <section class="topics">
+        <div class="section-title">
+            <h2>রাষ্ট্রবিজ্ঞানের গুরুত্বপূর্ণ বিষয়</h2>
+            <p>৬ষ্ঠ থেকে ১২শ শ্রেণীর জন্য প্রয়োজনীয় টপিকস</p>
+        </div>
+        
+        <div class="topics-grid">
+            <div class="topic-card">
+                <div class="topic-icon">
+                    <i class="fas fa-balance-scale"></i>
+                </div>
+                <div class="topic-content">
+                    <h3>রাষ্ট্রের সংজ্ঞা ও প্রকৃতি</h3>
+                    <p>রাষ্ট্রের উপাদান, কার্যাবলী এবং বৈশিষ্ট্য</p>
+                </div>
+            </div>
+            
+            <div class="topic-card">
+                <div class="topic-icon">
+                    <i class="fas fa-vote-yea"></i>
+                </div>
+                <div class="topic-content">
+                    <h3>গণতন্ত্র ও নির্বাচন</h3>
+                    <p>গণতান্ত্রিক ব্যবস্থা ও নির্বাচনী প্রক্রিয়া</p>
+                </div>
+            </div>
+            
+            <div class="topic-card">
+                <div class="topic-icon">
+                    <i class="fas fa-book"></i>
+                </div>
+                <div class="topic-content">
+                    <h3>বাংলাদেশের সংবিধান</h3>
+                    <p>সংবিধানের ইতিহাস, বৈশিষ্ট্য ও গুরুত্বপূর্ণ অনুচ্ছেদ</p>
+                </div>
+            </div>
+            
+            <div class="topic-card">
+                <div class="topic-icon">
+                    <i class="fas fa-landmark"></i>
+                </div>
+                <div class="topic-content">
+                    <h3>সরকারের অঙ্গসমূহ</h3>
+                    <p>আইনসভা, নির্বাহী ও বিচারবিভাগের কার্যাবলী</p>
+                </div>
+            </div>
+            
+            <div class="topic-card">
+                <div class="topic-icon">
+                    <i class="fas fa-handshake"></i>
+                </div>
+                <div class="topic-content">
+                    <h3>আন্তর্জাতিক সংস্থা</h3>
+                    <p>জাতিসংঘ, সার্ক ও অন্যান্য আন্তর্জাতিক সংস্থা</p>
+                </div>
+            </div>
+            
+            <div class="topic-card">
+                <div class="topic-icon">
+                    <i class="fas fa-history"></i>
+                </div>
+                <div class="topic-content">
+                    <h3>বাংলাদেশের রাজনৈতিক ইতিহাস</h3>
+                    <p>পাকিস্তান আমল থেকে বর্তমান পর্যন্ত রাজনৈতিক ঘটনাপ্রবাহ</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Timeline Section -->
+    <section class="timeline">
+        <div class="section-title">
+            <h2>বাংলাদেশের রাজনৈতিক সময়রেখা</h2>
+            <p>গুরুত্বপূর্ণ ঐতিহাসিক ঘটনাবলী</p>
+        </div>
+        
+        <div class="timeline-container">
+            <div class="timeline-line"></div>
+            
+            <div class="timeline-item">
+                <h3>১৯৪৭: দেশ বিভাগ</h3>
+                <p>ব্রিটিশ ভারত বিভক্ত হয়ে পাকিস্তান ও ভারতের জন্ম</p>
+            </div>
+            
+            <div class="timeline-item">
+                <h3>১৯৫২: ভাষা আন্দোলন</h3>
+                <p>বাংলা ভাষার মর্যাদার জন্য আন্দোলন</p>
+            </div>
+            
+            <div class="timeline-item">
+                <h3>১৯৭১: মুক্তিযুদ্ধ</h3>
+                <p>পাকিস্তানের বিরুদ্ধে স্বাধীনতা যুদ্ধ</p>
+            </div>
+            
+            <div class="timeline-item">
+                <h3>১৯৭২: সংবিধান প্রণয়ন</h3>
+                <p>বাংলাদেশের প্রথম সংবিধান গৃহীত</p>
+            </div>
+            
+            <div class="timeline-item">
+                <h3>১৯৯১: সংসদীয় গণতন্ত্র</h3>
+                <p>সংসদীয় পদ্ধতির সরকার পুনঃপ্রতিষ্ঠা</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-logo">
+                <div class="footer-logo-icon">
+                    <i class="fas fa-landmark"></i>
+                </div>
+                <div class="footer-logo-text">রাষ্ট্রবিজ্ঞান শিক্ষা</div>
+            </div>
+            
+            <p>বাংলাদেশের শিক্ষার্থীদের জন্য রাষ্ট্রবিজ্ঞান শেখার আদর্শ প্ল্যাটফর্ম</p>
+            
+            <div class="footer-links">
+                <a href="#">হোম</a>
+                <a href="#">বিষয়সমূহ</a>
+                <a href="#">শিখন উপকরণ</a>
+                <a href="#">পরীক্ষা</a>
+                <a href="#">যোগাযোগ</a>
+            </div>
+            
+            <div class="social-icons">
+                <a href="#" class="social-icon">
+                    <i class="fab fa-facebook-f"></i>
+                </a>
+                <a href="#" class="social-icon">
+                    <i class="fab fa-youtube"></i>
+                </a>
+                <a href="#" class="social-icon">
+                    <i class="fab fa-instagram"></i>
+                </a>
+                <a href="#" class="social-icon">
+                    <i class="fab fa-whatsapp"></i>
+                </a>
+            </div>
+            
+            <div class="copyright">
+                &copy; ২০২৫ রাষ্ট্রবিজ্ঞান শিক্ষা | বাংলাদেশ
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Theme toggle functionality
+        const themeToggle = document.getElementById('themeToggle');
+        const body = document.body;
+        const icon = themeToggle.querySelector('i');
+        
+        // Check for saved theme preference
+        const savedTheme = localStorage.getItem('theme');
+        if (savedTheme) {
+            body.setAttribute('data-theme', savedTheme);
+            updateThemeIcon();
+        }
+        
+        // Toggle theme on button click
+        themeToggle.addEventListener('click', () => {
+            if (body.getAttribute('data-theme') === 'dark') {
+                body.removeAttribute('data-theme');
+                localStorage.setItem('theme', 'light');
+            } else {
+                body.setAttribute('data-theme', 'dark');
+                localStorage.setItem('theme', 'dark');
+            }
+            updateThemeIcon();
+        });
+        
+        // Update theme icon based on current theme
+        function updateThemeIcon() {
+            if (body.getAttribute('data-theme') === 'dark') {
+                icon.className = 'fas fa-sun';
+            } else {
+                icon.className = 'fas fa-moon';
+            }
+        }
+        
+        // Add scroll animations
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.animationPlayState = 'running';
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.1 });
+        
+        // Observe all animated elements
+        document.querySelectorAll('.feature-card, .topic-card, .timeline-item').forEach(card => {
+            card.style.animationPlayState = 'paused';
+            observer.observe(card);
+        });
+        
+        // Create waving flags
+        const capitolContainer = document.querySelector('.capitol-container');
+        for (let i = 0; i < 5; i++) {
+            const flag = document.createElement('div');
+            flag.className = 'flag';
+            
+            // Random position
+            const top = 10 + Math.random() * 70;
+            const left = 60 + Math.random() * 80;
+            
+            // Random animation delay
+            const delay = Math.random() * 2;
+            
+            flag.style.top = `${top}px`;
+            flag.style.left = `${left}px`;
+            flag.style.animationDelay = `${delay}s`;
+            flag.style.animation = `wave ${3 + Math.random() * 2}s infinite`;
+            
+            capitolContainer.querySelector('.capitol-animation').appendChild(flag);
+        }
+    </script>
+</body>
+</html>

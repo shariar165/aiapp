@@ -1,0 +1,1328 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>হিসাববিজ্ঞান গাইড - শিক্ষা গাইড বিডি</title>
+  <!-- Bangla font support -->
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Bengali:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <!-- Font Awesome for icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    :root {
+      --primary-color: #3498db;
+      --secondary-color: #2ecc71;
+      --accent-color: #f1c40f;
+      --dark-color: #2c3e50;
+      --light-color: #ecf0f1;
+      --text-color: #2c3e50;
+      --bg-color: #f8f9fa;
+      --card-bg: #ffffff;
+      --border-radius: 12px;
+      --box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+      --transition: all 0.3s ease;
+      --ledger-color: #16a085;
+      --calculator-color: #e74c3c;
+    }
+
+    [data-theme="dark"] {
+      --primary-color: #3498db;
+      --secondary-color: #2ecc71;
+      --accent-color: #f1c40f;
+      --dark-color: #ecf0f1;
+      --light-color: #1a2530;
+      --text-color: #ecf0f1;
+      --bg-color: #121a24;
+      --card-bg: #1e2a3a;
+      --box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Noto Sans Bengali', sans-serif;
+      background-color: var(--bg-color);
+      color: var(--text-color);
+      line-height: 1.6;
+      overflow-x: hidden;
+      position: relative;
+      transition: var(--transition);
+    }
+
+    body::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-image: 
+        linear-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+      background-size: 40px 40px;
+      opacity: 0.1;
+      z-index: -1;
+    }
+
+    [data-theme="dark"] body::before {
+      background-image: 
+        linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    /* Navigation */
+    nav {
+      background: var(--card-bg);
+      backdrop-filter: blur(10px);
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      border-bottom: 1px solid rgba(52, 152, 219, 0.1);
+    }
+
+    .nav-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      height: 70px;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 1.2rem;
+      font-weight: bold;
+      background: linear-gradient(to right, var(--primary-color), var(--ledger-color));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .logo-icon {
+      width: 36px;
+      height: 36px;
+      background: linear-gradient(to right, var(--primary-color), var(--ledger-color));
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 20px;
+      align-items: center;
+    }
+
+    .nav-links a {
+      color: var(--text-color);
+      text-decoration: none;
+      font-weight: 500;
+      transition: var(--transition);
+      position: relative;
+      padding: 5px 0;
+    }
+
+    .nav-links a:hover {
+      color: var(--primary-color);
+    }
+
+    .nav-links a.active {
+      color: var(--ledger-color);
+      font-weight: 600;
+    }
+
+    .nav-links a.active::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 3px;
+      background: var(--ledger-color);
+      border-radius: 3px;
+    }
+
+    .btn {
+      padding: 8px 16px;
+      border-radius: 6px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: var(--transition);
+      border: none;
+      font-family: 'Noto Sans Bengali', sans-serif;
+    }
+
+    .btn-outline {
+      background: transparent;
+      border: 1px solid var(--ledger-color);
+      color: var(--ledger-color);
+    }
+
+    .btn-outline:hover {
+      background: rgba(22, 160, 133, 0.1);
+    }
+
+    .btn-primary {
+      background: linear-gradient(to right, var(--ledger-color), var(--primary-color));
+      color: white;
+    }
+
+    .btn-primary:hover {
+      opacity: 0.9;
+    }
+
+    /* Hero Section */
+    .accounting-hero {
+      background: linear-gradient(135deg, rgba(52, 152, 219, 0.1) 0%, rgba(22, 160, 133, 0.1) 100%);
+      padding: 100px 0 60px;
+      position: relative;
+      overflow: hidden;
+      text-align: center;
+      border-bottom: 1px solid rgba(22, 160, 133, 0.1);
+    }
+
+    .hero-content {
+      max-width: 800px;
+      margin: 0 auto;
+      position: relative;
+      z-index: 2;
+    }
+
+    .hero-content h1 {
+      font-size: 2.8rem;
+      font-weight: 800;
+      margin-bottom: 20px;
+      color: var(--text-color);
+      line-height: 1.3;
+    }
+
+    .hero-content h1 span {
+      background: linear-gradient(to right, var(--ledger-color), var(--primary-color));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .hero-content p {
+      font-size: 1.2rem;
+      color: var(--text-color);
+      max-width: 700px;
+      margin: 0 auto 40px;
+      line-height: 1.6;
+      opacity: 0.9;
+    }
+
+    .hero-stats {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 30px;
+      margin-top: 40px;
+    }
+
+    .stat-item {
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(10px);
+      border-radius: var(--border-radius);
+      padding: 20px;
+      width: 180px;
+      text-align: center;
+      box-shadow: var(--box-shadow);
+      border: 1px solid rgba(22, 160, 133, 0.1);
+      transition: transform 0.5s ease, box-shadow 0.5s ease;
+    }
+
+    .stat-item:hover {
+      transform: translateY(-10px) scale(1.05);
+      box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
+    }
+
+    .stat-value {
+      font-size: 2rem;
+      font-weight: 700;
+      margin-bottom: 8px;
+      color: var(--ledger-color);
+    }
+
+    .stat-label {
+      color: var(--text-color);
+      font-size: 1rem;
+    }
+
+    /* Accounting Concepts */
+    .concepts-section {
+      padding: 80px 0;
+    }
+
+    .section-title {
+      text-align: center;
+      margin-bottom: 50px;
+    }
+
+    .section-title h2 {
+      font-size: 2.2rem;
+      font-weight: 700;
+      margin-bottom: 16px;
+      color: var(--text-color);
+      position: relative;
+      display: inline-block;
+    }
+
+    .section-title h2::after {
+      content: '';
+      position: absolute;
+      bottom: -10px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 80px;
+      height: 4px;
+      background: linear-gradient(to right, var(--ledger-color), var(--primary-color));
+      border-radius: 2px;
+    }
+
+    .section-title p {
+      color: var(--text-color);
+      max-width: 600px;
+      margin: 20px auto 0;
+      font-size: 1.1rem;
+      opacity: 0.8;
+    }
+
+    .concepts-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 30px;
+    }
+
+    .concept-card {
+      background: var(--card-bg);
+      border-radius: var(--border-radius);
+      overflow: hidden;
+      box-shadow: var(--box-shadow);
+      transition: var(--transition);
+      border: 1px solid rgba(22, 160, 133, 0.1);
+      position: relative;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .concept-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
+      border-color: var(--ledger-color);
+    }
+
+    .concept-icon {
+      height: 150px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(135deg, var(--ledger-color), var(--primary-color));
+      color: white;
+      font-size: 3rem;
+      position: relative;
+    }
+
+    .concept-icon::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><rect width="100" height="100" fill="none" stroke="white" stroke-width="0.5" opacity="0.2"/></svg>');
+    }
+
+    .concept-content {
+      padding: 25px;
+      flex-grow: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .concept-content h3 {
+      font-size: 1.4rem;
+      margin-bottom: 12px;
+      color: var(--text-color);
+    }
+
+    .concept-content p {
+      color: var(--text-color);
+      opacity: 0.8;
+      margin-bottom: 20px;
+      flex-grow: 1;
+    }
+
+    .concept-classes {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: auto;
+    }
+
+    .class-tag {
+      background: rgba(22, 160, 133, 0.1);
+      color: var(--ledger-color);
+      padding: 5px 12px;
+      border-radius: 20px;
+      font-size: 0.85rem;
+      font-weight: 500;
+      transition: transform 0.3s ease;
+    }
+
+    .concept-card:hover .class-tag {
+      transform: translateY(-3px);
+    }
+
+    /* Accounting Process */
+    .process-section {
+      padding: 80px 0;
+      background: linear-gradient(135deg, rgba(52, 152, 219, 0.05) 0%, rgba(22, 160, 133, 0.05) 100%);
+    }
+
+    .process-steps {
+      max-width: 800px;
+      margin: 0 auto;
+      position: relative;
+    }
+
+    .process-steps::before {
+      content: '';
+      position: absolute;
+      top: 40px;
+      left: 30px;
+      height: calc(100% - 80px);
+      width: 4px;
+      background: var(--ledger-color);
+      opacity: 0.2;
+      z-index: 1;
+    }
+
+    .step-item {
+      display: flex;
+      margin-bottom: 40px;
+      position: relative;
+      z-index: 2;
+    }
+
+    .step-number {
+      width: 60px;
+      height: 60px;
+      background: var(--ledger-color);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 1.5rem;
+      font-weight: 700;
+      flex-shrink: 0;
+      margin-right: 30px;
+      box-shadow: 0 4px 12px rgba(22, 160, 133, 0.3);
+      transition: transform 0.3s ease;
+    }
+
+    .step-item:hover .step-number {
+      transform: scale(1.1) rotate(5deg);
+    }
+
+    .step-content {
+      background: var(--card-bg);
+      border-radius: var(--border-radius);
+      padding: 25px;
+      box-shadow: var(--box-shadow);
+      border: 1px solid rgba(22, 160, 133, 0.1);
+      flex-grow: 1;
+      transition: transform 0.3s ease;
+    }
+
+    .step-item:hover .step-content {
+      transform: translateX(10px);
+    }
+
+    .step-content h3 {
+      font-size: 1.3rem;
+      margin-bottom: 12px;
+      color: var(--text-color);
+    }
+
+    .step-content p {
+      color: var(--text-color);
+      opacity: 0.8;
+      margin-bottom: 15px;
+    }
+
+    .step-example {
+      background: rgba(22, 160, 133, 0.05);
+      border-left: 3px solid var(--ledger-color);
+      padding: 15px;
+      border-radius: 0 8px 8px 0;
+      margin-top: 15px;
+      font-family: monospace;
+      font-size: 0.95rem;
+      transition: transform 0.3s ease;
+    }
+
+    .step-item:hover .step-example {
+      transform: translateX(5px);
+    }
+
+    /* Practice Section */
+    .practice-section {
+      padding: 80px 0;
+    }
+
+    .practice-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 30px;
+    }
+
+    .practice-card {
+      background: var(--card-bg);
+      border-radius: var(--border-radius);
+      overflow: hidden;
+      box-shadow: var(--box-shadow);
+      transition: var(--transition);
+      border: 1px solid rgba(22, 160, 133, 0.1);
+      position: relative;
+    }
+
+    .practice-card:hover {
+      box-shadow: 0 0 0 0 var(--primary-color, #3498db),
+                  0 0 22px 6px var(--ledger-color, #16a085);
+      border-color: var(--ledger-color);
+      z-index: 2;
+      transition: box-shadow 0.3s, border-color 0.3s;
+    }
+
+    .practice-header {
+      background: linear-gradient(135deg, var(--ledger-color), var(--primary-color));
+      padding: 20px;
+      color: white;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .practice-header::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: linear-gradient(45deg, transparent, rgba(255,255,255,0.2), transparent);
+      transform: rotate(45deg);
+      transition: all 0.5s ease;
+    }
+
+    .practice-card:hover .practice-header::before {
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+    }
+
+    .practice-content {
+      padding: 25px;
+    }
+
+    .practice-content h3 {
+      font-size: 1.3rem;
+      margin-bottom: 12px;
+      color: var(--text-color);
+    }
+
+    .practice-content p {
+      color: var(--text-color);
+      opacity: 0.8;
+      margin-bottom: 20px;
+    }
+
+    /* Footer */
+    footer {
+      background: linear-gradient(to right, #0a1a2a, #093028);
+      color: white;
+      padding: 60px 0 20px;
+    }
+
+    .footer-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 40px;
+      margin-bottom: 40px;
+    }
+
+    .footer-logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+
+    .footer-logo-icon {
+      width: 36px;
+      height: 36px;
+      background: linear-gradient(to right, var(--ledger-color), var(--primary-color));
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+    }
+
+    .footer-logo-text {
+      font-weight: bold;
+      font-size: 1.3rem;
+    }
+
+    .footer-about {
+      color: #aaa;
+      margin-bottom: 20px;
+      line-height: 1.6;
+    }
+
+    .footer-social {
+      display: flex;
+      gap: 12px;
+    }
+
+    .footer-social-icon {
+      width: 40px;
+      height: 40px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: background 0.3s, transform 0.3s;
+    }
+
+    .footer-social-icon:hover {
+      background: rgba(255, 255, 255, 0.2);
+      transform: translateY(-3px);
+    }
+
+    .footer-heading {
+      font-weight: 600;
+      margin-bottom: 20px;
+      font-size: 1.2rem;
+    }
+
+    .footer-links {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .footer-link {
+      color: #aaa;
+      text-decoration: none;
+      transition: color 0.3s, transform 0.3s;
+      display: inline-block;
+    }
+
+    .footer-link:hover {
+      color: white;
+      transform: translateX(5px);
+    }
+
+    .footer-bottom {
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      padding-top: 20px;
+      text-align: center;
+      color: #aaa;
+      font-size: 0.9rem;
+    }
+
+    /* Theme Toggle */
+    .theme-toggle {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: var(--ledger-color);
+      color: white;
+      border: none;
+      border-radius: 50%;
+      width: 50px;
+      height: 50px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+      z-index: 999;
+      transition: var(--transition);
+    }
+
+    .theme-toggle:hover {
+      transform: scale(1.1);
+      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.3);
+    }
+
+    /* Animation */
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px) scale(0.98);
+      }
+      80% {
+        opacity: 1;
+        transform: translateY(-6px) scale(1.02);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+    }
+
+    @keyframes float {
+      0% {
+        transform: translateY(0);
+      }
+      50% {
+        transform: translateY(-10px);
+      }
+      100% {
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes pulse {
+      0% {
+        transform: scale(1);
+        opacity: 1;
+      }
+      50% {
+        transform: scale(1.05);
+        opacity: 0.8;
+      }
+      100% {
+        transform: scale(1);
+        opacity: 1;
+      }
+    }
+
+    @keyframes glow {
+      0% {
+        box-shadow: 0 0 5px rgba(22, 160, 133, 0.3);
+      }
+      50% {
+        box-shadow: 0 0 20px rgba(22, 160, 133, 0.6);
+      }
+      100% {
+        box-shadow: 0 0 5px rgba(22, 160, 133, 0.3);
+      }
+    }
+
+    .animate-fadeInUp {
+      animation: fadeInUp 0.6s ease forwards;
+    }
+
+    .animate-float {
+      animation: float 4s ease-in-out infinite;
+    }
+
+    .animate-pulse {
+      animation: pulse 2s ease-in-out infinite;
+    }
+
+    .animate-glow {
+      animation: glow 3s ease-in-out infinite;
+    }
+
+    .delay-1 { animation-delay: 0.1s; }
+    .delay-2 { animation-delay: 0.2s; }
+    .delay-3 { animation-delay: 0.3s; }
+    .delay-4 { animation-delay: 0.4s; }
+    .delay-5 { animation-delay: 0.5s; }
+
+    /* Mobile Navigation */
+    .menu-toggle {
+      display: none;
+      background: transparent;
+      border: none;
+      color: var(--text-color);
+      font-size: 1.5rem;
+      cursor: pointer;
+    }
+
+    /* Responsive */
+    @media (max-width: 992px) {
+      .hero-content h1 {
+        font-size: 2.4rem;
+      }
+      
+      .concept-icon {
+        height: 120px;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .menu-toggle {
+        display: block;
+      }
+
+      .nav-links {
+        display: none;
+        position: absolute;
+        top: 70px;
+        left: 0;
+        right: 0;
+        background: var(--card-bg);
+        flex-direction: column;
+        padding: 20px;
+        box-shadow: 0 10px 10px rgba(0,0,0,0.1);
+      }
+
+      .nav-links.active {
+        display: flex;
+      }
+
+      .hero-content h1 {
+        font-size: 2rem;
+      }
+      
+      .concepts-grid,
+      .practice-grid {
+        grid-template-columns: 1fr;
+      }
+      
+      .process-steps::before {
+        left: 30px;
+      }
+      
+      .hero-stats {
+        flex-direction: column;
+        align-items: center;
+      }
+      
+      .stat-item {
+        width: 100%;
+        max-width: 300px;
+      }
+      
+      .step-item {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      
+      .step-number {
+        margin-bottom: 15px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .hero-content h1 {
+        font-size: 1.8rem;
+      }
+      
+      .hero-content p {
+        font-size: 1rem;
+      }
+      
+      .section-title h2 {
+        font-size: 1.8rem;
+      }
+      
+      .step-content {
+        padding: 15px;
+      }
+      
+      .concept-icon {
+        font-size: 2.5rem;
+      }
+    }
+
+    /* Floating animation for hero */
+    .hero-content h1 span {
+      display: inline-block;
+      animation: float 6s ease-in-out infinite;
+    }
+
+    /* Hero animation elements */
+    .hero-animation {
+      position: absolute;
+      z-index: 0;
+      opacity: 0.3;
+      pointer-events: none;
+    }
+
+    .hero-circle {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      border: 2px solid var(--ledger-color);
+      position: absolute;
+      animation: float 8s ease-in-out infinite;
+    }
+
+    .hero-triangle {
+      width: 0;
+      height: 0;
+      border-left: 50px solid transparent;
+      border-right: 50px solid transparent;
+      border-bottom: 86.6px solid var(--primary-color);
+      position: absolute;
+      animation: float 10s ease-in-out infinite reverse;
+      opacity: 0.2;
+    }
+
+    .hero-square {
+      width: 80px;
+      height: 80px;
+      border: 2px solid var(--secondary-color);
+      position: absolute;
+      animation: float 12s ease-in-out infinite;
+    }
+  </style>
+</head>
+<body>
+  <!-- Theme Toggle -->
+  <button class="theme-toggle animate-glow" id="themeToggle">
+    <i class="fas fa-moon"></i>
+  </button>
+
+  <!-- Navigation -->
+  <nav>
+    <div class="container">
+      <div class="nav-container">
+        <div class="logo">
+          <div class="logo-icon">
+            <i class="fas fa-calculator"></i>
+          </div>
+          <span>হিসাববিজ্ঞান গাইড</span>
+        </div>
+        <div class="nav-links" id="navLinks">
+          <a href="#">হোম</a>
+          <a href="#" class="active">হিসাববিজ্ঞান</a>
+          <a href="#">প্রশ্ন করুন</a>
+          <a href="#">সম্পর্কে</a>
+          <a href="#" class="btn btn-outline">লগইন</a>
+          <a href="#" class="btn btn-primary">নিবন্ধন</a>
+        </div>
+        <button class="menu-toggle" id="menuToggle">
+          <i class="fas fa-bars"></i>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="accounting-hero">
+    <div class="hero-animation">
+      <div class="hero-circle" style="top: 10%; left: 10%;"></div>
+      <div class="hero-triangle" style="top: 20%; right: 15%;"></div>
+      <div class="hero-square" style="bottom: 20%; left: 20%;"></div>
+      <div class="hero-circle" style="bottom: 30%; right: 10%; width: 60px; height: 60px;"></div>
+    </div>
+    <div class="container">
+      <div class="hero-content animate-fadeInUp delay-1">
+        <h1>৬ষ্ঠ থেকে ১২শ শ্রেণীর <span>হিসাববিজ্ঞান</span> শিখুন সহজে</h1>
+        <p>বাংলাদেশের শিক্ষার্থীদের জন্য হিসাববিজ্ঞানের সম্পূর্ণ গাইড। জাবেদা, খতিয়ান, চূড়ান্ত হিসাব থেকে শুরু করে সকল বিষয় সহজ বাংলায় ব্যাখ্যা</p>
+      </div>
+      
+      <div class="hero-stats">
+        <div class="stat-item animate-pulse delay-2">
+          <div class="stat-value">৬-১২</div>
+          <div class="stat-label">শ্রেণীসমূহ</div>
+        </div>
+        <div class="stat-item animate-pulse delay-3">
+          <div class="stat-value">৫০০+</div>
+          <div class="stat-label">সমাধান</div>
+        </div>
+        <div class="stat-item animate-pulse delay-4">
+          <div class="stat-value">৯৫%</div>
+          <div class="stat-label">সফলতা</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Concepts Section -->
+  <section class="concepts-section">
+    <div class="container">
+      <div class="section-title animate-fadeInUp delay-1">
+        <h2>হিসাববিজ্ঞান ধারণাসমূহ</h2>
+        <p>৬ষ্ঠ থেকে ১২শ শ্রেণীর হিসাববিজ্ঞান কারিকুলাম ভিত্তিক বিষয়সমূহ</p>
+      </div>
+      
+      <div class="concepts-grid">
+        <div class="concept-card animate-fadeInUp delay-1">
+          <div class="concept-icon">
+            <i class="fas fa-book"></i>
+          </div>
+          <div class="concept-content">
+            <h3>জাবেদা</h3>
+            <p>ব্যবসায়িক লেনদেন তারিখ অনুযায়ী ক্রমান্বয়ে লিপিবদ্ধ করার পদ্ধতি</p>
+            <div class="concept-classes">
+              <span class="class-tag">৯ম-১০ম</span>
+              <span class="class-tag">১১শ-১২শ</span>
+            </div>
+          </div>
+        </div>
+        
+        <div class="concept-card animate-fadeInUp delay-2">
+          <div class="concept-icon">
+            <i class="fas fa-file-invoice"></i>
+          </div>
+          <div class="concept-content">
+            <h3>খতিয়ান</h3>
+            <p>জাবেদার তথ্য বিষয়ভিত্তিকভাবে শ্রেণীবদ্ধ করে সংরক্ষণ</p>
+            <div class="concept-classes">
+              <span class="class-tag">৯ম-১০ম</span>
+              <span class="class-tag">১১শ-১২শ</span>
+            </div>
+          </div>
+        </div>
+        
+        <div class="concept-card animate-fadeInUp delay-3">
+          <div class="concept-icon">
+            <i class="fas fa-balance-scale"></i>
+          </div>
+          <div class="concept-content">
+            <h3>ত্রুটি নির্ণয়</h3>
+            <p>হিসাবের বইয়ে ত্রুটি সনাক্তকরণ ও সংশোধনের পদ্ধতি</p>
+            <div class="concept-classes">
+              <span class="class-tag">১১শ-১২শ</span>
+            </div>
+          </div>
+        </div>
+        
+        <div class="concept-card animate-fadeInUp delay-4">
+          <div class="concept-icon">
+            <i class="fas fa-chart-bar"></i>
+          </div>
+          <div class="concept-content">
+            <h3>চূড়ান্ত হিসাব</h3>
+            <p>লাভ-ক্ষতি নির্ণয় ও আর্থিক অবস্থা প্রদর্শনের জন্য হিসাব</p>
+            <div class="concept-classes">
+              <span class="class-tag">৯ম-১০ম</span>
+              <span class="class-tag">১১শ-১২শ</span>
+            </div>
+          </div>
+        </div>
+        
+        <div class="concept-card animate-fadeInUp delay-1">
+          <div class="concept-icon">
+            <i class="fas fa-building"></i>
+          </div>
+          <div class="concept-content">
+            <h3>ব্যাংক সমন্বয়</h3>
+            <p>নগদ বই ও ব্যাংক বিবরণীর সমন্বয় সাধন</p>
+            <div class="concept-classes">
+              <span class="class-tag">১১শ-১২শ</span>
+            </div>
+          </div>
+        </div>
+        
+        <div class="concept-card animate-fadeInUp delay-2">
+          <div class="concept-icon">
+            <i class="fas fa-coins"></i>
+          </div>
+          <div class="concept-content">
+            <h3>মূলধন ও আয়</h3>
+            <p>ব্যবসায়ের মূলধন নির্ণয় ও আয়-ব্যয়ের হিসাব</p>
+            <div class="concept-classes">
+              <span class="class-tag">৯ম-১০ম</span>
+              <span class="class-tag">১১শ-১২শ</span>
+            </div>
+          </div>
+        </div>
+        
+        <div class="concept-card animate-fadeInUp delay-3">
+          <div class="concept-icon">
+            <i class="fas fa-file-invoice-dollar"></i>
+          </div>
+          <div class="concept-content">
+            <h3>কোম্পানি হিসাব</h3>
+            <p>শেয়ার, ডিবেঞ্চার ও লভ্যাংশ সংক্রান্ত হিসাব</p>
+            <div class="concept-classes">
+              <span class="class-tag">১১শ-১২শ</span>
+            </div>
+          </div>
+        </div>
+        
+        <div class="concept-card animate-fadeInUp delay-4">
+          <div class="concept-icon">
+            <i class="fas fa-cash-register"></i>
+          </div>
+          <div class="concept-content">
+            <h3>নগদ প্রবাহ বিবরণী</h3>
+            <p>নির্দিষ্ট সময়ে নগদ প্রবাহের হিসাব ও বিশ্লেষণ</p>
+            <div class="concept-classes">
+              <span class="class-tag">১১শ-১২শ</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Accounting Process Section -->
+  <section class="process-section">
+    <div class="container">
+      <div class="section-title animate-fadeInUp">
+        <h2>হিসাববিজ্ঞান প্রক্রিয়া</h2>
+        <p>হিসাব সংক্রান্ত কাজের ধাপগুলো ধারাবাহিকভাবে শিখুন</p>
+      </div>
+      
+      <div class="process-steps">
+        <div class="step-item animate-fadeInUp delay-1">
+          <div class="step-number">১</div>
+          <div class="step-content">
+            <h3>লেনদেন শনাক্তকরণ</h3>
+            <p>ব্যবসায়িক কার্যক্রম থেকে আর্থিক লেনদেন শনাক্ত করা</p>
+            <div class="step-example">
+              ক্রয়, বিক্রয়, বেতন প্রদান, ঋণ গ্রহণ, ইত্যাদি
+            </div>
+          </div>
+        </div>
+        
+        <div class="step-item animate-fadeInUp delay-2">
+          <div class="step-number">২</div>
+          <div class="step-content">
+            <h3>জাবেদা প্রস্তুত</h3>
+            <p>লেনদেনসমূহ তারিখ অনুযায়ী জাবেদায় লিপিবদ্ধ করা</p>
+            <div class="step-example">
+              তারিখ | বিবরণ | ডেবিট | ক্রেডিট
+            </div>
+          </div>
+        </div>
+        
+        <div class="step-item animate-fadeInUp delay-3">
+          <div class="step-number">৩</div>
+          <div class="step-content">
+            <h3>খতিয়ান স্থানান্তর</h3>
+            <p>জাবেদার তথ্য সংশ্লিষ্ট খতিয়ানে স্থানান্তর করা</p>
+            <div class="step-example">
+              নগদান হিসাব, পাওনাদার হিসাব, প্রাপ্য হিসাব
+            </div>
+          </div>
+        </div>
+        
+        <div class="step-item animate-fadeInUp delay-4">
+          <div class="step-number">৪</div>
+          <div class="step-content">
+            <h3>পরীক্ষা সমন্বয়</h3>
+            <p>খতিয়ানের ডেবিট-ক্রেডিট সমান কিনা পরীক্ষা করা</p>
+            <div class="step-example">
+              মোট ডেবিট = মোট ক্রেডিট
+            </div>
+          </div>
+        </div>
+        
+        <div class="step-item animate-fadeInUp delay-5">
+          <div class="step-number">৫</div>
+          <div class="step-content">
+            <h3>চূড়ান্ত হিসাব প্রস্তুত</h3>
+            <p>লাভ-ক্ষতি নির্ণয় ও আর্থিক অবস্থার বিবরণী প্রস্তুত</p>
+            <div class="step-example">
+              লাভ-ক্ষতি হিসাব, উদ্বৃত্ত পত্র
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Practice Section -->
+  <section class="practice-section">
+    <div class="container">
+      <div class="section-title animate-fadeInUp delay-1">
+        <h2>অনুশীলন করুন</h2>
+        <p>জ্ঞান যাচাই করুন এবং দক্ষতা বৃদ্ধি করুন</p>
+      </div>
+      
+      <div class="practice-grid">
+        <div class="practice-card animate-fadeInUp delay-1">
+          <div class="practice-header">
+            <h3>নমুনা প্রশ্ন</h3>
+          </div>
+          <div class="practice-content">
+            <p>বিভিন্ন শ্রেণীর জন্য হিসাববিজ্ঞান বিষয়ের নমুনা প্রশ্ন ও সমাধান</p>
+            <a href="#" class="btn btn-primary">প্রশ্ন দেখুন</a>
+          </div>
+        </div>
+        
+        <div class="practice-card animate-fadeInUp delay-2">
+          <div class="practice-header">
+            <h3>ইন্টারেক্টিভ কুইজ</h3>
+          </div>
+          <div class="practice-content">
+            <p>হিসাববিজ্ঞান বিষয়ে আপনার জ্ঞান যাচাই করুন ইন্টারেক্টিভ কুইজের মাধ্যমে</p>
+            <a href="#" class="btn btn-primary">কুইজ শুরু করুন</a>
+          </div>
+        </div>
+        
+        <div class="practice-card animate-fadeInUp delay-3">
+          <div class="practice-header">
+            <h3>হিসাব সমাধান</h3>
+          </div>
+          <div class="practice-content">
+            <p>জটিল হিসাবের সমস্যা সমাধানের ধাপে ধাপে গাইড</p>
+            <a href="#" class="btn btn-primary">সমাধান দেখুন</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <div class="footer-container">
+        <div>
+          <div class="footer-logo">
+            <div class="footer-logo-icon">
+              <i class="fas fa-calculator"></i>
+            </div>
+            <span class="footer-logo-text">হিসাববিজ্ঞান গাইড</span>
+          </div>
+          <p class="footer-about">বাংলাদেশের ৬ষ্ঠ থেকে ১২শ শ্রেণীর শিক্ষার্থীদের জন্য হিসাববিজ্ঞানের সম্পূর্ণ গাইড</p>
+          <div class="footer-social">
+            <div class="footer-social-icon">
+              <i class="fab fa-facebook-f"></i>
+            </div>
+            <div class="footer-social-icon">
+              <i class="fab fa-youtube"></i>
+            </div>
+            <div class="footer-social-icon">
+              <i class="fab fa-instagram"></i>
+            </div>
+            <div class="footer-social-icon">
+              <i class="fab fa-linkedin-in"></i>
+            </div>
+          </div>
+        </div>
+        
+        <div>
+          <h4 class="footer-heading">গুরুত্বপূর্ণ লিংক</h4>
+          <div class="footer-links">
+            <a href="#" class="footer-link">হোম</a>
+            <a href="#" class="footer-link">হিসাববিজ্ঞান</a>
+            <a href="#" class="footer-link">নোটস ডাউনলোড</a>
+            <a href="#" class="footer-link">মডেল টেস্ট</a>
+          </div>
+        </div>
+        
+        <div>
+          <h4 class="footer-heading">শ্রেণীসমূহ</h4>
+          <div class="footer-links">
+            <a href="#" class="footer-link">৬ষ্ঠ-৮ম শ্রেণী</a>
+            <a href="#" class="footer-link">৯ম-১০ম শ্রেণী</a>
+            <a href="#" class="footer-link">১১শ-১২শ শ্রেণী</a>
+            <a href="#" class="footer-link">ভর্তি প্রস্তুতি</a>
+          </div>
+        </div>
+        
+        <div>
+          <h4 class="footer-heading">যোগাযোগ</h4>
+          <div class="footer-links">
+            <a href="#" class="footer-link">সহায়তা কেন্দ্র</a>
+            <a href="#" class="footer-link">ফিডব্যাক দিন</a>
+            <a href="#" class="footer-link">শিক্ষকদের জন্য</a>
+            <a href="#" class="footer-link">আমাদের সম্পর্কে</a>
+          </div>
+        </div>
+      </div>
+      
+      <div class="footer-bottom">
+        <p>© ২০২৫ হিসাববিজ্ঞান গাইড। বাংলাদেশ কারিকুলাম বোর্ড অনুমোদিত। সকল অধিকার সংরক্ষিত।</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Theme Toggle
+    const themeToggle = document.getElementById('themeToggle');
+    const body = document.body;
+    
+    // Check for saved theme preference
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme) {
+      body.setAttribute('data-theme', savedTheme);
+      updateToggleIcon(savedTheme);
+    }
+    
+    themeToggle.addEventListener('click', () => {
+      const currentTheme = body.getAttribute('data-theme') || 'light';
+      const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+      
+      body.setAttribute('data-theme', newTheme);
+      localStorage.setItem('theme', newTheme);
+      updateToggleIcon(newTheme);
+    });
+    
+    function updateToggleIcon(theme) {
+      const icon = themeToggle.querySelector('i');
+      if (theme === 'dark') {
+        icon.classList.remove('fa-moon');
+        icon.classList.add('fa-sun');
+      } else {
+        icon.classList.remove('fa-sun');
+        icon.classList.add('fa-moon');
+      }
+    }
+    
+    // Animation on scroll
+    function animateOnScroll() {
+      const elements = document.querySelectorAll('.animate-fadeInUp');
+      
+      elements.forEach(element => {
+        const elementTop = element.getBoundingClientRect().top;
+        const windowHeight = window.innerHeight;
+        
+        if (elementTop < windowHeight * 0.9) {
+          element.style.opacity = 1;
+          element.style.transform = 'translateY(0)';
+        }
+      });
+    }
+    
+    // Initial check
+    animateOnScroll();
+    
+    // Listen for scroll
+    window.addEventListener('scroll', animateOnScroll);
+    
+    // Set initial state for animations
+    document.querySelectorAll('.animate-fadeInUp').forEach(el => {
+      el.style.opacity = 0;
+      el.style.transform = 'translateY(30px)';
+      el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+    });
+    
+    // Mobile menu toggle
+    const menuToggle = document.getElementById('menuToggle');
+    const navLinks = document.getElementById('navLinks');
+    
+    menuToggle.addEventListener('click', () => {
+      navLinks.classList.toggle('active');
+    });
+    
+    // Add floating animation to hero stats
+    const statItems = document.querySelectorAll('.stat-item');
+    statItems.forEach((item, index) => {
+      item.style.animationDelay = `${index * 0.2}s`;
+    });
+  </script>
+</body>
+</html>

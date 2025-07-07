@@ -1,0 +1,989 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ব্যাকরণ শিক্ষা - শিক্ষা গাইড বিডি</title>
+    <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #1a5e63;
+            --secondary: #4a8c8a;
+            --accent: #f9a825;
+            --light: #f5f9f9;
+            --dark: #0d3b3f;
+            --success: #2e7d32;
+            --warning: #ff8f00;
+            --gradient: linear-gradient(135deg, #1a5e63, #4a8c8a, #0d3b3f);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Hind Siliguri', sans-serif;
+        }
+        
+        body {
+            background: var(--gradient);
+            color: var(--light);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+        
+        /* Header Styles */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 40px;
+            background: rgba(13, 59, 63, 0.95);
+            backdrop-filter: blur(10px);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 2px solid var(--accent);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 1.8rem;
+            font-weight: bold;
+            background: linear-gradient(to right, #a8e063, #f9a825);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        
+        .logo-icon {
+            width: 45px;
+            height: 45px;
+            background: linear-gradient(to right, #a8e063, #f9a825);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--dark);
+            font-size: 1.5rem;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 25px;
+        }
+        
+        .nav-link {
+            color: var(--light);
+            text-decoration: none;
+            font-weight: 500;
+            padding: 8px 15px;
+            border-radius: 30px;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        
+        .nav-link:hover, .nav-link.active {
+            color: var(--accent);
+        }
+        
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 3px;
+            background: var(--accent);
+            transition: width 0.3s ease;
+            border-radius: 3px;
+        }
+        
+        .nav-link:hover::after, .nav-link.active::after {
+            width: 100%;
+        }
+        
+        .user-controls {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+        }
+        
+        .btn {
+            padding: 10px 22px;
+            border-radius: 30px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: none;
+            font-size: 1rem;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        
+        .btn-primary {
+            background: linear-gradient(to right, #a8e063, #f9a825);
+            color: var(--dark);
+        }
+        
+        .btn-outline {
+            background: transparent;
+            border: 2px solid var(--accent);
+            color: var(--accent);
+        }
+        
+        /* Main Content */
+        .container {
+            max-width: 1400px;
+            margin: 30px auto;
+            padding: 0 20px;
+        }
+        
+        .hero {
+            text-align: center;
+            padding: 50px 20px;
+            margin-bottom: 40px;
+            background: rgba(13, 59, 63, 0.4);
+            border-radius: 20px;
+            margin-top: 20px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(249, 168, 37, 0.3);
+        }
+        
+        .hero h1 {
+            font-size: 3.2rem;
+            margin-bottom: 20px;
+            background: linear-gradient(to right, #fff, #f9a825);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+        
+        .hero p {
+            font-size: 1.3rem;
+            max-width: 800px;
+            margin: 0 auto 30px;
+            line-height: 1.7;
+            opacity: 0.9;
+        }
+        
+        /* Grammar Categories */
+        .section-title {
+            font-size: 2.5rem;
+            margin: 50px 0 30px;
+            text-align: center;
+            position: relative;
+            display: inline-block;
+            left: 50%;
+            transform: translateX(-50%);
+            padding: 0 20px;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80%;
+            height: 4px;
+            background: linear-gradient(to right, #a8e063, #f9a825);
+            border-radius: 3px;
+        }
+        
+        .categories-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-bottom: 60px;
+        }
+        
+        .category-card {
+            background: rgba(26, 94, 99, 0.6);
+            border-radius: 15px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(168, 224, 99, 0.3);
+            position: relative;
+            min-height: 250px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        
+        .category-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+            border-color: var(--accent);
+        }
+        
+        .category-header {
+            background: rgba(13, 59, 63, 0.8);
+            padding: 20px;
+            text-align: center;
+        }
+        
+        .category-header i {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+            color: var(--accent);
+        }
+        
+        .category-header h3 {
+            font-size: 1.6rem;
+            margin-bottom: 5px;
+        }
+        
+        .category-content {
+            padding: 20px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        
+        .category-content ul {
+            list-style: none;
+            padding-left: 20px;
+            margin-bottom: 20px;
+        }
+        
+        .category-content li {
+            margin-bottom: 10px;
+            position: relative;
+            padding-left: 25px;
+        }
+        
+        .category-content li::before {
+            content: '•';
+            position: absolute;
+            left: 0;
+            color: var(--accent);
+            font-size: 1.5rem;
+        }
+        
+        /* Interactive Grammar Builder */
+        .interactive-section {
+            background: rgba(26, 94, 99, 0.6);
+            border-radius: 15px;
+            padding: 40px;
+            margin: 60px 0;
+            text-align: center;
+            border: 1px solid rgba(168, 224, 99, 0.3);
+            backdrop-filter: blur(10px);
+        }
+        
+        .grammar-builder {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center;
+            margin-top: 30px;
+        }
+        
+        .word-selector {
+            background: rgba(13, 59, 63, 0.7);
+            border-radius: 10px;
+            padding: 20px;
+            min-width: 250px;
+            flex: 1;
+        }
+        
+        .word-selector h3 {
+            color: var(--accent);
+            margin-bottom: 15px;
+            font-size: 1.4rem;
+        }
+        
+        .word-options {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: center;
+        }
+        
+        .word-option {
+            background: rgba(168, 224, 99, 0.2);
+            border: 1px solid rgba(168, 224, 99, 0.4);
+            padding: 8px 15px;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .word-option:hover, .word-option.selected {
+            background: var(--accent);
+            color: var(--dark);
+            font-weight: 600;
+        }
+        
+        .sentence-builder {
+            background: rgba(13, 59, 63, 0.7);
+            border-radius: 10px;
+            padding: 30px;
+            min-height: 200px;
+            flex: 2;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .sentence-display {
+            font-size: 1.8rem;
+            min-height: 60px;
+            margin-bottom: 30px;
+            padding: 15px 30px;
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 10px;
+            border: 1px dashed var(--accent);
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px;
+        }
+        
+        .sentence-word {
+            padding: 5px 15px;
+            border-radius: 30px;
+            background: rgba(168, 224, 99, 0.2);
+            border: 1px solid rgba(168, 224, 99, 0.4);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .sentence-word:hover {
+            background: rgba(249, 168, 37, 0.3);
+        }
+        
+        /* Grammar Rules */
+        .grammar-rules {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+            margin: 40px 0;
+        }
+        
+        .rule-card {
+            background: rgba(26, 94, 99, 0.6);
+            border-radius: 15px;
+            padding: 30px;
+            border: 1px solid rgba(168, 224, 99, 0.3);
+            transition: all 0.3s ease;
+        }
+        
+        .rule-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+            border-color: var(--accent);
+        }
+        
+        .rule-card h3 {
+            color: var(--accent);
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .rule-card h3 i {
+            color: var(--accent);
+        }
+        
+        .rule-card p {
+            line-height: 1.8;
+            margin-bottom: 20px;
+        }
+        
+        .examples {
+            background: rgba(13, 59, 63, 0.5);
+            padding: 15px;
+            border-radius: 10px;
+            border-left: 3px solid var(--accent);
+        }
+        
+        .examples p {
+            margin-bottom: 5px;
+            font-style: italic;
+        }
+        
+        /* Practice Quiz */
+        .quiz-section {
+            background: rgba(26, 94, 99, 0.6);
+            border-radius: 15px;
+            padding: 40px;
+            margin: 60px 0;
+            border: 1px solid rgba(168, 224, 99, 0.3);
+            backdrop-filter: blur(10px);
+        }
+        
+        .quiz-container {
+            background: rgba(13, 59, 63, 0.7);
+            border-radius: 15px;
+            padding: 30px;
+            margin-top: 30px;
+        }
+        
+        .question {
+            font-size: 1.4rem;
+            margin-bottom: 25px;
+            line-height: 1.6;
+            text-align: center;
+        }
+        
+        .options {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .option {
+            background: rgba(168, 224, 99, 0.1);
+            padding: 15px 20px;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+            text-align: center;
+        }
+        
+        .option:hover {
+            background: rgba(168, 224, 99, 0.2);
+            border-color: #a8e063;
+        }
+        
+        .option.selected {
+            background: rgba(249, 168, 37, 0.2);
+            border-color: var(--accent);
+        }
+        
+        .quiz-controls {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+        }
+        
+        /* Footer */
+        .footer {
+            background: rgba(13, 59, 63, 0.95);
+            padding: 50px 20px 20px;
+            margin-top: 80px;
+            border-top: 2px solid var(--accent);
+        }
+        
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+        }
+        
+        .footer-column h3 {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            color: var(--accent);
+        }
+        
+        .footer-links {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 12px;
+        }
+        
+        .footer-links a {
+            color: var(--light);
+            text-decoration: none;
+            transition: all 0.3s ease;
+            opacity: 0.9;
+            display: block;
+            padding: 5px 0;
+        }
+        
+        .footer-links a:hover {
+            opacity: 1;
+            color: var(--accent);
+            transform: translateX(5px);
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .social-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(168, 224, 99, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--accent);
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+        }
+        
+        .social-icon:hover {
+            background: var(--accent);
+            color: var(--dark);
+            transform: translateY(-5px);
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 30px;
+            margin-top: 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            opacity: 0.7;
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 992px) {
+            .grammar-builder {
+                flex-direction: column;
+            }
+            
+            .options {
+                grid-template-columns: 1fr;
+            }
+            
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .header {
+                flex-direction: column;
+                gap: 20px;
+                padding: 15px;
+            }
+            
+            .nav-links {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            .user-controls {
+                justify-content: center;
+            }
+            
+            .hero h1 {
+                font-size: 2rem;
+            }
+            
+            .hero p {
+                font-size: 1.1rem;
+            }
+            
+            .section-title {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="logo">
+            <div class="logo-icon">
+                <i class="fas fa-book-open"></i>
+            </div>
+            <span>শিক্ষা গাইড বিডি</span>
+        </div>
+        
+        <nav class="nav-links">
+            <a href="#" class="nav-link">হোম</a>
+            <a href="#" class="nav-link active">ব্যাকরণ</a>
+            <a href="#" class="nav-link">রচনা</a>
+            <a href="#" class="nav-link">সাহিত্য</a>
+            <a href="#" class="nav-link">কুইজ</a>
+        </nav>
+        
+        <div class="user-controls">
+            <button class="btn btn-outline">লগ ইন</button>
+            <button class="btn btn-primary">সাইন আপ</button>
+        </div>
+    </header>
+    
+    <!-- Main Content -->
+    <div class="container">
+        <section class="hero">
+            <h1>বাংলা ব্যাকরণ শিখুন আনন্দের সাথে</h1>
+            <p>৬ষ্ঠ থেকে ১২শ শ্রেণির জন্য প্রস্তুতকৃত বাংলা ব্যাকরণের সমস্ত বিষয় সহজ ও ইন্টারেক্টিভভাবে শেখার প্ল্যাটফর্ম</p>
+            <button class="btn btn-primary">শেখা শুরু করুন</button>
+        </section>
+        
+        <section>
+            <h2 class="section-title">ব্যাকরণের বিভাগসমূহ</h2>
+            <div class="categories-grid">
+                <div class="category-card">
+                    <div class="category-header">
+                        <i class="fas fa-font"></i>
+                        <h3>ধ্বনিতত্ত্ব</h3>
+                    </div>
+                    <div class="category-content">
+                        <ul>
+                            <li>ধ্বনি ও বর্ণ</li>
+                            <li>স্বরধ্বনি ও ব্যঞ্জনধ্বনি</li>
+                            <li>ধ্বনি পরিবর্তন</li>
+                        </ul>
+                        <button class="btn btn-outline">বিস্তারিত শিখুন</button>
+                    </div>
+                </div>
+                
+                <div class="category-card">
+                    <div class="category-header">
+                        <i class="fas fa-cube"></i>
+                        <h3>শব্দতত্ত্ব</h3>
+                    </div>
+                    <div class="category-content">
+                        <ul>
+                            <li>শব্দের শ্রেণিবিভাগ</li>
+                            <li>সমাস</li>
+                            <li>সন্ধি</li>
+                            <li>প্রত্যয়</li>
+                        </ul>
+                        <button class="btn btn-outline">বিস্তারিত শিখুন</button>
+                    </div>
+                </div>
+                
+                <div class="category-card">
+                    <div class="category-header">
+                        <i class="fas fa-language"></i>
+                        <h3>বাক্যতত্ত্ব</h3>
+                    </div>
+                    <div class="category-content">
+                        <ul>
+                            <li>বাক্য গঠন</li>
+                            <li>বাক্যের প্রকারভেদ</li>
+                            <li>উদ্দেশ্য ও বিধেয়</li>
+                        </ul>
+                        <button class="btn btn-outline">বিস্তারিত শিখুন</button>
+                    </div>
+                </div>
+                
+                <div class="category-card">
+                    <div class="category-header">
+                        <i class="fas fa-pencil-alt"></i>
+                        <h3>ছন্দ ও অলংকার</h3>
+                    </div>
+                    <div class="category-content">
+                        <ul>
+                            <li>ছন্দের প্রকারভেদ</li>
+                            <li>অলংকারের প্রকারভেদ</li>
+                            <li>উপমা ও রূপক</li>
+                        </ul>
+                        <button class="btn btn-outline">বিস্তারিত শিখুন</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section class="interactive-section">
+            <h2 class="section-title">ইন্টারেক্টিভ বাক্য গঠন</h2>
+            <p>শব্দ নির্বাচন করে সঠিক বাক্য গঠন করুন</p>
+            
+            <div class="grammar-builder">
+                <div class="word-selector">
+                    <h3>কর্তা নির্বাচন করুন</h3>
+                    <div class="word-options">
+                        <div class="word-option" data-type="subject">ছাত্রটি</div>
+                        <div class="word-option" data-type="subject">শিক্ষক</div>
+                        <div class="word-option" data-type="subject">বালকরা</div>
+                        <div class="word-option" data-type="subject">মেয়েটি</div>
+                    </div>
+                </div>
+                
+                <div class="word-selector">
+                    <h3>ক্রিয়া নির্বাচন করুন</h3>
+                    <div class="word-options">
+                        <div class="word-option" data-type="verb">পড়ছে</div>
+                        <div class="word-option" data-type="verb">খেলছে</div>
+                        <div class="word-option" data-type="verb">শিখায়</div>
+                        <div class="word-option" data-type="verb">দেখে</div>
+                    </div>
+                </div>
+                
+                <div class="word-selector">
+                    <h3>সম্পর্ক নির্বাচন করুন</h3>
+                    <div class="word-options">
+                        <div class="word-option" data-type="object">বই</div>
+                        <div class="word-option" data-type="object">ফুটবল</div>
+                        <div class="word-option" data-type="object">ছাত্রদের</div>
+                        <div class="word-option" data-type="object">টেলিভিশন</div>
+                    </div>
+                </div>
+                
+                <div class="sentence-builder">
+                    <div class="sentence-display" id="sentenceDisplay">
+                        <div class="sentence-word" data-type="subject">[কর্তা]</div>
+                        <div class="sentence-word" data-type="verb">[ক্রিয়া]</div>
+                        <div class="sentence-word" data-type="object">[সম্পর্ক]</div>
+                    </div>
+                    <button class="btn btn-primary" id="checkSentence">বাক্য পরীক্ষা করুন</button>
+                </div>
+            </div>
+        </section>
+        
+        <section>
+            <h2 class="section-title">গুরুত্বপূর্ণ ব্যাকরণ নিয়ম</h2>
+            <div class="grammar-rules">
+                <div class="rule-card">
+                    <h3><i class="fas fa-link"></i> সন্ধি</h3>
+                    <p>দুটি ধ্বনি বা বর্ণের মিলনকে সন্ধি বলে। বাংলা ভাষায় সন্ধি প্রধানত তিন প্রকার: স্বরসন্ধি, ব্যঞ্জনসন্ধি ও বিসর্গসন্ধি।</p>
+                    <div class="examples">
+                        <p>উদাহরণ:</p>
+                        <p>বিদ্যা + অলয় = বিদ্যালয় (আ + অ = আ)</p>
+                        <p>দিক্ + অন্ত = দিগন্ত (ক্ + অ = গ)</p>
+                    </div>
+                </div>
+                
+                <div class="rule-card">
+                    <h3><i class="fas fa-cubes"></i> সমাস</h3>
+                    <p>দুই বা ততোধিক পদ মিলিত হয়ে একটি পদে পরিণত হওয়ার প্রক্রিয়াকে সমাস বলে। সমাস প্রধানত ছয় প্রকার: দ্বন্দ্ব, তৎপুরুষ, কর্মধারয়, অব্যয়ীভাব, বহুব্রীহি ও দ্বিগু।</p>
+                    <div class="examples">
+                        <p>উদাহরণ:</p>
+                        <p>রাজা ও রাণী = রাজারাণী (দ্বন্দ্ব সমাস)</p>
+                        <p>চাল ও ডাল = চালডাল (দ্বন্দ্ব সমাস)</p>
+                    </div>
+                </div>
+                
+                <div class="rule-card">
+                    <h3><i class="fas fa-exchange-alt"></i> কারক</h3>
+                    <p>বাক্যে নামপদের সঙ্গে ক্রিয়াপদের সম্পর্ককে কারক বলে। বাংলা ভাষায় ছয় প্রকার কারক: কর্তৃকারক, কর্মকারক, করণকারক, সম্প্রদানকারক, অপাদানকারক ও অধিকরণকারক।</p>
+                    <div class="examples">
+                        <p>উদাহরণ:</p>
+                        <p>ছাত্র বই পড়ে। (কর্তৃকারক)</p>
+                        <p>শিক্ষক ছাত্রকে পড়ান। (সম্প্রদানকারক)</p>
+                    </div>
+                </div>
+                
+                <div class="rule-card">
+                    <h3><i class="fas fa-genderless"></i> লিঙ্গ</h3>
+                    <p>বাংলা ভাষায় লিঙ্গ চার প্রকার: পুংলিঙ্গ, স্ত্রীলিঙ্গ, ক্লীবলিঙ্গ ও উভয়লিঙ্গ। শব্দের অর্থানুসারে লিঙ্গ নির্ধারিত হয়।</p>
+                    <div class="examples">
+                        <p>উদাহরণ:</p>
+                        <p>পুংলিঙ্গ: ছাত্র, বাবা, রাজা</p>
+                        <p>স্ত্রীলিঙ্গ: ছাত্রী, মা, রাণী</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section class="quiz-section">
+            <h2 class="section-title">ব্যাকরণ কুইজ</h2>
+            <div class="quiz-container">
+                <div class="question" id="question">
+                    "চাঁদমুখ" শব্দটি কোন সমাসের উদাহরণ?
+                </div>
+                <div class="options" id="options">
+                    <div class="option" data-correct="true">কর্মধারয় সমাস</div>
+                    <div class="option">তৎপুরুষ সমাস</div>
+                    <div class="option">দ্বন্দ্ব সমাস</div>
+                    <div class="option">বহুব্রীহি সমাস</div>
+                </div>
+                <div class="quiz-controls">
+                    <button class="btn btn-outline">পূর্ববর্তী প্রশ্ন</button>
+                    <button class="btn btn-primary" id="nextBtn">পরবর্তী প্রশ্ন</button>
+                </div>
+            </div>
+        </section>
+    </div>
+    
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-column">
+                <h3>শিক্ষা গাইড বিডি</h3>
+                <p>বাংলাদেশের ৬ষ্ঠ থেকে ১২শ শ্রেণির শিক্ষার্থীদের জন্য বাংলা ব্যাকরণের সমস্ত বিষয় সহজ ও ইন্টারেক্টিভভাবে শেখার প্ল্যাটফর্ম।</p>
+                <div class="social-links">
+                    <a href="#" class="social-icon"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" class="social-icon"><i class="fab fa-youtube"></i></a>
+                    <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+                </div>
+            </div>
+            
+            <div class="footer-column">
+                <h3>ব্যাকরণ বিভাগ</h3>
+                <ul class="footer-links">
+                    <li><a href="#">ধ্বনিতত্ত্ব</a></li>
+                    <li><a href="#">শব্দতত্ত্ব</a></li>
+                    <li><a href="#">বাক্যতত্ত্ব</a></li>
+                    <li><a href="#">ছন্দ ও অলংকার</a></li>
+                    <li><a href="#">রচনা লেখা</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-column">
+                <h3>ক্লাস ভিত্তিক</h3>
+                <ul class="footer-links">
+                    <li><a href="#">৬ষ্ঠ শ্রেণি</a></li>
+                    <li><a href="#">৭ম শ্রেণি</a></li>
+                    <li><a href="#">৮ম শ্রেণি</a></li>
+                    <li><a href="#">৯ম-১০ম শ্রেণি</a></li>
+                    <li><a href="#">১১শ-১২শ শ্রেণি</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-column">
+                <h3>যোগাযোগ</h3>
+                <ul class="footer-links">
+                    <li><i class="fas fa-envelope"></i> info@shikkhaguidebd.com</li>
+                    <li><i class="fas fa-phone"></i> +880 1711 123456</li>
+                    <li><i class="fas fa-map-marker-alt"></i> ১২৩ শিক্ষা সড়ক, ঢাকা, বাংলাদেশ</li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="copyright">
+            &copy; ২০২৩ শিক্ষা গাইড বিডি। সকল স্বত্ব সংরক্ষিত।
+        </div>
+    </footer>
+    
+    <script>
+        // Interactive Sentence Builder
+        const wordOptions = document.querySelectorAll('.word-option');
+        const sentenceDisplay = document.getElementById('sentenceDisplay');
+        const checkSentenceBtn = document.getElementById('checkSentence');
+        
+        wordOptions.forEach(option => {
+            option.addEventListener('click', function() {
+                const wordType = this.dataset.type;
+                const wordText = this.textContent;
+                
+                // Remove existing word of same type
+                const existingWord = document.querySelector(`.sentence-word[data-type="${wordType}"]`);
+                if (existingWord) {
+                    existingWord.textContent = wordText;
+                    existingWord.classList.add('selected');
+                }
+                
+                // Highlight selected option
+                wordOptions.forEach(opt => opt.classList.remove('selected'));
+                this.classList.add('selected');
+            });
+        });
+        
+        checkSentenceBtn.addEventListener('click', function() {
+            const subject = document.querySelector('.sentence-word[data-type="subject"]').textContent;
+            const verb = document.querySelector('.sentence-word[data-type="verb"]').textContent;
+            const object = document.querySelector('.sentence-word[data-type="object"]').textContent;
+            
+            const sentence = `${subject} ${verb} ${object}`;
+            
+            // Simple validation for demo purposes
+            if (subject === '[কর্তা]' || verb === '[ক্রিয়া]' || object === '[সম্পর্ক]') {
+                alert('দয়া করে সবগুলো শব্দ নির্বাচন করুন!');
+                return;
+            }
+            
+            // Check for valid combinations
+            const validCombinations = [
+                ['ছাত্রটি', 'পড়ছে', 'বই'],
+                ['শিক্ষক', 'শিখায়', 'ছাত্রদের'],
+                ['বালকরা', 'খেলছে', 'ফুটবল'],
+                ['মেয়েটি', 'দেখে', 'টেলিভিশন']
+            ];
+            
+            let isValid = false;
+            for (const combo of validCombinations) {
+                if (subject === combo[0] && verb === combo[1] && object === combo[2]) {
+                    isValid = true;
+                    break;
+                }
+            }
+            
+            if (isValid) {
+                alert(`সঠিক বাক্য! 🎉\n\nআপনার গঠিত বাক্য: ${sentence}`);
+            } else {
+                alert(`বাক্যটি সঠিক নয়। আবার চেষ্টা করুন!`);
+            }
+        });
+        
+        // Quiz Functionality
+        const options = document.querySelectorAll('.option');
+        const nextBtn = document.getElementById('nextBtn');
+        const questionEl = document.getElementById('question');
+        
+        const quizQuestions = [
+            {
+                question: '"চাঁদমুখ" শব্দটি কোন সমাসের উদাহরণ?',
+                options: ["কর্মধারয় সমাস", "তৎপুরুষ সমাস", "দ্বন্দ্ব সমাস", "বহুব্রীহি সমাস"],
+                correct: 0
+            },
+            {
+                question: '"বিদ্যালয়" শব্দটি কোন সন্ধির উদাহরণ?',
+                options: ["স্বরসন্ধি", "ব্যঞ্জনসন্ধি", "বিসর্গসন্ধি", "নুনসন্ধি"],
+                correct: 0
+            },
+            {
+                question: '"রাজপুত্র" শব্দটি কোন সমাসের উদাহরণ?',
+                options: ["তৎপুরুষ সমাস", "দ্বন্দ্ব সমাস", "কর্মধারয় সমাস", "বহুব্রীহি সমাস"],
+                correct: 2
+            }
+        ];
+        
+        let currentQuestion = 0;
+        
+        function loadQuestion() {
+            const q = quizQuestions[currentQuestion];
+            questionEl.textContent = q.question;
+            
+            options.forEach((option, index) => {
+                option.textContent = q.options[index];
+                option.classList.remove('selected');
+                option.style.borderColor = ''; // Reset border color
+            });
+        }
+        
+        options.forEach(option => {
+            option.addEventListener('click', function() {
+                options.forEach(opt => opt.classList.remove('selected'));
+                this.classList.add('selected');
+                
+                const selectedIndex = Array.from(options).indexOf(this);
+                if (selectedIndex === quizQuestions[currentQuestion].correct) {
+                    this.style.borderColor = '#2e7d32'; // Green for correct
+                } else {
+                    this.style.borderColor = '#f44336'; // Red for incorrect
+                }
+            });
+        });
+        
+        nextBtn.addEventListener('click', function() {
+            currentQuestion = (currentQuestion + 1) % quizQuestions.length;
+            loadQuestion();
+        });
+        
+        // Initialize
+        loadQuestion();
+        
+        // Category card hover effect
+        const categoryCards = document.querySelectorAll('.category-card');
+        categoryCards.forEach(card => {
+            card.addEventListener('mouseenter', () => {
+                const icon = card.querySelector('i');
+                icon.style.transform = 'scale(1.2) rotate(5deg)';
+                icon.style.color = '#a8e063';
+            });
+            
+            card.addEventListener('mouseleave', () => {
+                const icon = card.querySelector('i');
+                icon.style.transform = 'scale(1) rotate(0deg)';
+                icon.style.color = '#f9a825';
+            });
+        });
+    </script>
+</body>
+</html>
